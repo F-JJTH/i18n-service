@@ -8,8 +8,15 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { AppsyncModule } from '@kizeo/i18n/appsync';
 
 export const shellRoutes: Route[] = [
-  {path: '', loadChildren: () => import('@kizeo/i18n/features/product-list').then(m => m.ProductListModule)},
-  {path: ':productId', loadChildren: () => import('@kizeo/i18n/features/product-detail').then(m => m.ProductDetailModule)},
+  {
+    path: '',
+    pathMatch: 'full',
+    loadChildren: () => import('@kizeo/i18n/features/product-list').then(m => m.ProductListModule)
+  },
+  {
+    path: ':productId',
+    loadChildren: () => import('@kizeo/i18n/features/product-detail').then(m => m.ProductDetailModule)
+  },
 ];
 
 @NgModule({

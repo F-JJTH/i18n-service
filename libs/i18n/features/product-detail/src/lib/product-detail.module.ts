@@ -4,7 +4,11 @@ import { RouterModule, Route } from '@angular/router';
 import { ProductDetailComponent } from './product-detail.component';
 
 export const productDetailRoutes: Route[] = [
-  { path: '', redirectTo: 'settings' },
+  {
+    path: '',
+    pathMatch: 'full',
+    component: ProductDetailComponent,
+  },
   {
     path: 'settings',
     loadChildren: () => import('@kizeo/i18n/features/product-detail-settings').then(m => m.ProductDetailSettingsModule)
@@ -30,6 +34,5 @@ export const productDetailRoutes: Route[] = [
 @NgModule({
   declarations: [ProductDetailComponent],
   imports: [CommonModule, RouterModule.forChild(productDetailRoutes)],
-  bootstrap: [ProductDetailComponent]
 })
 export class ProductDetailModule {}
