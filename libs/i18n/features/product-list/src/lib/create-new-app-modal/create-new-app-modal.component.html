@@ -1,0 +1,22 @@
+<div *nzModalTitle>Créer une application</div>
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Name</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your beautiful name!">
+        <input
+          nz-input
+          type="text"
+          id="name"
+          name="name"
+          [(ngModel)]="name"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="onCancelClicked()">Annuler</button>
+  <button nz-button nzType="primary" (click)="onCreateClicked()">Créer</button>
+</div>
