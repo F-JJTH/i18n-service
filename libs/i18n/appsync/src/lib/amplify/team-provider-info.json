@@ -46,5 +46,29 @@
         "kizeob05c728a": {}
       }
     }
+  },
+  "romaindev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kizeo-romaindev-114823-authRole",
+      "UnauthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-romaindev-114823-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-romaindev-114823-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-kizeo-romaindev-114823-deployment",
+      "UnauthRoleName": "amplify-kizeo-romaindev-114823-unauthRole",
+      "StackName": "amplify-kizeo-romaindev-114823",
+      "StackId": "arn:aws:cloudformation:eu-west-3:432072498333:stack/amplify-kizeo-romaindev-114823/b06f6970-6314-11ec-8e22-069cbc75621c",
+      "AmplifyAppId": "diyze5b2xew1i"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "diyze5b2xew1i",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "kizeob05c728a": {}
+      }
+    }
   }
 }
