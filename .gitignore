@@ -41,12 +41,12 @@ Thumbs.db
 .angular
 
 #amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/logs
-amplify/mock-data
-amplify/backend/amplify-meta.json
-amplify/backend/.temp
+**/amplify/\#current-cloud-backend
+**/amplify/.config/local-*
+**/amplify/logs
+**/amplify/mock-data
+**/amplify/backend/amplify-meta.json
+**/amplify/backend/.temp
 build/
 dist/
 node_modules/
