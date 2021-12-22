@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kizeo-dev-164448-authRole",
+      "UnauthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-dev-164448-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-dev-164448-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-kizeo-dev-164448-deployment",
+      "UnauthRoleName": "amplify-kizeo-dev-164448-unauthRole",
+      "StackName": "amplify-kizeo-dev-164448",
+      "StackId": "arn:aws:cloudformation:eu-west-3:432072498333:stack/amplify-kizeo-dev-164448/c78aff80-61ab-11ec-a186-0e8d1e792f3c",
+      "AmplifyAppId": "diyze5b2xew1i"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "diyze5b2xew1i",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "kizeob05c728a": {}
+      }
+    }
+  }
+}

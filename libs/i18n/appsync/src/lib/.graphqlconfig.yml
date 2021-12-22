@@ -1,0 +1,16 @@
+projects:
+  i18nweb:
+    schemaPath: ./schema.json
+    includes:
+      - ./*.graphql
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: angular
+        generatedFileName: ./API.service.ts
+        docsFilePath: amplify
+        maxDepth: 2
+extensions:
+  amplify:
+    version: 3

@@ -14,7 +14,31 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@kizeo/i18n/appsync": ["libs/i18n/appsync/src/index.ts"],
+      "@kizeo/i18n/features/product-detail": [
+        "libs/i18n/features/product-detail/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-detail-definitions": [
+        "libs/i18n/features/product-detail-definitions/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-detail-deploy": [
+        "libs/i18n/features/product-detail-deploy/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-detail-languages": [
+        "libs/i18n/features/product-detail-languages/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-detail-settings": [
+        "libs/i18n/features/product-detail-settings/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-detail-translations": [
+        "libs/i18n/features/product-detail-translations/src/index.ts"
+      ],
+      "@kizeo/i18n/features/product-list": [
+        "libs/i18n/features/product-list/src/index.ts"
+      ],
+      "@kizeo/i18n/features/shell": ["libs/i18n/features/shell/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

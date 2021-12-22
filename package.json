@@ -19,7 +19,10 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
+    "@aws-amplify/ui-angular": "^2.0.5",
     "@nrwl/angular": "13.3.11",
+    "aws-amplify": "^4.3.11",
+    "ng-zorro-antd": "^12.1.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

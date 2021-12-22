@@ -1,1 +1,13 @@
-<kizeo-nx-welcome></kizeo-nx-welcome>
+<amplify-authenticator>
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut">
+  <h3>Welcome {{ user.username }}!</h3>
+  <kizeo-shell></kizeo-shell>
+  <!-- <button (click)="signOut()">Sign Out</button>
+    
+    <button (click)="createProduct()">Create product</button> -->
+    
+  </ng-template>
+</amplify-authenticator>

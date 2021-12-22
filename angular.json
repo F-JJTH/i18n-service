@@ -1,6 +1,242 @@
 {
   "version": 1,
   "projects": {
+    "i18n-appsync": {
+      "projectType": "library",
+      "root": "libs/i18n/appsync",
+      "sourceRoot": "libs/i18n/appsync/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/appsync"],
+          "options": {
+            "jestConfig": "libs/i18n/appsync/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/appsync/src/**/*.ts",
+              "libs/i18n/appsync/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n", "appsync"]
+    },
+    "i18n-features-product-detail": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail",
+      "sourceRoot": "libs/i18n/features/product-detail/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail/src/**/*.ts",
+              "libs/i18n/features/product-detail/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-detail-definitions": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-definitions",
+      "sourceRoot": "libs/i18n/features/product-detail-definitions/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail-definitions"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-definitions/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-definitions/src/**/*.ts",
+              "libs/i18n/features/product-detail-definitions/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-detail-deploy": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-deploy",
+      "sourceRoot": "libs/i18n/features/product-detail-deploy/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail-deploy"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-deploy/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-deploy/src/**/*.ts",
+              "libs/i18n/features/product-detail-deploy/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-detail-languages": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-languages",
+      "sourceRoot": "libs/i18n/features/product-detail-languages/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail-languages"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-languages/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-languages/src/**/*.ts",
+              "libs/i18n/features/product-detail-languages/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-detail-settings": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-settings",
+      "sourceRoot": "libs/i18n/features/product-detail-settings/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail-settings"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-settings/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-settings/src/**/*.ts",
+              "libs/i18n/features/product-detail-settings/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-detail-translations": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-translations",
+      "sourceRoot": "libs/i18n/features/product-detail-translations/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/i18n/features/product-detail-translations"
+          ],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-translations/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-translations/src/**/*.ts",
+              "libs/i18n/features/product-detail-translations/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-product-list": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-list",
+      "sourceRoot": "libs/i18n/features/product-list/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-list"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-list/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-list/src/**/*.ts",
+              "libs/i18n/features/product-list/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n"]
+    },
+    "i18n-features-shell": {
+      "projectType": "library",
+      "root": "libs/i18n/features/shell",
+      "sourceRoot": "libs/i18n/features/shell/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/shell"],
+          "options": {
+            "jestConfig": "libs/i18n/features/shell/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/shell/src/**/*.ts",
+              "libs/i18n/features/shell/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": ["i18n", "shell"]
+    },
     "i18n-web": {
       "projectType": "application",
       "root": "apps/i18n-web",
@@ -22,15 +258,29 @@
               "apps/i18n-web/src/assets"
             ],
             "styles": ["apps/i18n-web/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@aws-crypto/crc32",
+              "@aws-crypto/sha256-browser",
+              "@aws-crypto/sha256-js",
+              "buffer",
+              "camelcase-keys",
+              "crypto-js",
+              "fast-xml-parser",
+              "isomorphic-unfetch",
+              "lodash",
+              "qrcode",
+              "ulid",
+              "uuid"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",

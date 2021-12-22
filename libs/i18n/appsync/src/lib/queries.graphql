@@ -1,0 +1,473 @@
+# this is an auto generated file. This will be overwritten
+query GetProduct($id: ID!) {
+  getProduct(id: $id) {
+    id
+    name
+    defaultLanguage
+    languages {
+      items {
+        id
+        name
+        code
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productLanguagesId
+      }
+      nextToken
+      startedAt
+    }
+    definitions {
+      items {
+        id
+        slug
+        defaultValue
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productDefinitionsId
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      defaultLanguage
+      languages {
+        nextToken
+        startedAt
+      }
+      definitions {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncProducts(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      defaultLanguage
+      languages {
+        nextToken
+        startedAt
+      }
+      definitions {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetLanguage($id: ID!) {
+  getLanguage(id: $id) {
+    id
+    name
+    code
+    product {
+      id
+      name
+      defaultLanguage
+      languages {
+        nextToken
+        startedAt
+      }
+      definitions {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productLanguagesId
+  }
+}
+query ListLanguages(
+  $filter: ModelLanguageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLanguages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      code
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncLanguages(
+  $filter: ModelLanguageFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncLanguages(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      code
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetDefinition($id: ID!) {
+  getDefinition(id: $id) {
+    id
+    slug
+    defaultValue
+    product {
+      id
+      name
+      defaultLanguage
+      languages {
+        nextToken
+        startedAt
+      }
+      definitions {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    translations {
+      items {
+        id
+        value
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        definitionTranslationsId
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productDefinitionsId
+  }
+}
+query ListDefinitions(
+  $filter: ModelDefinitionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDefinitions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      slug
+      defaultValue
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      translations {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncDefinitions(
+  $filter: ModelDefinitionFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncDefinitions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      slug
+      defaultValue
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      translations {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetTranslation($id: ID!) {
+  getTranslation(id: $id) {
+    id
+    definition {
+      id
+      slug
+      defaultValue
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      translations {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    language {
+      id
+      name
+      code
+      product {
+        id
+        name
+        defaultLanguage
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    value
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    definitionTranslationsId
+  }
+}
+query ListTranslations(
+  $filter: ModelTranslationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTranslations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      definition {
+        id
+        slug
+        defaultValue
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productDefinitionsId
+      }
+      language {
+        id
+        name
+        code
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productLanguagesId
+      }
+      value
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      definitionTranslationsId
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncTranslations(
+  $filter: ModelTranslationFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncTranslations(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      definition {
+        id
+        slug
+        defaultValue
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productDefinitionsId
+      }
+      language {
+        id
+        name
+        code
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        productLanguagesId
+      }
+      value
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      definitionTranslationsId
+    }
+    nextToken
+    startedAt
+  }
+}

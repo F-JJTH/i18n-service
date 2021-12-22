@@ -1,0 +1,349 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateProduct(
+  $input: CreateProductInput!
+  $condition: ModelProductConditionInput
+) {
+  createProduct(input: $input, condition: $condition) {
+    id
+    name
+    defaultLanguage
+    languages {
+      nextToken
+      startedAt
+    }
+    definitions {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateProduct(
+  $input: UpdateProductInput!
+  $condition: ModelProductConditionInput
+) {
+  updateProduct(input: $input, condition: $condition) {
+    id
+    name
+    defaultLanguage
+    languages {
+      nextToken
+      startedAt
+    }
+    definitions {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteProduct(
+  $input: DeleteProductInput!
+  $condition: ModelProductConditionInput
+) {
+  deleteProduct(input: $input, condition: $condition) {
+    id
+    name
+    defaultLanguage
+    languages {
+      nextToken
+      startedAt
+    }
+    definitions {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateLanguage(
+  $input: CreateLanguageInput!
+  $condition: ModelLanguageConditionInput
+) {
+  createLanguage(input: $input, condition: $condition) {
+    id
+    name
+    code
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productLanguagesId
+  }
+}
+mutation UpdateLanguage(
+  $input: UpdateLanguageInput!
+  $condition: ModelLanguageConditionInput
+) {
+  updateLanguage(input: $input, condition: $condition) {
+    id
+    name
+    code
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productLanguagesId
+  }
+}
+mutation DeleteLanguage(
+  $input: DeleteLanguageInput!
+  $condition: ModelLanguageConditionInput
+) {
+  deleteLanguage(input: $input, condition: $condition) {
+    id
+    name
+    code
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productLanguagesId
+  }
+}
+mutation CreateDefinition(
+  $input: CreateDefinitionInput!
+  $condition: ModelDefinitionConditionInput
+) {
+  createDefinition(input: $input, condition: $condition) {
+    id
+    slug
+    defaultValue
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    translations {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productDefinitionsId
+  }
+}
+mutation UpdateDefinition(
+  $input: UpdateDefinitionInput!
+  $condition: ModelDefinitionConditionInput
+) {
+  updateDefinition(input: $input, condition: $condition) {
+    id
+    slug
+    defaultValue
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    translations {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productDefinitionsId
+  }
+}
+mutation DeleteDefinition(
+  $input: DeleteDefinitionInput!
+  $condition: ModelDefinitionConditionInput
+) {
+  deleteDefinition(input: $input, condition: $condition) {
+    id
+    slug
+    defaultValue
+    product {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    translations {
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    productDefinitionsId
+  }
+}
+mutation CreateTranslation(
+  $input: CreateTranslationInput!
+  $condition: ModelTranslationConditionInput
+) {
+  createTranslation(input: $input, condition: $condition) {
+    id
+    definition {
+      id
+      slug
+      defaultValue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    language {
+      id
+      name
+      code
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    value
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    definitionTranslationsId
+  }
+}
+mutation UpdateTranslation(
+  $input: UpdateTranslationInput!
+  $condition: ModelTranslationConditionInput
+) {
+  updateTranslation(input: $input, condition: $condition) {
+    id
+    definition {
+      id
+      slug
+      defaultValue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    language {
+      id
+      name
+      code
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    value
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    definitionTranslationsId
+  }
+}
+mutation DeleteTranslation(
+  $input: DeleteTranslationInput!
+  $condition: ModelTranslationConditionInput
+) {
+  deleteTranslation(input: $input, condition: $condition) {
+    id
+    definition {
+      id
+      slug
+      defaultValue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    language {
+      id
+      name
+      code
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    value
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    definitionTranslationsId
+  }
+}
