@@ -22,5 +22,29 @@
         "kizeob05c728a": {}
       }
     }
+  },
+  "carodev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-kizeo-carodev-114816-authRole",
+      "UnauthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-carodev-114816-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::432072498333:role/amplify-kizeo-carodev-114816-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-kizeo-carodev-114816-deployment",
+      "UnauthRoleName": "amplify-kizeo-carodev-114816-unauthRole",
+      "StackName": "amplify-kizeo-carodev-114816",
+      "StackId": "arn:aws:cloudformation:eu-west-3:432072498333:stack/amplify-kizeo-carodev-114816/acf4c1a0-6314-11ec-bca3-0eb3e840fec4",
+      "AmplifyAppId": "diyze5b2xew1i"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "diyze5b2xew1i",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "kizeob05c728a": {}
+      }
+    }
   }
 }
