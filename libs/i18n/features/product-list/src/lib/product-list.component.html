@@ -1,1 +1,13 @@
-{{ products | json }}
+<nz-layout>
+  <nz-content>
+    <header>
+      <button nz-button (click)="onCreateNewApplicationClicked()">Create new application</button>
+    </header>
+    <div class="product-list">
+      <div class="product-item" *ngFor="let product of products">
+        <div class="title">{{ product.name }}</div>
+        <div class="languages"></div>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>

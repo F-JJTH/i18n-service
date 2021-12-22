@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route } from '@angular/router';
 import { ProductDetailComponent } from './product-detail.component';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 export const productDetailRoutes: Route[] = [
   {
@@ -34,6 +36,11 @@ export const productDetailRoutes: Route[] = [
 
 @NgModule({
   declarations: [ProductDetailComponent],
-  imports: [CommonModule, RouterModule.forChild(productDetailRoutes)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(productDetailRoutes),
+    NzLayoutModule,
+    NzMenuModule,
+  ],
 })
 export class ProductDetailModule {}

@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'kizeo-i18n-product-detail',
-  template: `
-    product detail works!
-    <router-outlet></router-outlet>
-  `
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./product-detail.component.css'],
 })
 
 export class ProductDetailComponent implements OnInit {
