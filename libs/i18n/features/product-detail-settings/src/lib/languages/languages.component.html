@@ -1,0 +1,33 @@
+<header>
+  
+</header>
+
+<nz-table [nzData]="languages">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>
+        <button nz-button (click)="onAddNewLanguageClicked()">Add new language</button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let language of languages">
+      <td>{{ language.name }}</td>
+      <td>{{ language.code }}</td>
+      <td>
+        <button
+          *ngIf="!language.isDefault"
+          nz-button nzDanger nzType="primary"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure delete this product?"
+          nzPopconfirmPlacement="bottom"
+          nzCancelText="Annuler"
+          nzOkText="Supprimer"
+          nzOkType="danger"
+          (nzOnConfirm)="confirmDelete(language)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -1,0 +1,11 @@
+<nz-select
+  nzPlaceHolder="Select language"
+  [nzMode]="mode"
+  [nzCustomTemplate]="multipleTemplate"
+  [(ngModel)]="_value"
+  (ngModelChange)="_onChange($event)">
+  <nz-option *ngFor="let option of getFilteredOptions()" [nzLabel]="option.label" [nzValue]="option"></nz-option>
+</nz-select>
+<ng-template #multipleTemplate let-selected>
+  <div class="ant-select-selection-item-content">{{ selected.nzLabel }}</div>
+</ng-template>

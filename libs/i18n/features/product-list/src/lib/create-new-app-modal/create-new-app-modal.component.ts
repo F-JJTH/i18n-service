@@ -8,26 +8,37 @@ import {APIService} from "@kizeo/i18n/appsync";
 })
 
 export class CreateNewAppModalComponent implements OnInit {
-  name=""
-  defaultLanguage= {name:"français", code:"fr-FR"}
+  name = ""
+  defaultLanguage: {label: string, code: string} | null = null
 
   constructor(
     private readonly modalRef:NzModalRef,
     private readonly api: APIService) {
-
   }
 
   ngOnInit() {
   }
 
   async onCreateClicked() {
-    const product = await this.api.CreateProduct({name:this.name, defaultLanguage:this.defaultLanguage.code})
-    const language = await this.api.CreateLanguage({code:this.defaultLanguage.code, name:this.defaultLanguage.name, productLanguagesId:product.id})
-    this.modalRef.close()
+    if (!this.name || !this.defaultLanguage) {
+      return
+    }
+
+    const product = await this.api.CreateProduct({
+      name: this.name,
+      defaultLanguage: this.defaultLanguage.code
+    })
+    await this.api.CreateLanguage({
+      code: this.defaultLanguage.code,
+      name: this.defaultLanguage.label,
+      isDefault: true,
+      productLanguagesId: product.id
+    })
+    this.modalRef.triggerOk()
   }
 
   onCancelClicked() {
-    this.modalRef.destroy()
+    this.modalRef.triggerCancel()
   }
 
 }

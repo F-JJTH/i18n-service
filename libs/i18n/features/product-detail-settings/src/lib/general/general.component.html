@@ -1,0 +1,37 @@
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">ID</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      {{ parent.product.id }}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">Default language</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      {{ parent.product.defaultLanguage }}
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input name="name" id="name" [(ngModel)]="_name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" (click)="onSaveClicked()">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<nz-divider></nz-divider>
+
+<button nz-button nzDanger nzType="primary"
+  nzBlock
+  nz-popconfirm
+  nzPopconfirmTitle="Are you sure delete this product?"
+  nzPopconfirmPlacement="bottom"
+  nzCancelText="Annuler"
+  nzOkText="Supprimer"
+  nzOkType="danger"
+  (nzOnConfirm)="confirmDelete()">Supprimer</button>

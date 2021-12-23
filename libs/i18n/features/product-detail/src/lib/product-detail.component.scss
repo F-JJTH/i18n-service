@@ -1,0 +1,24 @@
+:host {
+  nz-sider {
+    height: calc(100vh - 64px);
+
+    header {
+      background-color: #1890ff;
+      border-right: 1px solid #f0f0f0;
+
+      button {
+        color: #fff;
+      }
+
+      h1 {
+        color: #fff;
+        text-align: center;
+        margin: 0;
+      }
+    }
+
+    ul {
+      padding-top: 12px;
+    }
+  }
+}

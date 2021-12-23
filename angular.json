@@ -105,32 +105,6 @@
       },
       "tags": ["i18n"]
     },
-    "i18n-features-product-detail-languages": {
-      "projectType": "library",
-      "root": "libs/i18n/features/product-detail-languages",
-      "sourceRoot": "libs/i18n/features/product-detail-languages/src",
-      "prefix": "kizeo",
-      "architect": {
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/i18n/features/product-detail-languages"],
-          "options": {
-            "jestConfig": "libs/i18n/features/product-detail-languages/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/i18n/features/product-detail-languages/src/**/*.ts",
-              "libs/i18n/features/product-detail-languages/src/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": ["i18n"]
-    },
     "i18n-features-product-detail-settings": {
       "projectType": "library",
       "root": "libs/i18n/features/product-detail-settings",
@@ -372,6 +346,29 @@
       },
       "tags": [],
       "implicitDependencies": ["i18n-web"]
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui"],
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+          }
+        }
+      },
+      "tags": ["ui"]
     }
   }
 }

@@ -10,6 +10,7 @@ import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {FormsModule} from "@angular/forms";
 import {NzInputModule} from "ng-zorro-antd/input";
+import { SelectLanguageModule } from '@kizeo/ui';
 
 @NgModule({
   declarations: [ProductListComponent, CreateNewAppModalComponent],
@@ -25,6 +26,7 @@ import {NzInputModule} from "ng-zorro-antd/input";
     NzModalModule,
     NzFormModule,
     NzInputModule,
+    SelectLanguageModule,
   ],
 })
 export class ProductListModule {}

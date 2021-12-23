@@ -1,0 +1,15 @@
+<div *nzModalTitle>Créer une application</div>
+<div>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="language" nzRequired>Default language</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a default language!">
+        <kizeo-select-language [excludeLanguages]="excludeLanguages" name="language" [(ngModel)]="language"></kizeo-select-language>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="onCancelClicked()">Annuler</button>
+  <button nz-button nzType="primary" (click)="onCreateClicked()" [disabled]="!language">Créer</button>
+</div>
