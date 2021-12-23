@@ -12,6 +12,7 @@ type Language @model @auth(rules: [{ allow: private }]) {
   id: ID!
   name: String!
   code: String!
+  isDefault: Boolean!
   product: Product @belongsTo
 }
 

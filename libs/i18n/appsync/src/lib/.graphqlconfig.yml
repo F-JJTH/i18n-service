@@ -2,9 +2,7 @@ projects:
   i18nweb:
     schemaPath: ./schema.json
     includes:
-      - ./*.graphql
-    excludes:
-      - ./amplify/**
+      - ./amplify/*.graphql
     extensions:
       amplify:
         codeGenTarget: angular

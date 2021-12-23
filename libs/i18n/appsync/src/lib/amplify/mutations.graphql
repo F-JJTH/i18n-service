@@ -9,17 +9,12 @@ mutation CreateProduct(
     defaultLanguage
     languages {
       nextToken
-      startedAt
     }
     definitions {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateProduct(
@@ -32,17 +27,12 @@ mutation UpdateProduct(
     defaultLanguage
     languages {
       nextToken
-      startedAt
     }
     definitions {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteProduct(
@@ -55,17 +45,12 @@ mutation DeleteProduct(
     defaultLanguage
     languages {
       nextToken
-      startedAt
     }
     definitions {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateLanguage(
@@ -76,21 +61,16 @@ mutation CreateLanguage(
     id
     name
     code
+    isDefault
     product {
       id
       name
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productLanguagesId
   }
 }
@@ -102,21 +82,16 @@ mutation UpdateLanguage(
     id
     name
     code
+    isDefault
     product {
       id
       name
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productLanguagesId
   }
 }
@@ -128,21 +103,16 @@ mutation DeleteLanguage(
     id
     name
     code
+    isDefault
     product {
       id
       name
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productLanguagesId
   }
 }
@@ -160,19 +130,12 @@ mutation CreateDefinition(
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     translations {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -190,19 +153,12 @@ mutation UpdateDefinition(
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     translations {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -220,19 +176,12 @@ mutation DeleteDefinition(
       defaultLanguage
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
     translations {
       nextToken
-      startedAt
     }
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -248,28 +197,20 @@ mutation CreateTranslation(
       defaultValue
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productDefinitionsId
     }
     language {
       id
       name
       code
+      isDefault
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     definitionTranslationsId
   }
 }
@@ -285,28 +226,20 @@ mutation UpdateTranslation(
       defaultValue
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productDefinitionsId
     }
     language {
       id
       name
       code
+      isDefault
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     definitionTranslationsId
   }
 }
@@ -322,28 +255,20 @@ mutation DeleteTranslation(
       defaultValue
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productDefinitionsId
     }
     language {
       id
       name
       code
+      isDefault
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
-    _version
-    _deleted
-    _lastChangedAt
     definitionTranslationsId
   }
 }
