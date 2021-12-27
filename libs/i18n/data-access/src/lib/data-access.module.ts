@@ -12,4 +12,4 @@ Auth.configure(awsmobile);
   imports: [CommonModule],
   providers: []
 })
-export class AppsyncModule {}
+export class DataAccessModule {}

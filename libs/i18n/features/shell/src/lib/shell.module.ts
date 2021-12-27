@@ -5,7 +5,7 @@ import { ShellComponent } from './shell.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout'
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
-import { AppsyncModule } from '@kizeo/i18n/appsync';
+import { DataAccessModule } from '@kizeo/i18n/data-access';
 
 export const shellRoutes: Route[] = [
   {
@@ -23,7 +23,7 @@ export const shellRoutes: Route[] = [
   imports: [
     CommonModule,
     RouterModule.forRoot(shellRoutes, {preloadingStrategy: PreloadAllModules}),
-    AppsyncModule,
+    DataAccessModule,
     NzMenuModule,
     NzLayoutModule,
   ],

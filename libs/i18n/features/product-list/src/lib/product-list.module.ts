@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppsyncModule } from '@kizeo/i18n/appsync';
+import { DataAccessModule } from '@kizeo/i18n/data-access';
 import { ProductListComponent } from './product-list.component';
 import { RouterModule } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -17,7 +17,7 @@ import { SelectLanguageModule } from '@kizeo/ui';
   imports: [
     CommonModule,
     FormsModule,
-    AppsyncModule,
+    DataAccessModule,
     RouterModule.forChild([
       {path: '', pathMatch: 'full', component: ProductListComponent}
     ]),

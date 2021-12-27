@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'appsync',
+  displayName: 'data-access',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/i18n/appsync',
+  coverageDirectory: '../../coverage/libs/i18n/data-access',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

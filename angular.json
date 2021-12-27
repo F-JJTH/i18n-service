@@ -1,17 +1,17 @@
 {
   "version": 1,
   "projects": {
-    "i18n-appsync": {
+    "i18n-data-access": {
       "projectType": "library",
-      "root": "libs/i18n/appsync",
-      "sourceRoot": "libs/i18n/appsync/src",
+      "root": "libs/i18n/data-access",
+      "sourceRoot": "libs/i18n/data-access/src",
       "prefix": "kizeo",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/i18n/appsync"],
+          "outputs": ["coverage/libs/i18n/data-access"],
           "options": {
-            "jestConfig": "libs/i18n/appsync/jest.config.js",
+            "jestConfig": "libs/i18n/data-access/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -19,13 +19,13 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/i18n/appsync/src/**/*.ts",
-              "libs/i18n/appsync/src/**/*.html"
+              "libs/i18n/data-access/src/**/*.ts",
+              "libs/i18n/data-access/src/**/*.html"
             ]
           }
         }
       },
-      "tags": ["i18n", "appsync"]
+      "tags": ["i18n", "data-access"]
     },
     "i18n-features-product-detail": {
       "projectType": "library",

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from '@kizeo/i18n/appsync';
+import { APIService } from '@kizeo/i18n/data-access';
 
 @Component({
   selector: 'kizeo-shell',

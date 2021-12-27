@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from '@kizeo/i18n/appsync';
+import { APIService } from '@kizeo/i18n/data-access';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-app-modal.component";
 

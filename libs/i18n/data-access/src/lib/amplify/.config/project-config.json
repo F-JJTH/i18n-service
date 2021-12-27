@@ -5,7 +5,7 @@
   "javascript": {
     "framework": "angular",
     "config": {
-      "SourceDir": "libs/i18n/appsync/src/lib",
+      "SourceDir": "./",
       "DistributionDir": "../../../../dist/apps/i18n-web",
       "BuildCommand": "nx build i18n-web",
       "StartCommand": "nx serve i18n-web"

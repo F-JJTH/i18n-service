@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { APIService, GetProductQuery } from '@kizeo/i18n/appsync';
+import { APIService, GetProductQuery } from '@kizeo/i18n/data-access';
 
 @Injectable({
   providedIn: 'root'

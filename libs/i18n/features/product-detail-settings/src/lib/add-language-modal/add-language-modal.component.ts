@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { APIService } from '@kizeo/i18n/appsync';
+import { APIService } from '@kizeo/i18n/data-access';
 import { SelectLanguageOption } from '@kizeo/ui';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 

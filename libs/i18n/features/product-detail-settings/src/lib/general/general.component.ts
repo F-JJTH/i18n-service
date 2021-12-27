@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { APIService } from '@kizeo/i18n/appsync';
+import { APIService } from '@kizeo/i18n/data-access';
 import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GetProductQuery } from '@kizeo/i18n/appsync';
+import { GetProductQuery } from '@kizeo/i18n/data-access';
 
 @Component({
   selector: 'kizeo-i18n-product-detail',

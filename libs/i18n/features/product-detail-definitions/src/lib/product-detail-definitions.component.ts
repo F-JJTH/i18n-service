@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService, GetDefinitionQuery, UpdateDefinitionInput } from '@kizeo/i18n/appsync';
+import { APIService, GetDefinitionQuery, UpdateDefinitionInput } from '@kizeo/i18n/data-access';
 import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
 
 @Component({

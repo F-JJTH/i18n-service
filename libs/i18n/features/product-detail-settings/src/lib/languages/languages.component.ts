@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService, GetLanguageQuery } from '@kizeo/i18n/appsync';
+import { APIService, GetLanguageQuery } from '@kizeo/i18n/data-access';
 import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from '../add-language-modal/add-language-modal.component';
