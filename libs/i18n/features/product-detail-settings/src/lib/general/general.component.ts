@@ -1,42 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { APIService } from '@kizeo/i18n/data-access';
-import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from '@kizeo/i18n/data-access';
+import { DataStore } from 'aws-amplify';
+import { ZenObservable } from 'zen-observable-ts';
 
 @Component({
   selector: 'kizeo-general',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent implements OnInit, OnDestroy {
 
+  product!: Product
   _name = ""
 
+  dtStoreSubscription?: ZenObservable.Subscription
+
   constructor(
-    private readonly api: APIService,
-    public readonly parent: ProductDetailComponent,
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
   ) { }
 
-  ngOnInit(): void {
-    this._name = this.parent.product.name
+  async ngOnInit() {
+    const productId = this.route.parent?.parent?.snapshot.data['product'].id
+    this.product = (await DataStore.query(Product, productId))!
+    this._name = this.product.name
+
+    this.dtStoreSubscription = DataStore.observe(Product, productId).subscribe(data => {
+      this.product = data.element
+      this._name = this.product.name
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.dtStoreSubscription?.unsubscribe()
   }
 
   async onSaveClicked() {
-    await this.api.UpdateProduct({
-      id: this.parent.product.id,
-      name: this._name,
+    const updatedProduct = Product.copyOf(this.product, updated => {
+      updated.name = this._name
     })
-    this.parent.product.name = this._name
+    await DataStore.save(updatedProduct)
   }
 
   async confirmDelete() {
-    const product = this.parent.product
-    if (product) {
-      await this.api.DeleteProduct({id: product.id})
-    }
-
+    DataStore.delete(this.product)
     this.router.navigateByUrl('/')
   }
-
 }

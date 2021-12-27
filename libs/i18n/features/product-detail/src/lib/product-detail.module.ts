@@ -15,7 +15,7 @@ export const productDetailRoutes: Route[] = [
     children: [
       {
         path: 'translations',
-        loadChildren: () => import('@kizeo/i18n/features/product-detail-translations').then(m => m.ProductDetailTranslationsModule)
+        loadChildren: () => import('@kizeo/i18n/features/product-detail-translations').then(m => m.ProductDetailTranslationsModule),
       },
       {
         path: 'definitions',

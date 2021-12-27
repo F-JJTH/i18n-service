@@ -118,6 +118,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "isDefault": {
+                    "name": "isDefault",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "product": {
                     "name": "product",
                     "isArray": false,
@@ -341,5 +348,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "db26682fa641340bc12bc14d9e8f5917"
+    "version": "cc9c572bbf9922d72ccc208dc68df67f"
 };

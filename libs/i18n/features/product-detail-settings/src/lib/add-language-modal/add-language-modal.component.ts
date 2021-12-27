@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { APIService } from '@kizeo/i18n/data-access';
+import { Component, Input } from '@angular/core';
+import { Language, Product } from '@kizeo/i18n/data-access';
 import { SelectLanguageOption } from '@kizeo/ui';
+import { DataStore } from 'aws-amplify';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -8,31 +9,28 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
   templateUrl: './add-language-modal.component.html',
   styleUrls: ['./add-language-modal.component.scss']
 })
-export class AddLanguageModalComponent implements OnInit {
+export class AddLanguageModalComponent {
   language: SelectLanguageOption | null = null
 
-  @Input() productId?: string
+  @Input() product!: Product
 
   @Input() excludeLanguages: string[] = []
 
   constructor(
     private readonly modalRef: NzModalRef,
-    private readonly api: APIService,
   ) { }
 
-  ngOnInit() {
-  }
-
   async onCreateClicked() {
-    if (!this.language || !this.productId) {
+    if (!this.language || !this.product) {
       return
     }
-    await this.api.CreateLanguage({
+
+    await DataStore.save(new Language({
       code: this.language.code,
       name: this.language.label,
       isDefault: false,
-      productLanguagesId: this.productId
-    })
+      product: this.product
+    }))
     this.modalRef.triggerOk()
   }
 

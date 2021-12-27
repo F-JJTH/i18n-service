@@ -6,12 +6,17 @@ subscription OnCreateProduct {
     defaultLanguage
     languages {
       nextToken
+      startedAt
     }
     definitions {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateProduct {
@@ -21,12 +26,17 @@ subscription OnUpdateProduct {
     defaultLanguage
     languages {
       nextToken
+      startedAt
     }
     definitions {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteProduct {
@@ -36,12 +46,17 @@ subscription OnDeleteProduct {
     defaultLanguage
     languages {
       nextToken
+      startedAt
     }
     definitions {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateLanguage {
@@ -56,9 +71,15 @@ subscription OnCreateLanguage {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productLanguagesId
   }
 }
@@ -74,9 +95,15 @@ subscription OnUpdateLanguage {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productLanguagesId
   }
 }
@@ -92,9 +119,15 @@ subscription OnDeleteLanguage {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productLanguagesId
   }
 }
@@ -109,12 +142,19 @@ subscription OnCreateDefinition {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     translations {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -129,12 +169,19 @@ subscription OnUpdateDefinition {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     translations {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -149,12 +196,19 @@ subscription OnDeleteDefinition {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     translations {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -167,6 +221,9 @@ subscription OnCreateTranslation {
       defaultValue
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productDefinitionsId
     }
     language {
@@ -176,11 +233,17 @@ subscription OnCreateTranslation {
       isDefault
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     definitionTranslationsId
   }
 }
@@ -193,6 +256,9 @@ subscription OnUpdateTranslation {
       defaultValue
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productDefinitionsId
     }
     language {
@@ -202,11 +268,17 @@ subscription OnUpdateTranslation {
       isDefault
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     definitionTranslationsId
   }
 }
@@ -219,6 +291,9 @@ subscription OnDeleteTranslation {
       defaultValue
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productDefinitionsId
     }
     language {
@@ -228,11 +303,17 @@ subscription OnDeleteTranslation {
       isDefault
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     definitionTranslationsId
   }
 }

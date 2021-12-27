@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService, GetLanguageQuery } from '@kizeo/i18n/data-access';
-import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
+import { ActivatedRoute } from '@angular/router';
+import { PredicateAll } from '@aws-amplify/datastore/lib-esm/predicates';
+import { Language, Product } from '@kizeo/i18n/data-access';
+import { DataStore } from 'aws-amplify';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from '../add-language-modal/add-language-modal.component';
 
@@ -11,27 +13,26 @@ import { AddLanguageModalComponent } from '../add-language-modal/add-language-mo
 })
 export class LanguagesComponent implements OnInit {
 
-  languages: GetLanguageQuery[] = []
+  languages: Language[] = []
+
+  product!: Product
 
   constructor(
-    private readonly parent: ProductDetailComponent,
-    private readonly api: APIService,
+    private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
   ) { }
 
   ngOnInit() {
+    this.product = this.route.parent?.parent?.snapshot.data['product']
     this.fetch()
   }
 
-  fetch() {
-    this.api.ListLanguages({productLanguagesId: {eq: this.parent.product.id}})
-    .then(result => {
-      this.languages = result.items
-    })
+  async fetch() {
+    this.languages = (await DataStore.query(Language)).filter(l => l.product?.id === this.product.id)
   }
 
-  async confirmDelete(language: GetLanguageQuery) {
-    await this.api.DeleteLanguage({id: language.id})
+  async confirmDelete(language: Language) {
+    await DataStore.delete(Language, language.id)
     this.fetch()
   }
 
@@ -39,7 +40,7 @@ export class LanguagesComponent implements OnInit {
     this.modal.create({
       nzContent: AddLanguageModalComponent,
       nzComponentParams: {
-        productId: this.parent.product.id,
+        product: this.product,
         excludeLanguages: this.languages.map(language => language.code)
       },
       nzOnOk: () => this.fetch()

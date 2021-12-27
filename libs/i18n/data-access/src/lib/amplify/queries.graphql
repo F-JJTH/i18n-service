@@ -6,12 +6,17 @@ query GetProduct($id: ID!) {
     defaultLanguage
     languages {
       nextToken
+      startedAt
     }
     definitions {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListProducts(
@@ -26,8 +31,38 @@ query ListProducts(
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncProducts(
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncProducts(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      defaultLanguage
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query GetLanguage($id: ID!) {
@@ -42,9 +77,15 @@ query GetLanguage($id: ID!) {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productLanguagesId
   }
 }
@@ -61,9 +102,41 @@ query ListLanguages(
       isDefault
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productLanguagesId
     }
     nextToken
+    startedAt
+  }
+}
+query SyncLanguages(
+  $filter: ModelLanguageFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncLanguages(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      code
+      isDefault
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productLanguagesId
+    }
+    nextToken
+    startedAt
   }
 }
 query GetDefinition($id: ID!) {
@@ -77,12 +150,19 @@ query GetDefinition($id: ID!) {
       defaultLanguage
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
     translations {
       nextToken
+      startedAt
     }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     productDefinitionsId
   }
 }
@@ -98,9 +178,40 @@ query ListDefinitions(
       defaultValue
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productDefinitionsId
     }
     nextToken
+    startedAt
+  }
+}
+query SyncDefinitions(
+  $filter: ModelDefinitionFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncDefinitions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      slug
+      defaultValue
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      productDefinitionsId
+    }
+    nextToken
+    startedAt
   }
 }
 query GetTranslation($id: ID!) {
@@ -112,6 +223,9 @@ query GetTranslation($id: ID!) {
       defaultValue
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productDefinitionsId
     }
     language {
@@ -121,11 +235,17 @@ query GetTranslation($id: ID!) {
       isDefault
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       productLanguagesId
     }
     value
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     definitionTranslationsId
   }
 }
@@ -140,8 +260,38 @@ query ListTranslations(
       value
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       definitionTranslationsId
     }
     nextToken
+    startedAt
+  }
+}
+query SyncTranslations(
+  $filter: ModelTranslationFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncTranslations(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      value
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      definitionTranslationsId
+    }
+    nextToken
+    startedAt
   }
 }

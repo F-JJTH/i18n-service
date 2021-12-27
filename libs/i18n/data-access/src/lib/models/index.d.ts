@@ -36,6 +36,7 @@ export declare class Language {
   readonly id: string;
   readonly name: string;
   readonly code: string;
+  readonly isDefault: boolean;
   readonly product?: Product;
   readonly createdAt?: string;
   readonly updatedAt?: string;

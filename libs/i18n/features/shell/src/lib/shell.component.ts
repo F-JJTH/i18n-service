@@ -1,21 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { APIService } from '@kizeo/i18n/data-access';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kizeo-shell',
+  selector: 'kizeo-i18n-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.css'],
 })
-export class ShellComponent implements OnInit {
-
-  products: any[] = []
-
-  constructor(private api: APIService) {}
-
-  async ngOnInit(): Promise<void> {
-    this.api.ListProducts().then(res => {
-      this.products = res.items
-    })
-  }
-
-}
+export class ShellComponent {}

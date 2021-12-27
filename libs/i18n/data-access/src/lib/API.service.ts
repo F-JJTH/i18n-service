@@ -28,6 +28,7 @@ export type CreateProductInput = {
   id?: string | null;
   name: string;
   defaultLanguage: string;
+  _version?: number | null;
 };
 
 export type ModelProductConditionInput = {
@@ -86,12 +87,16 @@ export type Product = {
   definitions?: ModelDefinitionConnection | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ModelLanguageConnection = {
   __typename: "ModelLanguageConnection";
   items: Array<Language>;
   nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type Language = {
@@ -103,6 +108,9 @@ export type Language = {
   product?: Product | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -110,6 +118,7 @@ export type ModelDefinitionConnection = {
   __typename: "ModelDefinitionConnection";
   items: Array<Definition>;
   nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type Definition = {
@@ -121,6 +130,9 @@ export type Definition = {
   translations?: ModelTranslationConnection | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -128,6 +140,7 @@ export type ModelTranslationConnection = {
   __typename: "ModelTranslationConnection";
   items: Array<Translation>;
   nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type Translation = {
@@ -138,6 +151,9 @@ export type Translation = {
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -145,10 +161,12 @@ export type UpdateProductInput = {
   id: string;
   name?: string | null;
   defaultLanguage?: string | null;
+  _version?: number | null;
 };
 
 export type DeleteProductInput = {
   id: string;
+  _version?: number | null;
 };
 
 export type CreateLanguageInput = {
@@ -156,6 +174,7 @@ export type CreateLanguageInput = {
   name: string;
   code: string;
   isDefault: boolean;
+  _version?: number | null;
   productLanguagesId?: string | null;
 };
 
@@ -197,17 +216,20 @@ export type UpdateLanguageInput = {
   name?: string | null;
   code?: string | null;
   isDefault?: boolean | null;
+  _version?: number | null;
   productLanguagesId?: string | null;
 };
 
 export type DeleteLanguageInput = {
   id: string;
+  _version?: number | null;
 };
 
 export type CreateDefinitionInput = {
   id?: string | null;
   slug: string;
   defaultValue: string;
+  _version?: number | null;
   productDefinitionsId?: string | null;
 };
 
@@ -224,16 +246,19 @@ export type UpdateDefinitionInput = {
   id: string;
   slug?: string | null;
   defaultValue?: string | null;
+  _version?: number | null;
   productDefinitionsId?: string | null;
 };
 
 export type DeleteDefinitionInput = {
   id: string;
+  _version?: number | null;
 };
 
 export type CreateTranslationInput = {
   id?: string | null;
   value?: string | null;
+  _version?: number | null;
   definitionTranslationsId?: string | null;
 };
 
@@ -248,11 +273,13 @@ export type ModelTranslationConditionInput = {
 export type UpdateTranslationInput = {
   id: string;
   value?: string | null;
+  _version?: number | null;
   definitionTranslationsId?: string | null;
 };
 
 export type DeleteTranslationInput = {
   id: string;
+  _version?: number | null;
 };
 
 export type ModelProductFilterInput = {
@@ -268,6 +295,7 @@ export type ModelProductConnection = {
   __typename: "ModelProductConnection";
   items: Array<Product>;
   nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type ModelLanguageFilterInput = {
@@ -308,13 +336,18 @@ export type CreateProductMutation = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateProductMutation = {
@@ -325,13 +358,18 @@ export type UpdateProductMutation = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteProductMutation = {
@@ -342,13 +380,18 @@ export type DeleteProductMutation = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateLanguageMutation = {
@@ -364,9 +407,15 @@ export type CreateLanguageMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -383,9 +432,15 @@ export type UpdateLanguageMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -402,9 +457,15 @@ export type DeleteLanguageMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -420,13 +481,20 @@ export type CreateDefinitionMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -442,13 +510,20 @@ export type UpdateDefinitionMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -464,13 +539,20 @@ export type DeleteDefinitionMutation = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -484,6 +566,9 @@ export type CreateTranslationMutation = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -494,11 +579,17 @@ export type CreateTranslationMutation = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -512,6 +603,9 @@ export type UpdateTranslationMutation = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -522,11 +616,17 @@ export type UpdateTranslationMutation = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -540,6 +640,9 @@ export type DeleteTranslationMutation = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -550,11 +653,17 @@ export type DeleteTranslationMutation = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -566,13 +675,18 @@ export type GetProductQuery = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListProductsQuery = {
@@ -584,8 +698,29 @@ export type ListProductsQuery = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   }>;
   nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncProductsQuery = {
+  __typename: "ModelProductConnection";
+  items: Array<{
+    __typename: "Product";
+    id: string;
+    name: string;
+    defaultLanguage: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  }>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type GetLanguageQuery = {
@@ -601,9 +736,15 @@ export type GetLanguageQuery = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -617,9 +758,32 @@ export type ListLanguagesQuery = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   }>;
   nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncLanguagesQuery = {
+  __typename: "ModelLanguageConnection";
+  items: Array<{
+    __typename: "Language";
+    id: string;
+    name: string;
+    code: string;
+    isDefault: boolean;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+    productLanguagesId?: string | null;
+  }>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type GetDefinitionQuery = {
@@ -634,13 +798,20 @@ export type GetDefinitionQuery = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -653,9 +824,31 @@ export type ListDefinitionsQuery = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   }>;
   nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncDefinitionsQuery = {
+  __typename: "ModelDefinitionConnection";
+  items: Array<{
+    __typename: "Definition";
+    id: string;
+    slug: string;
+    defaultValue: string;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+    productDefinitionsId?: string | null;
+  }>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type GetTranslationQuery = {
@@ -668,6 +861,9 @@ export type GetTranslationQuery = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -678,11 +874,17 @@ export type GetTranslationQuery = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -694,9 +896,30 @@ export type ListTranslationsQuery = {
     value?: string | null;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     definitionTranslationsId?: string | null;
   }>;
   nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncTranslationsQuery = {
+  __typename: "ModelTranslationConnection";
+  items: Array<{
+    __typename: "Translation";
+    id: string;
+    value?: string | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+    definitionTranslationsId?: string | null;
+  }>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type OnCreateProductSubscription = {
@@ -707,13 +930,18 @@ export type OnCreateProductSubscription = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateProductSubscription = {
@@ -724,13 +952,18 @@ export type OnUpdateProductSubscription = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteProductSubscription = {
@@ -741,13 +974,18 @@ export type OnDeleteProductSubscription = {
   languages?: {
     __typename: "ModelLanguageConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   definitions?: {
     __typename: "ModelDefinitionConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnCreateLanguageSubscription = {
@@ -763,9 +1001,15 @@ export type OnCreateLanguageSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -782,9 +1026,15 @@ export type OnUpdateLanguageSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -801,9 +1051,15 @@ export type OnDeleteLanguageSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productLanguagesId?: string | null;
 };
 
@@ -819,13 +1075,20 @@ export type OnCreateDefinitionSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -841,13 +1104,20 @@ export type OnUpdateDefinitionSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -863,13 +1133,20 @@ export type OnDeleteDefinitionSubscription = {
     defaultLanguage: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
   } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
+    startedAt?: number | null;
   } | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   productDefinitionsId?: string | null;
 };
 
@@ -883,6 +1160,9 @@ export type OnCreateTranslationSubscription = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -893,11 +1173,17 @@ export type OnCreateTranslationSubscription = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -911,6 +1197,9 @@ export type OnUpdateTranslationSubscription = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -921,11 +1210,17 @@ export type OnUpdateTranslationSubscription = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -939,6 +1234,9 @@ export type OnDeleteTranslationSubscription = {
     defaultValue: string;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productDefinitionsId?: string | null;
   } | null;
   language: {
@@ -949,11 +1247,17 @@ export type OnDeleteTranslationSubscription = {
     isDefault: boolean;
     createdAt: string;
     updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
     productLanguagesId?: string | null;
   };
   value?: string | null;
   createdAt: string;
   updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
   definitionTranslationsId?: string | null;
 };
 
@@ -974,13 +1278,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1007,13 +1316,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1040,13 +1354,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1078,9 +1397,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`;
@@ -1113,9 +1438,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`;
@@ -1148,9 +1479,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`;
@@ -1182,13 +1519,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`;
@@ -1220,13 +1564,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`;
@@ -1258,13 +1609,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`;
@@ -1294,6 +1652,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -1304,11 +1665,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`;
@@ -1338,6 +1705,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -1348,11 +1718,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`;
@@ -1382,6 +1758,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -1392,11 +1771,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`;
@@ -1421,13 +1806,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -1453,8 +1843,12 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1472,6 +1866,48 @@ export class APIService {
     )) as any;
     return <ListProductsQuery>response.data.listProducts;
   }
+  async SyncProducts(
+    filter?: ModelProductFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncProductsQuery> {
+    const statement = `query SyncProducts($filter: ModelProductFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncProducts(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            defaultLanguage
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncProductsQuery>response.data.syncProducts;
+  }
   async GetLanguage(id: string): Promise<GetLanguageQuery> {
     const statement = `query GetLanguage($id: ID!) {
         getLanguage(id: $id) {
@@ -1487,9 +1923,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`;
@@ -1517,9 +1959,13 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1537,6 +1983,50 @@ export class APIService {
     )) as any;
     return <ListLanguagesQuery>response.data.listLanguages;
   }
+  async SyncLanguages(
+    filter?: ModelLanguageFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncLanguagesQuery> {
+    const statement = `query SyncLanguages($filter: ModelLanguageFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncLanguages(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            code
+            isDefault
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            productLanguagesId
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncLanguagesQuery>response.data.syncLanguages;
+  }
   async GetDefinition(id: string): Promise<GetDefinitionQuery> {
     const statement = `query GetDefinition($id: ID!) {
         getDefinition(id: $id) {
@@ -1551,13 +2041,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`;
@@ -1584,9 +2081,13 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1604,6 +2105,49 @@ export class APIService {
     )) as any;
     return <ListDefinitionsQuery>response.data.listDefinitions;
   }
+  async SyncDefinitions(
+    filter?: ModelDefinitionFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncDefinitionsQuery> {
+    const statement = `query SyncDefinitions($filter: ModelDefinitionFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncDefinitions(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            slug
+            defaultValue
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            productDefinitionsId
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncDefinitionsQuery>response.data.syncDefinitions;
+  }
   async GetTranslation(id: string): Promise<GetTranslationQuery> {
     const statement = `query GetTranslation($id: ID!) {
         getTranslation(id: $id) {
@@ -1616,6 +2160,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -1626,11 +2173,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`;
@@ -1656,9 +2209,13 @@ export class APIService {
             value
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             definitionTranslationsId
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -1676,6 +2233,48 @@ export class APIService {
     )) as any;
     return <ListTranslationsQuery>response.data.listTranslations;
   }
+  async SyncTranslations(
+    filter?: ModelTranslationFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncTranslationsQuery> {
+    const statement = `query SyncTranslations($filter: ModelTranslationFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncTranslations(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            value
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+            definitionTranslationsId
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncTranslationsQuery>response.data.syncTranslations;
+  }
   OnCreateProductListener: Observable<
     SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateProduct">>
   > = API.graphql(
@@ -1689,13 +2288,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -1716,13 +2320,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -1743,13 +2352,18 @@ export class APIService {
           languages {
             __typename
             nextToken
+            startedAt
           }
           definitions {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -1775,9 +2389,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`
@@ -1804,9 +2424,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`
@@ -1833,9 +2459,15 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productLanguagesId
         }
       }`
@@ -1861,13 +2493,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`
@@ -1893,13 +2532,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`
@@ -1925,13 +2571,20 @@ export class APIService {
             defaultLanguage
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
           }
           translations {
             __typename
             nextToken
+            startedAt
           }
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           productDefinitionsId
         }
       }`
@@ -1955,6 +2608,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -1965,11 +2621,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`
@@ -1993,6 +2655,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -2003,11 +2668,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`
@@ -2031,6 +2702,9 @@ export class APIService {
             defaultValue
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productDefinitionsId
           }
           language {
@@ -2041,11 +2715,17 @@ export class APIService {
             isDefault
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             productLanguagesId
           }
           value
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           definitionTranslationsId
         }
       }`

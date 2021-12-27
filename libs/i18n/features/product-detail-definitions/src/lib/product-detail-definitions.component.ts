@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService, GetDefinitionQuery, UpdateDefinitionInput } from '@kizeo/i18n/data-access';
-import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
+import { ActivatedRoute } from '@angular/router';
+import { Definition, Product } from '@kizeo/i18n/data-access';
+import { DataStore } from 'aws-amplify';
 
 @Component({
   selector: 'kizeo-i18n-product-detail-definitions',
@@ -18,28 +19,33 @@ import { ProductDetailComponent } from '@kizeo/i18n/features/product-detail';
 
 export class ProductDetailDefinitionsComponent implements OnInit {
 
+  product!: Product
+
   slug?: string
 
   defaultValue?: string
 
-  definitions: GetDefinitionQuery[] = []
+  definitions: {id: string, slug: string, defaultValue: string}[] = []
 
   editId: string | null = null;
 
   constructor(
-    private readonly parent: ProductDetailComponent,
-    private readonly api: APIService,
+    private readonly route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.product = this.route.parent?.parent?.snapshot.data['product']
     this.fetch()
   }
 
-  fetch() {
-    this.api.ListDefinitions({productDefinitionsId: {eq: this.parent.product.id}})
-    .then(result => {
-      this.definitions = result.items
-    })
+  async fetch() {
+    this.definitions = (await DataStore.query(Definition))
+      .filter(d => d.product?.id === this.product.id)
+      .map(d => ({
+        id: d.id,
+        slug: d.slug,
+        defaultValue: d.defaultValue
+      }))
   }
 
 
@@ -49,13 +55,14 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async stopEdit(slug: string, defaultValue: string) {
-    if(slug  !== "" && defaultValue  !== ""){
-      await this.api.UpdateDefinition({
-        id: this.editId,
-        slug,
-        defaultValue,
-      } as UpdateDefinitionInput)
-    }
+    if (!slug || !defaultValue) return
+
+    const definition = await DataStore.query(Definition, this.editId!)
+    await DataStore.save(Definition.copyOf(definition!, updated => {
+      updated.slug = slug,
+      updated.defaultValue = defaultValue
+    }))
+
     this.fetch()
     this.editId = null;
   }
@@ -65,23 +72,23 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     this.editId = null;
   }
 
-  async confirmDelete(definition: GetDefinitionQuery) {
-    await this.api.DeleteDefinition({id: definition.id})
+  async confirmDelete(definitionId: string) {
+    const definition = await DataStore.query(Definition, definitionId)
+    await DataStore.delete(definition!)
     this.fetch()
   }
 
   async onAddNewDefinitionClicked() {
-    if (!this.slug || !this.defaultValue) {
-      return
-    }
-    await this.api.CreateDefinition({
+    if (!this.slug || !this.defaultValue) return
+
+    await DataStore.save(new Definition({
       defaultValue: this.defaultValue,
       slug: this.slug,
-      productDefinitionsId: this.parent.product.id
-    })
+      product: this.product
+    }))
+
     this.fetch()
     this.slug = ""
     this.defaultValue = ""
   }
-
 }
