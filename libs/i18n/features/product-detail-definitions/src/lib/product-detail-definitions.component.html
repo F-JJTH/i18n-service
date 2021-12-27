@@ -1,1 +1,57 @@
-product-detail-definitions works!
+<form nz-form>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="slug" nzRequired>Slug</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+        <input nz-input name="slug" type="text" id="slug" [(ngModel)]="slug">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="value" nzRequired>Default value</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+            <input nz-input name="value" type="text" id="value" [(ngModel)]="defaultValue">
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <button nz-button nzType="default" (click)="onAddNewDefinitionClicked()">Add</button>
+    </nz-form-item>
+</form>
+
+<nz-table [nzData]="definitions">
+    <thead>
+        <tr>
+            <th>Slug</th>
+            <th>Default value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let def of definitions">
+            <td>
+                <div class="editable-cell" [hidden]="editId === def.id">
+                    {{ def.slug }}
+                  </div>
+                  <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.slug" />
+            </td>
+            <td>
+                <div class="editable-cell" [hidden]="editId === def.id">
+                    {{ def.defaultValue }}
+                  </div>
+                  <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.defaultValue" />
+            </td>
+            <td>
+                <button *ngIf="editId !== def.id" (click)="startEdit(def.id)">Edit</button>
+                <button *ngIf="editId === def.id" (click)="stopEdit(def.slug, def.defaultValue)">Save</button>
+                <!-- Pas sur les maquettes mais pourra être rajouté facilement -->
+                <!--button
+                    nz-button nzDanger nzType="primary"
+                    nz-popconfirm
+                    nzPopconfirmTitle="Are you sure delete this definition ?"
+                    nzPopconfirmPlacement="bottom"
+                    nzCancelText="Cancel"
+                    nzOkText="Confirmer"
+                    nzOkType="danger"
+                    (nzOnConfirm)="confirmDelete(def)">Delete</button-->
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
