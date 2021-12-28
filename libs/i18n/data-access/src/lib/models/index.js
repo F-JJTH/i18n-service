@@ -4,11 +4,11 @@ import { schema } from './schema';
 
 
 
-const { Product, Language, Definition, Translation } = initSchema(schema);
+const { Product, Language, Translation, Definition } = initSchema(schema);
 
 export {
   Product,
   Language,
-  Definition,
-  Translation
+  Translation,
+  Definition
 };

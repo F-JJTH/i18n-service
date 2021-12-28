@@ -1,1 +1,36 @@
-product-detail-translations works!
+<nz-content>
+    <nz-table [nzData]="translations">
+        <thead>
+            <tr>
+                <th>Slug</th>
+                <th>Default value</th>
+                <th><kizeo-select-language name="selectedLanguage" [(ngModel)]="selectedLanguages" [excludeLanguages]="languageCodes" (ngModelChange)="onFilterTranslationChanged()" mode="multiple"></kizeo-select-language></th>
+                <th>Translation</th>
+            </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let tra of translations">
+          <td>
+            <div>
+              {{ tra.slug }}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{ tra.defaultValue }}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{ tra.language.name }}
+            </div>
+          </td>
+          <td>
+            <div>
+              {{ tra.value }}
+            </div>
+          </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</nz-content>

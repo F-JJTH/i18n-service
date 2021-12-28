@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Definition, Product } from '@kizeo/i18n/data-access';
+import { Definition, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { DataStore } from 'aws-amplify';
 
 @Component({
@@ -81,11 +81,23 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   async onAddNewDefinitionClicked() {
     if (!this.slug || !this.defaultValue) return
 
-    await DataStore.save(new Definition({
+    const definition = await DataStore.save(new Definition({
       defaultValue: this.defaultValue,
       slug: this.slug,
       product: this.product
     }))
+
+    const languages = (await DataStore.query(Language))
+      .filter(d => d.product?.id === this.product.id)
+
+    languages.forEach(language => {
+      const value = language.isDefault ? definition.defaultValue : ""
+      DataStore.save(new Translation({
+        definition,
+        language,
+        value
+      }))
+    })
 
     this.fetch()
     this.slug = ""
