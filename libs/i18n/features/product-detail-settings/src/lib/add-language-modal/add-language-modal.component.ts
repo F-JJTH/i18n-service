@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Language, Product } from '@kizeo/i18n/data-access';
+import { Definition, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageOption } from '@kizeo/ui';
 import { DataStore } from 'aws-amplify';
 import { NzModalRef } from 'ng-zorro-antd/modal';
@@ -25,12 +25,24 @@ export class AddLanguageModalComponent {
       return
     }
 
-    await DataStore.save(new Language({
+    const language = await DataStore.save(new Language({
       code: this.language.code,
       name: this.language.label,
       isDefault: false,
       product: this.product
     }))
+
+    const definitions = (await DataStore.query(Definition))
+      .filter(d => d.product?.id === this.product.id)
+
+    definitions.forEach(definition => {
+      DataStore.save(new Translation({
+        definition,
+        language,
+        value: ""
+      }))
+    })
+
     this.modalRef.triggerOk()
   }
 

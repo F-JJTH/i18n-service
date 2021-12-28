@@ -94,7 +94,7 @@ export type Product = {
 
 export type ModelLanguageConnection = {
   __typename: "ModelLanguageConnection";
-  items: Array<Language>;
+  items: Array<Language | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -116,7 +116,7 @@ export type Language = {
 
 export type ModelDefinitionConnection = {
   __typename: "ModelDefinitionConnection";
-  items: Array<Definition>;
+  items: Array<Definition | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -138,7 +138,7 @@ export type Definition = {
 
 export type ModelTranslationConnection = {
   __typename: "ModelTranslationConnection";
-  items: Array<Translation>;
+  items: Array<Translation | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -293,7 +293,7 @@ export type ModelProductFilterInput = {
 
 export type ModelProductConnection = {
   __typename: "ModelProductConnection";
-  items: Array<Product>;
+  items: Array<Product | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -701,7 +701,7 @@ export type ListProductsQuery = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -718,7 +718,7 @@ export type SyncProductsQuery = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -762,7 +762,7 @@ export type ListLanguagesQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -781,7 +781,7 @@ export type SyncLanguagesQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -828,7 +828,7 @@ export type ListDefinitionsQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -846,7 +846,7 @@ export type SyncDefinitionsQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -900,7 +900,7 @@ export type ListTranslationsQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     definitionTranslationsId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -917,7 +917,7 @@ export type SyncTranslationsQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     definitionTranslationsId?: string | null;
-  }>;
+  } | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
