@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { SelectLanguageModule } from '@kizeo/ui';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent],
@@ -18,9 +21,12 @@ import { SelectLanguageModule } from '@kizeo/ui';
     ]),
     FormsModule,
     NzTableModule,
+    NzButtonModule,
     NzFormModule,
     NzInputModule,
+    NzAlertModule,
     NzLayoutModule,
+    NzToolTipModule,
     SelectLanguageModule,
   ],
 })

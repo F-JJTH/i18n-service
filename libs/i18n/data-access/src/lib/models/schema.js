@@ -152,6 +152,13 @@ export const schema = {
                         "associatedWith": "languageTranslationsId"
                     }
                 },
+                "isRequireTranslatorAction": {
+                    "name": "isRequireTranslatorAction",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -234,6 +241,13 @@ export const schema = {
                     "name": "value",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isRequireTranslatorAction": {
+                    "name": "isRequireTranslatorAction",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -382,5 +396,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "d770bcae5b684d171cec6e40595799bb"
+    "version": "fae6d52cc293c910cbac0b7919335725"
 };

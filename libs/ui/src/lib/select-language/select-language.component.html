@@ -1,6 +1,7 @@
 <nz-select
   nzPlaceHolder="Select language"
   [nzMode]="mode"
+  [disabled]="_disabled"
   [nzCustomTemplate]="multipleTemplate"
   [(ngModel)]="_value"
   (ngModelChange)="_onChange($event)">

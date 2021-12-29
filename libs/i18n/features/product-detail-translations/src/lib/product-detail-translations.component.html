@@ -1,36 +1,49 @@
 <nz-content>
-    <nz-table [nzData]="translations">
-        <thead>
-            <tr>
-                <th>Slug</th>
-                <th>Default value</th>
-                <th><kizeo-select-language name="selectedLanguage" [(ngModel)]="selectedLanguages" [excludeLanguages]="languageCodes" (ngModelChange)="onFilterTranslationChanged()" mode="multiple"></kizeo-select-language></th>
-                <th>Translation</th>
-            </tr>
-        </thead>
-      <tbody>
-        <tr *ngFor="let tra of translations">
-          <td>
-            <div>
-              {{ tra.slug }}
-            </div>
-          </td>
-          <td>
-            <div>
-              {{ tra.defaultValue }}
-            </div>
-          </td>
-          <td>
-            <div>
-              {{ tra.language.name }}
-            </div>
-          </td>
-          <td>
-            <div>
-              {{ tra.value }}
-            </div>
-          </td>
-        </tr>
-        </tbody>
-    </nz-table>
+  <header>
+    <div nz-row>
+      <div nz-col nzSpan="16">
+        <nz-alert nzType="info" nzMessage="Use «Tab» key to switch between fields" nzShowIcon></nz-alert>
+      </div>
+      <div nz-col nzSpan="8">
+        <button *ngIf="!!modifiedTranslationItems.size"
+          nz-button
+          (click)="onSaveClicked()"
+          nzType="primary"
+          [nzLoading]="isSaving">Save</button>
+      </div>
+    </div>
+  </header>
+  <nz-table [nzData]="translations">
+    <thead>
+      <tr>
+        <th>Slug</th>
+        <th>Default value</th>
+        <th nzWidth="220px">
+          <kizeo-select-language name="selectedLanguage"
+          nz-tooltip
+          nzTooltipTitle="Veuillez sauvegarder vos modifications avant de modifier la liste"
+          [nzTooltipTrigger]="!!modifiedTranslationItems.size ? 'hover' : null"
+          [disabled]="!!modifiedTranslationItems.size"
+          [(ngModel)]="selectedLanguages"
+          [excludeLanguages]="languageCodes"
+          (ngModelChange)="onFilterTranslationChanged()"
+          mode="multiple"></kizeo-select-language>
+        </th>
+        <th>Translation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let translation of translations" [class.warning]="translation.isRequireTranslatorAction">
+        <td>{{ translation.slug }}</td>
+        <td>{{ translation.defaultValue }}</td>
+        <td>{{ translation.language.name }}</td>
+        <td>
+          <input nz-input 
+          [(ngModel)]="translation.value"
+          [name]="translation.slug+translation.language.code"
+          (ngModelChange)="onTranslationChanged(translation)">
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 </nz-content>

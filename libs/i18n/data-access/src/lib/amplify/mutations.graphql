@@ -87,6 +87,11 @@ mutation CreateLanguage(
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -114,6 +119,11 @@ mutation UpdateLanguage(
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -141,6 +151,11 @@ mutation DeleteLanguage(
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -261,6 +276,7 @@ mutation CreateTranslation(
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -269,11 +285,13 @@ mutation CreateTranslation(
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }
@@ -299,6 +317,7 @@ mutation UpdateTranslation(
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -307,11 +326,13 @@ mutation UpdateTranslation(
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }
@@ -337,6 +358,7 @@ mutation DeleteTranslation(
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -345,11 +367,13 @@ mutation DeleteTranslation(
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }

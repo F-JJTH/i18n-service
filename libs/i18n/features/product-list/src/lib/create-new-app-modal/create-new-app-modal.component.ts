@@ -30,7 +30,8 @@ export class CreateNewAppModalComponent {
       code: this.defaultLanguage.code,
       name: this.defaultLanguage.label,
       isDefault: true,
-      product
+      product,
+      isRequireTranslatorAction: false
     }))
 
     this.modalRef.triggerOk()

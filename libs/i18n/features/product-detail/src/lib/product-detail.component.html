@@ -8,6 +8,7 @@
     <ul nz-menu nzMode="inline" class="sider-menu">
       <li nz-menu-item nzMatchRouter>
         <a routerLink="translations">translations</a>
+        <span *ngIf="isTranslatorRequireAction">/!\</span>
       </li>
       <li nz-menu-item nzMatchRouter>
         <a routerLink="definitions">definitions</a>
