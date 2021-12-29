@@ -20,6 +20,8 @@ export class SelectLanguageComponent implements OnInit, ControlValueAccessor {
 
   _value: SelectLanguageOption | null = null
 
+  _disabled: boolean = false
+
   @Input() mode: NzSelectModeType = 'default'
 
   @Input() excludeLanguages: string[] = []
@@ -45,6 +47,9 @@ export class SelectLanguageComponent implements OnInit, ControlValueAccessor {
   }
   registerOnTouched(fn: any): void {
     this._onTouched = fn
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this._disabled = isDisabled
   }
 
 }

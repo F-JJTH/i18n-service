@@ -15,6 +15,7 @@ type Language @model @auth(rules: [{ allow: private }]) {
   isDefault: Boolean!
   product: Product! @belongsTo
   translations: [Translation] @hasMany
+  isRequireTranslatorAction: Boolean @default(value: "false")
 }
 
 type Definition @model @auth(rules: [{ allow: private }]) {
@@ -30,4 +31,5 @@ type Translation @model @auth(rules: [{ allow: private }]) {
   definition: Definition! @belongsTo
   language: Language! @belongsTo
   value: String
+  isRequireTranslatorAction: Boolean @default(value: "false")
 }

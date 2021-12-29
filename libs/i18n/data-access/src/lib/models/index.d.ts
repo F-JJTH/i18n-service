@@ -39,6 +39,7 @@ export declare class Language {
   readonly isDefault: boolean;
   readonly product: Product;
   readonly translations?: (Translation | null)[];
+  readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Language, LanguageMetaData>);
@@ -50,6 +51,7 @@ export declare class Translation {
   readonly definition: Definition;
   readonly language: Language;
   readonly value?: string;
+  readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   readonly definitionTranslationsId?: string;

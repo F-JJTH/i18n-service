@@ -63,6 +63,34 @@ export class ProductDetailDefinitionsComponent implements OnInit {
       updated.defaultValue = defaultValue
     }))
 
+    const translations = (await DataStore.query(Translation))
+      .filter(t => t.definition.id === definition!.id)
+    
+    let promises: Promise<any>[] = []
+    translations.forEach(t => {
+      promises.push(
+        DataStore.save(
+          Translation.copyOf(t, updated => {
+            if (t.language.isDefault) {
+              updated.value = defaultValue
+            }
+            updated.isRequireTranslatorAction = t.language.isDefault ? false : true
+          })
+        )
+      )
+
+      if (!t.language.isDefault) {
+        promises.push(
+          DataStore.save(
+            Language.copyOf(t.language!, updated => {
+              updated.isRequireTranslatorAction = true
+            })
+          )
+        )
+      }
+    })
+    await Promise.all(promises)
+
     this.fetch()
     this.editId = null;
   }
@@ -95,7 +123,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
       DataStore.save(new Translation({
         definition,
         language,
-        value
+        value,
+        isRequireTranslatorAction: language.isDefault ? false : true
+      }))
+
+      DataStore.save(Language.copyOf(language, updated => {
+        updated.isRequireTranslatorAction = language.isDefault ? false : true
       }))
     })
 

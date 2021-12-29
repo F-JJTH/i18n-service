@@ -29,7 +29,8 @@ export class AddLanguageModalComponent {
       code: this.language.code,
       name: this.language.label,
       isDefault: false,
-      product: this.product
+      product: this.product,
+      isRequireTranslatorAction: true
     }))
 
     const definitions = (await DataStore.query(Definition))
@@ -39,7 +40,8 @@ export class AddLanguageModalComponent {
       DataStore.save(new Translation({
         definition,
         language,
-        value: ""
+        value: "",
+        isRequireTranslatorAction: true
       }))
     })
 

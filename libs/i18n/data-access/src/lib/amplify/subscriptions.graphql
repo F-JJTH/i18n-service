@@ -75,6 +75,11 @@ subscription OnCreateLanguage {
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -99,6 +104,11 @@ subscription OnUpdateLanguage {
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -123,6 +133,11 @@ subscription OnDeleteLanguage {
       _deleted
       _lastChangedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
@@ -231,6 +246,7 @@ subscription OnCreateTranslation {
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -239,11 +255,13 @@ subscription OnCreateTranslation {
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }
@@ -266,6 +284,7 @@ subscription OnUpdateTranslation {
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -274,11 +293,13 @@ subscription OnUpdateTranslation {
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }
@@ -301,6 +322,7 @@ subscription OnDeleteTranslation {
       name
       code
       isDefault
+      isRequireTranslatorAction
       createdAt
       updatedAt
       _version
@@ -309,11 +331,13 @@ subscription OnDeleteTranslation {
       productLanguagesId
     }
     value
+    isRequireTranslatorAction
     createdAt
     updatedAt
     _version
     _deleted
     _lastChangedAt
+    languageTranslationsId
     definitionTranslationsId
   }
 }
