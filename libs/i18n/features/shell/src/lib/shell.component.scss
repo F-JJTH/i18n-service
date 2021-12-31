@@ -1,0 +1,16 @@
+:host {
+  display: block;
+
+  nz-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+
+    .right {
+      display: flex;
+      color: white;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+}

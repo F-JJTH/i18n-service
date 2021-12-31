@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { CurrentUserService, Product } from '@kizeo/i18n/data-access';
+import { Auth, DataStore } from 'aws-amplify';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-app-modal.component";
 
@@ -13,16 +13,26 @@ import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-ap
 export class ProductListComponent implements OnInit {
   products: Product[] = []
 
+  canCreateApplication = false
+
   constructor(
-    private readonly modal: NzModalService
+    private readonly modal: NzModalService,
+    private readonly currentUser: CurrentUserService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.fetch()
+    this.canCreateApplication = await this.currentUser.isAdmin()
   }
-
+  
   async fetch() {
-    this.products = await DataStore.query(Product)
+    if (await this.currentUser.isAdmin()) {
+      this.products = await DataStore.query(Product)
+    } else {
+      const user: any = await this.currentUser.getPayload()
+      this.products = (await DataStore.query(Product))
+        .filter(p => p.members?.includes(user.sub) || false)
+    }
   }
 
   onCreateNewApplicationClicked() {

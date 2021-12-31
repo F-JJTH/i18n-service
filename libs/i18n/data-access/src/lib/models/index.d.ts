@@ -2,7 +2,20 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class MemberAuthorization {
+  readonly definitions: boolean;
+  readonly languages: boolean;
+  readonly deploy: boolean;
+  readonly translations?: (string | null)[];
+  constructor(init: ModelInit<MemberAuthorization>);
+}
 
+export declare class Member {
+  readonly id: string;
+  readonly email: string;
+  readonly authorizations: MemberAuthorization;
+  constructor(init: ModelInit<Member>);
+}
 
 type ProductMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -26,6 +39,8 @@ export declare class Product {
   readonly defaultLanguage: string;
   readonly languages?: (Language | null)[];
   readonly definitions?: (Definition | null)[];
+  readonly members?: (string | null)[];
+  readonly authorizations?: (Member | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Product, ProductMetaData>);

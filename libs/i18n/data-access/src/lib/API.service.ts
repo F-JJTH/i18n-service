@@ -28,12 +28,28 @@ export type CreateProductInput = {
   id?: string | null;
   name: string;
   defaultLanguage: string;
+  members?: Array<string | null> | null;
+  authorizations?: Array<MemberInput | null> | null;
   _version?: number | null;
+};
+
+export type MemberInput = {
+  id: string;
+  email: string;
+  authorizations: MemberAuthorizationInput;
+};
+
+export type MemberAuthorizationInput = {
+  definitions: boolean;
+  languages: boolean;
+  deploy: boolean;
+  translations?: Array<string | null> | null;
 };
 
 export type ModelProductConditionInput = {
   name?: ModelStringInput | null;
   defaultLanguage?: ModelStringInput | null;
+  members?: ModelStringInput | null;
   and?: Array<ModelProductConditionInput | null> | null;
   or?: Array<ModelProductConditionInput | null> | null;
   not?: ModelProductConditionInput | null;
@@ -85,6 +101,8 @@ export type Product = {
   defaultLanguage: string;
   languages?: ModelLanguageConnection | null;
   definitions?: ModelDefinitionConnection | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<Member | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -161,10 +179,27 @@ export type ModelDefinitionConnection = {
   startedAt?: number | null;
 };
 
+export type Member = {
+  __typename: "Member";
+  id: string;
+  email: string;
+  authorizations: MemberAuthorization;
+};
+
+export type MemberAuthorization = {
+  __typename: "MemberAuthorization";
+  definitions: boolean;
+  languages: boolean;
+  deploy: boolean;
+  translations?: Array<string | null> | null;
+};
+
 export type UpdateProductInput = {
   id: string;
   name?: string | null;
   defaultLanguage?: string | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<MemberInput | null> | null;
   _version?: number | null;
 };
 
@@ -299,6 +334,7 @@ export type ModelProductFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   defaultLanguage?: ModelStringInput | null;
+  members?: ModelStringInput | null;
   and?: Array<ModelProductFilterInput | null> | null;
   or?: Array<ModelProductFilterInput | null> | null;
   not?: ModelProductFilterInput | null;
@@ -359,6 +395,12 @@ export type CreateProductMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -381,6 +423,12 @@ export type UpdateProductMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -403,6 +451,12 @@ export type DeleteProductMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -421,6 +475,7 @@ export type CreateLanguageMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -452,6 +507,7 @@ export type UpdateLanguageMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -483,6 +539,7 @@ export type DeleteLanguageMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -513,6 +570,7 @@ export type CreateDefinitionMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -542,6 +600,7 @@ export type UpdateDefinitionMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -571,6 +630,7 @@ export type DeleteDefinitionMutation = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -725,6 +785,12 @@ export type GetProductQuery = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -739,6 +805,7 @@ export type ListProductsQuery = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -756,6 +823,7 @@ export type SyncProductsQuery = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -777,6 +845,7 @@ export type GetLanguageQuery = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -847,6 +916,7 @@ export type GetDefinitionQuery = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -995,6 +1065,12 @@ export type OnCreateProductSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1017,6 +1093,12 @@ export type OnUpdateProductSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1039,6 +1121,12 @@ export type OnDeleteProductSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  members?: Array<string | null> | null;
+  authorizations?: Array<{
+    __typename: "Member";
+    id: string;
+    email: string;
+  } | null> | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1057,6 +1145,7 @@ export type OnCreateLanguageSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1088,6 +1177,7 @@ export type OnUpdateLanguageSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1119,6 +1209,7 @@ export type OnDeleteLanguageSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1149,6 +1240,7 @@ export type OnCreateDefinitionSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1178,6 +1270,7 @@ export type OnUpdateDefinitionSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1207,6 +1300,7 @@ export type OnDeleteDefinitionSubscription = {
     id: string;
     name: string;
     defaultLanguage: string;
+    members?: Array<string | null> | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1370,6 +1464,12 @@ export class APIService {
             nextToken
             startedAt
           }
+          members
+          authorizations {
+            __typename
+            id
+            email
+          }
           createdAt
           updatedAt
           _version
@@ -1407,6 +1507,12 @@ export class APIService {
             __typename
             nextToken
             startedAt
+          }
+          members
+          authorizations {
+            __typename
+            id
+            email
           }
           createdAt
           updatedAt
@@ -1446,6 +1552,12 @@ export class APIService {
             nextToken
             startedAt
           }
+          members
+          authorizations {
+            __typename
+            id
+            email
+          }
           createdAt
           updatedAt
           _version
@@ -1480,6 +1592,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1527,6 +1640,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1574,6 +1688,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1620,6 +1735,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1665,6 +1781,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1710,6 +1827,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1925,6 +2043,12 @@ export class APIService {
             nextToken
             startedAt
           }
+          members
+          authorizations {
+            __typename
+            id
+            email
+          }
           createdAt
           updatedAt
           _version
@@ -1953,6 +2077,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -1992,6 +2117,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2033,6 +2159,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2159,6 +2286,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2422,6 +2550,12 @@ export class APIService {
             nextToken
             startedAt
           }
+          members
+          authorizations {
+            __typename
+            id
+            email
+          }
           createdAt
           updatedAt
           _version
@@ -2453,6 +2587,12 @@ export class APIService {
             __typename
             nextToken
             startedAt
+          }
+          members
+          authorizations {
+            __typename
+            id
+            email
           }
           createdAt
           updatedAt
@@ -2486,6 +2626,12 @@ export class APIService {
             nextToken
             startedAt
           }
+          members
+          authorizations {
+            __typename
+            id
+            email
+          }
           createdAt
           updatedAt
           _version
@@ -2514,6 +2660,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2555,6 +2702,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2596,6 +2744,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2636,6 +2785,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2675,6 +2825,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version
@@ -2714,6 +2865,7 @@ export class APIService {
             id
             name
             defaultLanguage
+            members
             createdAt
             updatedAt
             _version

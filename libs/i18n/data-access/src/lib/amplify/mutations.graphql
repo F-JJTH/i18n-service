@@ -15,6 +15,11 @@ mutation CreateProduct(
       nextToken
       startedAt
     }
+    members
+    authorizations {
+      id
+      email
+    }
     createdAt
     updatedAt
     _version
@@ -37,6 +42,11 @@ mutation UpdateProduct(
     definitions {
       nextToken
       startedAt
+    }
+    members
+    authorizations {
+      id
+      email
     }
     createdAt
     updatedAt
@@ -61,6 +71,11 @@ mutation DeleteProduct(
       nextToken
       startedAt
     }
+    members
+    authorizations {
+      id
+      email
+    }
     createdAt
     updatedAt
     _version
@@ -81,6 +96,7 @@ mutation CreateLanguage(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -113,6 +129,7 @@ mutation UpdateLanguage(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -145,6 +162,7 @@ mutation DeleteLanguage(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -176,6 +194,7 @@ mutation CreateDefinition(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -206,6 +225,7 @@ mutation UpdateDefinition(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -236,6 +256,7 @@ mutation DeleteDefinition(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version

@@ -52,6 +52,24 @@ export const schema = {
                         "associatedWith": "productDefinitionsId"
                     }
                 },
+                "members": {
+                    "name": "members",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
+                "authorizations": {
+                    "name": "authorizations",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "Member"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -395,6 +413,69 @@ export const schema = {
         }
     },
     "enums": {},
-    "nonModels": {},
-    "version": "fae6d52cc293c910cbac0b7919335725"
+    "nonModels": {
+        "MemberAuthorization": {
+            "name": "MemberAuthorization",
+            "fields": {
+                "definitions": {
+                    "name": "definitions",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "languages": {
+                    "name": "languages",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "deploy": {
+                    "name": "deploy",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "translations": {
+                    "name": "translations",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            }
+        },
+        "Member": {
+            "name": "Member",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "authorizations": {
+                    "name": "authorizations",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "MemberAuthorization"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        }
+    },
+    "version": "0b22871aa810d92fbfc9b942a31ce2f0"
 };

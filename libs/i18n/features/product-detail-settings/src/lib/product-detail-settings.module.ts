@@ -17,9 +17,20 @@ import { LanguagesComponent } from './languages/languages.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from './add-language-modal/add-language-modal.component';
 import { SelectLanguageModule } from '@kizeo/ui';
+import { AddEditMemberModalComponent } from './add-edit-member-modal/add-edit-member-modal.component';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
-  declarations: [ProductDetailSettingsComponent, GeneralComponent, MembersComponent, LanguagesComponent, AddLanguageModalComponent],
+  declarations: [
+    ProductDetailSettingsComponent,
+    GeneralComponent,
+    MembersComponent,
+    LanguagesComponent,
+    AddLanguageModalComponent,
+    AddEditMemberModalComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -35,6 +46,9 @@ import { SelectLanguageModule } from '@kizeo/ui';
     NzDividerModule,
     NzTableModule,
     NzModalModule,
+    NzCheckboxModule,
+    NzRadioModule,
+    NzSelectModule,
     SelectLanguageModule,
   ],
 })

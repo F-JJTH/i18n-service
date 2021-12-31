@@ -1,1 +1,44 @@
-<p>members works!</p>
+<header>
+  <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">Add new member</button>
+</header>
+
+<nz-table [nzData]="members">
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Definitions</th>
+      <th>Languages</th>
+      <th>Deploy</th>
+      <th>Translations</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of members">
+      <td>{{ member.email }}</td>
+      <td>{{ member.authorizations.definitions }}</td>
+      <td>{{ member.authorizations.languages }}</td>
+      <td>{{ member.authorizations.deploy }}</td>
+      <td>
+        <ng-container *ngIf="member.authorizations.translations?.length === 0"></ng-container>
+        <ng-container *ngIf="member.authorizations.translations?.length !== 0">
+          <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">All</ng-container>
+          <ng-template #translationList>{{ member.authorizations.translations?.join(', ') }}</ng-template>
+        </ng-container>
+      </td>
+      <td>
+        <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">Edit</button>
+        <button
+          [disabled]="currentUserId === member.id"
+          nz-button nzDanger nzType="primary"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure delete this product?"
+          nzPopconfirmPlacement="bottom"
+          nzCancelText="Annuler"
+          nzOkText="Supprimer"
+          nzOkType="danger"
+          (nzOnConfirm)="confirmDelete(member)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

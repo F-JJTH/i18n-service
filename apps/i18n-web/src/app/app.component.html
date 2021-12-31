@@ -3,7 +3,7 @@
     amplifySlot="authenticated"
     let-user="user"
     let-signOut="signOut">
-  <kizeo-i18n-shell></kizeo-i18n-shell>
+  <kizeo-i18n-shell [user]="user" [signOut]="signOut"></kizeo-i18n-shell>
   <!-- <button (click)="signOut()">Sign Out</button> -->
   </ng-template>
 </amplify-authenticator>

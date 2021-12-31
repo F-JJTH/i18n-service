@@ -12,6 +12,11 @@ query GetProduct($id: ID!) {
       nextToken
       startedAt
     }
+    members
+    authorizations {
+      id
+      email
+    }
     createdAt
     updatedAt
     _version
@@ -29,6 +34,7 @@ query ListProducts(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -55,6 +61,7 @@ query SyncProducts(
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -75,6 +82,7 @@ query GetLanguage($id: ID!) {
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version
@@ -155,6 +163,7 @@ query GetDefinition($id: ID!) {
       id
       name
       defaultLanguage
+      members
       createdAt
       updatedAt
       _version

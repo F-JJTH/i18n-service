@@ -20,6 +20,12 @@
       },
       "auth": {
         "kizeob05c728a": {}
+      },
+      "function": {
+        "AdminQueries1b900f20": {
+          "deploymentBucketName": "amplify-kizeo-dev-164448-deployment",
+          "s3Key": "amplify-builds/AdminQueries1b900f20-6c632f6864726c71346d-build.zip"
+        }
       }
     }
   },

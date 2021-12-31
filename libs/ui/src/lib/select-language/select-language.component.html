@@ -3,6 +3,7 @@
   [nzMode]="mode"
   [disabled]="_disabled"
   [nzCustomTemplate]="multipleTemplate"
+  [compareWith]="compareFn"
   [(ngModel)]="_value"
   (ngModelChange)="_onChange($event)">
   <nz-option *ngFor="let option of getFilteredOptions()" [nzLabel]="option.label" [nzValue]="option"></nz-option>
