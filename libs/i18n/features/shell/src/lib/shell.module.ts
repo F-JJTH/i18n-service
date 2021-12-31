@@ -6,6 +6,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout'
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 import { DataAccessModule } from '@kizeo/i18n/data-access';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 export const shellRoutes: Route[] = [
   {
@@ -25,6 +26,7 @@ export const shellRoutes: Route[] = [
     RouterModule.forRoot(shellRoutes, {preloadingStrategy: PreloadAllModules}),
     DataAccessModule,
     NzMenuModule,
+    NzButtonModule,
     NzLayoutModule,
   ],
   declarations: [

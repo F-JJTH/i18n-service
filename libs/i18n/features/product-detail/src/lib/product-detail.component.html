@@ -6,17 +6,17 @@
       <h1>{{ product?.name }}</h1>
     </header>
     <ul nz-menu nzMode="inline" class="sider-menu">
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter *ngIf="canAccess.translations">
         <a routerLink="translations">translations</a>
         <span *ngIf="isTranslatorRequireAction">/!\</span>
       </li>
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter *ngIf="canAccess.definitions">
         <a routerLink="definitions">definitions</a>
       </li>
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter *ngIf="canAccess.deploy">
         <a routerLink="deploy">deploy</a>
       </li>
-      <li nz-menu-item nzMatchRouter>
+      <li nz-menu-item nzMatchRouter *ngIf="canAccess.settings">
         <a routerLink="settings">settings</a>
       </li>
     </ul>

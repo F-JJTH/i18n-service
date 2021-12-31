@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NzModalRef } from "ng-zorro-antd/modal";
-import { DataStore } from 'aws-amplify';
-import { Product, Language } from '@kizeo/i18n/data-access';
+import { Auth, DataStore } from 'aws-amplify';
+import { Product, Language, CurrentUserService } from '@kizeo/i18n/data-access';
 
 @Component({
   selector: 'kizeo-i18n-create-new-app-modal',
@@ -13,7 +13,8 @@ export class CreateNewAppModalComponent {
   defaultLanguage: {label: string, code: string} | null = null
 
   constructor(
-    private readonly modalRef:NzModalRef,
+    private readonly modalRef: NzModalRef,
+    private readonly currentUser: CurrentUserService,
   ) {}
 
   async onCreateClicked() {
@@ -21,9 +22,22 @@ export class CreateNewAppModalComponent {
       return
     }
 
+    const currentUser: any = await this.currentUser.getPayload()
+
     const product = await DataStore.save(new Product({
       name: this.name,
-      defaultLanguage: this.defaultLanguage.code
+      defaultLanguage: this.defaultLanguage.code,
+      members: [currentUser.sub],
+      authorizations: [{
+        id: currentUser.sub,
+        email: currentUser.email,
+        authorizations: {
+          definitions: true,
+          deploy: true,
+          languages: true,
+          translations: ['ALL']
+        }
+      }]
     }))
 
     await DataStore.save(new Language({

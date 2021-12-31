@@ -16,7 +16,6 @@
   <nz-table [nzData]="translations">
     <thead>
       <tr>
-        <th>Slug</th>
         <th>Default value</th>
         <th nzWidth="220px">
           <kizeo-select-language name="selectedLanguage"
@@ -25,7 +24,7 @@
           [nzTooltipTrigger]="!!modifiedTranslationItems.size ? 'hover' : null"
           [disabled]="!!modifiedTranslationItems.size"
           [(ngModel)]="selectedLanguages"
-          [excludeLanguages]="languageCodes"
+          [excludeLanguages]="languageCodesToExclude"
           (ngModelChange)="onFilterTranslationChanged()"
           mode="multiple"></kizeo-select-language>
         </th>
@@ -34,8 +33,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let translation of translations" [class.warning]="translation.isRequireTranslatorAction">
-        <td>{{ translation.slug }}</td>
-        <td>{{ translation.defaultValue }}</td>
+        <td>
+          <p class="slug">{{ translation.slug }}</p>
+          <p>{{ translation.defaultValue }}</p>
+        </td>
         <td>{{ translation.language.name }}</td>
         <td>
           <input nz-input 

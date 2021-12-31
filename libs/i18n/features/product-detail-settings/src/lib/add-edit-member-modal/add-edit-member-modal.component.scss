@@ -1,0 +1,11 @@
+:host {
+  nz-radio-group {
+    width: 100%
+  }
+
+  [nz-radio] {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+  }
+}

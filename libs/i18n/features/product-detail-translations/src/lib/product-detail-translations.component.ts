@@ -22,6 +22,12 @@ interface TranslationItem {
     tr.warning {
       background: #fffbe6;
     }
+
+    .slug {
+      color: #00000073;
+      margin: 0;
+      font-size: 10px;
+    }
   `]
 })
 export class ProductDetailTranslationsComponent implements OnInit {
@@ -32,7 +38,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   selectedLanguages: SelectLanguageOption[] = []
 
-  languageCodes: string[] = []
+  languageCodesToExclude: string[] = []
 
   modifiedTranslationItems: Map<string, TranslationItem> = new Map()
 
@@ -47,9 +53,9 @@ export class ProductDetailTranslationsComponent implements OnInit {
   async ngOnInit() {
     this.product = this.route.parent?.parent?.snapshot.data['product']
     const languageCodesForProduct = (await DataStore.query(Language))
-      .filter(l =>  l.product.id === this.product.id)
+      .filter(l => l.product.id === this.product.id)
       .map(l => l.code)
-    this.languageCodes = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
+    this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
     this.fetch()
   }
 
@@ -57,7 +63,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
     this.translations = (await DataStore.query(Translation))
       .filter(t => (
           (t.definition as any).productDefinitionsId === this.product.id &&
-          this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language.code) : true
+          (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language.code) : true)
         )
       )
       .map(t => {
@@ -71,6 +77,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
           isRequireTranslatorAction: t.isRequireTranslatorAction
         }
       })
+      .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
   }
 
   async onFilterTranslationChanged() {

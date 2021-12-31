@@ -31,6 +31,8 @@ export class SelectLanguageComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
   }
 
+  compareFn =  (o1: any, o2: any): boolean => (o1 && o2 ? o1.code === o2.code : o1 === o2);
+
   getFilteredOptions() {
     return this.options.filter(option => !this.excludeLanguages.includes(option.code))
   }

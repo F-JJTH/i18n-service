@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Language, Product } from '@kizeo/i18n/data-access';
+import { CurrentUserService, Language, Product } from '@kizeo/i18n/data-access';
 import { DataStore } from 'aws-amplify';
 import { ZenObservable } from 'zen-observable-ts';
 import { debounceTime, map, Subject } from 'rxjs';
@@ -20,8 +20,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   isTranslatorRequireAction$ = new Subject()
 
+  canAccess = {
+    translations: false,
+    languages: false,
+    definitions: false,
+    deploy: false,
+    settings: false,
+  }
+
   constructor(
     private readonly route: ActivatedRoute,
+    public readonly currentUser: CurrentUserService,
   ) {
     this.dtStoreSubscriptions.push(
       this.isTranslatorRequireAction$.pipe(
@@ -36,6 +45,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.product = this.route.snapshot.data['product']
+
+    
+    this.canAccess = {
+      ...(await this.currentUser.getAuthorizationsForProduct(this.product)),
+      settings: await this.currentUser.isAdmin()
+    }
 
     this.dtStoreSubscriptions.push(
       DataStore.observe(Product, this.product?.id).subscribe(data => {
