@@ -9,13 +9,19 @@
     margin-top: 25px;
     display: flex;
     gap: 25px;
+    flex-wrap: wrap;
 
     .product-item {
-      width: 300px;
+      min-width: 300px;
       height: 250px;
-      background-color: #f0f2f5;
+      background-color: #fafafa;
       border-radius: 8px;
-      box-shadow: 0 0 8px #f0f2f5;
+      border: 1px solid #eee;
+
+      .languages {
+        display: flex;
+        justify-content: center;
+      }
 
       h1 {
         text-align: center;

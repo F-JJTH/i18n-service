@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CurrentUserService, Product } from '@kizeo/i18n/data-access';
-import { Auth, DataStore } from 'aws-amplify';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CurrentUserService, Product, Language } from '@kizeo/i18n/data-access';
+import { DataStore } from 'aws-amplify';
+import { ZenObservable } from 'zen-observable-ts';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-app-modal.component";
 
@@ -10,10 +11,12 @@ import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-ap
   styleUrls: ['./product-list.component.scss'],
 })
 
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = []
+  productLanguages: {[productId: string]: Language[]} = {}
 
   canCreateApplication = false
+  dtStoreSubscriptions!: ZenObservable.Subscription
 
   constructor(
     private readonly modal: NzModalService,
@@ -23,6 +26,11 @@ export class ProductListComponent implements OnInit {
   async ngOnInit() {
     this.fetch()
     this.canCreateApplication = await this.currentUser.isAdmin()
+    this.dtStoreSubscriptions = DataStore.observe(Product).subscribe(() => this.fetch())
+  }
+
+  ngOnDestroy(): void {
+    this.dtStoreSubscriptions.unsubscribe()
   }
   
   async fetch() {
@@ -33,6 +41,11 @@ export class ProductListComponent implements OnInit {
       this.products = (await DataStore.query(Product))
         .filter(p => p.members?.includes(user.sub) || false)
     }
+
+    this.products.forEach(async p => {
+      const languages = (await DataStore.query(Language)).filter(l => l.product?.id === p.id)
+      this.productLanguages[p.id] = languages
+    })
   }
 
   onCreateNewApplicationClicked() {

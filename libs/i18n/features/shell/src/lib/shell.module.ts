@@ -7,6 +7,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 import { DataAccessModule } from '@kizeo/i18n/data-access';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 export const shellRoutes: Route[] = [
   {
@@ -23,11 +25,13 @@ export const shellRoutes: Route[] = [
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule.forRoot(shellRoutes, {preloadingStrategy: PreloadAllModules}),
     DataAccessModule,
     NzMenuModule,
     NzButtonModule,
     NzLayoutModule,
+    NzIconModule,
   ],
   declarations: [
     ShellComponent

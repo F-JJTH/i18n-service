@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { ShellModule } from '@kizeo/i18n/features/shell';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AmplifyAuthenticatorModule,
     ShellModule,
   ],
-  providers: [],
+  providers: [{
+    provide: 'ENVIRONMENT',
+    useValue: environment
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

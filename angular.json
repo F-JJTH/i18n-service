@@ -229,7 +229,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/i18n-web/src/favicon.ico",
-              "apps/i18n-web/src/assets"
+              "apps/i18n-web/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": ["apps/i18n-web/src/styles.scss"],
             "scripts": [],

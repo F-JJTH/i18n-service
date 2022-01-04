@@ -6,7 +6,12 @@
     <div class="product-list">
       <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
         <h1 class="title">{{ product.name }}</h1>
-        <div class="languages"></div>
+        <div class="img"></div>
+        <div class="languages">
+          <nz-tag *ngFor="let language of productLanguages[product.id]" [nzColor]="language.isRequireTranslatorAction ? 'orange' : 'green'">
+            {{ language.code }}
+          </nz-tag>
+        </div>
       </div>
     </div>
   </nz-content>
