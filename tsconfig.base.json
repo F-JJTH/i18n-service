@@ -35,6 +35,7 @@
         "libs/i18n/features/product-list/src/index.ts"
       ],
       "@kizeo/i18n/features/shell": ["libs/i18n/features/shell/src/index.ts"],
+      "@kizeo/i18n/util": ["libs/i18n/util/src/index.ts"],
       "@kizeo/ui": ["libs/ui/src/index.ts"]
     }
   },

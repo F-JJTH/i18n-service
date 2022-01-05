@@ -1,5 +1,6 @@
 import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { IEnvironment } from '@kizeo/i18n/util';
 import { DataStore } from 'aws-amplify';
 
 @Component({
@@ -13,15 +14,16 @@ export class ShellComponent {
 
   constructor(
     private readonly router: Router,
-    @Inject('ENVIRONMENT') public environment: any,
-  ) {}
+    @Inject('ENVIRONMENT') public environment: IEnvironment,
+  ) { }
 
   logout() {
-    this.signOut()
     this.router.navigateByUrl('/')
+    this.signOut()
   }
 
   clearDatastore() {
     DataStore.clear()
+    window.location.reload()
   }
 }

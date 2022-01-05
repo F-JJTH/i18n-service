@@ -58,6 +58,9 @@
   </form>
 </div>
 <div *nzModalFooter>
-  <button nz-button nzType="default" (click)="onCancelClicked()">Annuler</button>
-  <button nz-button nzType="primary" (click)="onCreateOrEditClicked()" [disabled]="!selectedMember && !member">Créer/Modifier</button>
+  <button nz-button nzType="default" (click)="onCancelClicked()">Cancel</button>
+  <button nz-button nzType="primary" (click)="onCreateOrEditClicked()" [disabled]="!selectedMember && !member">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    Créer/Modifier
+  </button>
 </div>

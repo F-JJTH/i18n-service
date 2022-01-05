@@ -65,6 +65,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         }
       })
     )
+
+    this.isTranslatorRequireAction$.next(null)
   }
 
   ngOnDestroy(): void {

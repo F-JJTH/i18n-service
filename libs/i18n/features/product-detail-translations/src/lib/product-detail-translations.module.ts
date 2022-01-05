@@ -11,6 +11,8 @@ import { SelectLanguageModule } from '@kizeo/ui';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent],
@@ -27,6 +29,8 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     NzAlertModule,
     NzLayoutModule,
     NzToolTipModule,
+    NzIconModule,
+    NzBadgeModule,
     SelectLanguageModule,
   ],
 })

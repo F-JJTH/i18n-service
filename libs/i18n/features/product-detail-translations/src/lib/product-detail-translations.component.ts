@@ -18,17 +18,7 @@ interface TranslationItem {
 @Component({
   selector: 'kizeo-i18n-product-detail-translations',
   templateUrl: './product-detail-translations.component.html',
-  styles: [`
-    tr.warning {
-      background: #fffbe6;
-    }
-
-    .slug {
-      color: #00000073;
-      margin: 0;
-      font-size: 10px;
-    }
-  `]
+  styleUrls: ['./product-detail-translations.component.scss'],
 })
 export class ProductDetailTranslationsComponent implements OnInit {
 

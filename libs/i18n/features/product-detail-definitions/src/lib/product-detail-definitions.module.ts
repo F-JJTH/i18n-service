@@ -9,9 +9,12 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 
 @NgModule({
-  declarations: [ProductDetailDefinitionsComponent],
+  declarations: [ProductDetailDefinitionsComponent, ImportDefinitionsModalComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -24,6 +27,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzLayoutModule,
     NzGridModule,
     NzButtonModule,
+    NzBadgeModule,
+    NzModalModule,
   ],
 })
 export class ProductDetailDefinitionsModule {}

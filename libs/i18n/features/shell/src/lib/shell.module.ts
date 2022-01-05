@@ -9,6 +9,7 @@ import { DataAccessModule } from '@kizeo/i18n/data-access';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 export const shellRoutes: Route[] = [
   {
@@ -32,6 +33,7 @@ export const shellRoutes: Route[] = [
     NzButtonModule,
     NzLayoutModule,
     NzIconModule,
+    NzDropDownModule,
   ],
   declarations: [
     ShellComponent

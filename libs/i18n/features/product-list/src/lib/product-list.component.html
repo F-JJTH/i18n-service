@@ -1,12 +1,12 @@
 <nz-layout>
   <nz-content>
     <header>
-      <button *ngIf="canCreateApplication" nz-button (click)="onCreateNewApplicationClicked()">Create new application</button>
+      <button *ngIf="canCreateApplication" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new application</button>
     </header>
     <div class="product-list">
       <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
         <h1 class="title">{{ product.name }}</h1>
-        <div class="img"></div>
+        <nz-skeleton-element nzType="image"></nz-skeleton-element>
         <div class="languages">
           <nz-tag *ngFor="let language of productLanguages[product.id]" [nzColor]="language.isRequireTranslatorAction ? 'orange' : 'green'">
             {{ language.code }}

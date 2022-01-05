@@ -1,25 +1,28 @@
 <form nz-form>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">ID</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzFor="id">ID</nz-form-label>
+    <nz-form-control [nzMd]="14" [nzSm]="24">
       {{ product?.id }}
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="id">Default language</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24">
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzFor="id">Default language</nz-form-label>
+    <nz-form-control [nzMd]="14" [nzSm]="24">
       {{ product?.defaultLanguage }}
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzRequired nzFor="name">Name</nz-form-label>
+    <nz-form-control [nzMd]="14" [nzSm]="24" nzErrorTip="The input is not valid E-mail!">
       <input nz-input name="name" id="name" [(ngModel)]="_name" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <button nz-button nzType="primary" (click)="onSaveClicked()">Submit</button>
+      <button class="align-right" nz-button nzType="primary" [disabled]="!_name" (click)="onSaveClicked()">
+        <i nz-icon nzType="save" nzTheme="outline"></i>
+        Save
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>
@@ -31,7 +34,7 @@
   nz-popconfirm
   nzPopconfirmTitle="Are you sure delete this product?"
   nzPopconfirmPlacement="bottom"
-  nzCancelText="Annuler"
-  nzOkText="Supprimer"
+  nzCancelText="Cancel"
+  nzOkText="Delete"
   nzOkType="danger"
-  (nzOnConfirm)="confirmDelete()">Supprimer</button>
+  (nzOnConfirm)="confirmDelete()">Delete this product</button>

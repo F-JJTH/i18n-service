@@ -1,10 +1,10 @@
-<nz-table [nzData]="languages">
+<nz-table nzTemplateMode nzSize="middle">
   <thead>
     <tr>
       <th>Name</th>
       <th>Code</th>
       <th>
-        <button nz-button (click)="onAddNewLanguageClicked()">Add new language</button>
+        <button nz-button nzType="primary" (click)="onAddNewLanguageClicked()">Add new language</button>
       </th>
     </tr>
   </thead>
@@ -19,10 +19,10 @@
           nz-popconfirm
           nzPopconfirmTitle="Are you sure delete this product?"
           nzPopconfirmPlacement="bottom"
-          nzCancelText="Annuler"
-          nzOkText="Supprimer"
+          nzCancelText="Cancel"
+          nzOkText="Delete"
           nzOkType="danger"
-          (nzOnConfirm)="confirmDelete(language)">Supprimer</button>
+          (nzOnConfirm)="confirmDelete(language)">Delete</button>
       </td>
     </tr>
   </tbody>

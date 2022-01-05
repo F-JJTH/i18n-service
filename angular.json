@@ -211,6 +211,29 @@
       },
       "tags": ["i18n", "shell"]
     },
+    "i18n-util": {
+      "root": "libs/i18n/util",
+      "sourceRoot": "libs/i18n/util/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/i18n/util/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/util"],
+          "options": {
+            "jestConfig": "libs/i18n/util/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "i18n-web": {
       "projectType": "application",
       "root": "apps/i18n-web",

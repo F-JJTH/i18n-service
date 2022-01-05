@@ -21,6 +21,7 @@ import { AddEditMemberModalComponent } from './add-edit-member-modal/add-edit-me
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzCheckboxModule,
     NzRadioModule,
     NzSelectModule,
+    NzIconModule,
     SelectLanguageModule,
   ],
 })

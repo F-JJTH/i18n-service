@@ -2,8 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { IEnvironment } from "@kizeo/i18n/util";
+
+export const environment: IEnvironment = {
   production: false,
+  version: '1.0.0-dev',
 };
 
 /*

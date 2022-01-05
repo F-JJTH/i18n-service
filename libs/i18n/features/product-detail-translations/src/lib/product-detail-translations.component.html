@@ -4,19 +4,29 @@
       <div nz-col nzSpan="16">
         <nz-alert nzType="info" nzMessage="Use «Tab» key to switch between fields" nzShowIcon></nz-alert>
       </div>
-      <div nz-col nzSpan="8">
+      <div nz-col nzSpan="8" class="text-right">
         <button *ngIf="!!modifiedTranslationItems.size"
           nz-button
           (click)="onSaveClicked()"
           nzType="primary"
-          [nzLoading]="isSaving">Save</button>
+          [nzLoading]="isSaving">
+          <i nz-icon nzType="save" nzTheme="outline"></i> Save
+        </button>
       </div>
     </div>
   </header>
-  <nz-table [nzData]="translations">
+
+  <nz-table #table [nzData]="translations" nzSize="middle" [nzPageSize]="25">
     <thead>
       <tr>
-        <th>Default value</th>
+        <th>Default value
+          <nz-badge
+            nzStandalone
+            [nzOverflowCount]="99999"
+            [nzCount]="translations.length"
+            [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+          ></nz-badge>
+        </th>
         <th nzWidth="220px">
           <kizeo-select-language name="selectedLanguage"
           nz-tooltip
@@ -32,10 +42,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let translation of translations" [class.warning]="translation.isRequireTranslatorAction">
+      <tr *ngFor="let translation of table.data" [class.warning]="translation.isRequireTranslatorAction">
         <td>
           <p class="slug">{{ translation.slug }}</p>
-          <p>{{ translation.defaultValue }}</p>
+          <p class="m-0">{{ translation.defaultValue }}</p>
         </td>
         <td>{{ translation.language.name }}</td>
         <td>

@@ -6,6 +6,9 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ProductResolver } from './product.resolver';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 export const productDetailRoutes: Route[] = [
   {
@@ -42,6 +45,9 @@ export const productDetailRoutes: Route[] = [
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,
+    NzIconModule,
+    NzTagModule,
+    NzSkeletonModule,
   ],
 })
 export class ProductDetailModule {}

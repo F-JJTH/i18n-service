@@ -1,25 +1,29 @@
-<header>
-  <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">Add new member</button>
-</header>
-
-<nz-table [nzData]="members">
+<nz-table nzTemplateMode nzSize="middle">
   <thead>
     <tr>
       <th>Member</th>
-      <th>Definitions</th>
-      <th>Languages</th>
-      <th>Deploy</th>
-      <th>Translations</th>
-      <th></th>
+      <th nzAlign="center">Definitions</th>
+      <th nzAlign="center">Languages</th>
+      <th nzAlign="center">Deploy</th>
+      <th nzAlign="center">Translations</th>
+      <th>
+        <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">Add new member</button>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let member of members">
       <td>{{ member.email }}</td>
-      <td>{{ member.authorizations.definitions }}</td>
-      <td>{{ member.authorizations.languages }}</td>
-      <td>{{ member.authorizations.deploy }}</td>
-      <td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.definitions" nz-icon nzType="check-square" nzTheme="outline"></i>
+      </td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.languages" nz-icon nzType="check-square" nzTheme="outline"></i>
+      </td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>
+      </td>
+      <td nzAlign="center">
         <ng-container *ngIf="member.authorizations.translations?.length === 0"></ng-container>
         <ng-container *ngIf="member.authorizations.translations?.length !== 0">
           <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">All</ng-container>
@@ -34,8 +38,8 @@
           nz-popconfirm
           nzPopconfirmTitle="Are you sure delete this product?"
           nzPopconfirmPlacement="bottom"
-          nzCancelText="Annuler"
-          nzOkText="Supprimer"
+          nzCancelText="Cancel"
+          nzOkText="Delete"
           nzOkType="danger"
           (nzOnConfirm)="confirmDelete(member)">Delete</button>
       </td>

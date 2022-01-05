@@ -1,0 +1,30 @@
+<div *nzModalTitle>Import definitions</div>
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <textarea rows="24" [placeholder]="placeholder" nz-input [(ngModel)]="inputValue" (ngModelChange)="onInputValueChanged()"></textarea>
+  </div>
+  <div nz-col nzSpan="12">
+    <nz-table nzTemplateMode nzSize="small" [nzScroll]="{ y: '500px' }">
+      <thead>
+        <tr>
+          <th>Slug (only new Slug are imported)</th>
+          <th>Default value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of parsedValues">
+          <td>{{ i.slug }}</td>
+          <td>{{ i.defaultValue }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="onCancelClicked()">Cancel</button>
+  <button nz-button
+    nzType="primary"
+    [nzLoading]="isLoading"
+    [disabled]="!parsedValues.length"
+    (click)="onImportClicked()">Import {{ parsedValues.length }} new definitions</button>
+</div>

@@ -5,7 +5,7 @@
         <form nz-form>
           <nz-form-item>
             <nz-form-control nzSpan="20">
-              <input nz-input name="slug" type="text" id="slug" [(ngModel)]="slug" placeholder="Slug">
+              <input #slugInput nz-input name="slug" type="text" id="slug" [(ngModel)]="slug" placeholder="Slug">
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
@@ -14,24 +14,33 @@
                 <input nz-input name="value" type="text" id="value" [(ngModel)]="defaultValue" placeholder="Default value">
               </nz-input-group>
             </nz-form-control>
-            <button class="m-l-5" nz-button nzType="primary" (click)="onAddNewDefinitionClicked()">Add</button>
+            <button class="m-l-5" nz-button nzType="primary" [disabled]="!slug || !defaultValue" (click)="onAddNewDefinitionClicked()">Add</button>
           </nz-form-item>
         </form>
       </div>
-      <div nz-col nzSpan="6"></div>
+      <div nz-col nzSpan="6" class="text-right">
+        <button class="m-l-5" nz-button nzType="primary" (click)="onImportDefinitionsClicked()">Import definitions</button>
+      </div>
     </div>
   </header>
   
-  <nz-table [nzData]="definitions">
+  <nz-table #table [nzData]="definitions" nzSize="middle" [nzPageSize]="25">
     <thead>
       <tr>
-        <th>Slug</th>
+        <th>Slug 
+          <nz-badge
+            nzStandalone
+            [nzOverflowCount]="99999"
+            [nzCount]="definitions.length"
+            [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+          ></nz-badge>
+        </th>
         <th>Default value</th>
         <th nzWidth="100px">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let def of definitions">
+      <tr *ngFor="let def of table.data">
         <td>
           <div class="editable-cell" [hidden]="editId === def.id">
             {{ def.slug }}

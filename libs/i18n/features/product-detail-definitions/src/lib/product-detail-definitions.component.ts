@@ -1,20 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Definition, Language, Product, Translation } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
+import { DataStore, Predicates } from 'aws-amplify';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
 
 @Component({
   selector: 'kizeo-i18n-product-detail-definitions',
   templateUrl: './product-detail-definitions.component.html',
-  styles: [`
-      .ant-form-item-label {
-        text-align: left;
-      }
-
-      .ant-form, nz-table {
-        margin: 15px;
-      }
-  `]
+  styleUrls: ['./product-detail-definitions.component.scss']
 })
 
 export class ProductDetailDefinitionsComponent implements OnInit {
@@ -29,8 +23,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   editId: string | null = null;
 
+  @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
+
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly modal: NzModalService,
+    private readonly i18nSvc: I18nService,
   ) { }
 
   async ngOnInit() {
@@ -48,6 +46,16 @@ export class ProductDetailDefinitionsComponent implements OnInit {
       }))
   }
 
+  onImportDefinitionsClicked() {
+    this.modal.create({
+      nzContent: ImportDefinitionsModalComponent,
+      nzWidth: 1280,
+      nzComponentParams: {
+        productId: this.product.id
+      },
+      nzOnOk: () => this.fetch()
+    })
+  }
 
   startEdit(id: string): void {
     this.endEdit()
@@ -109,31 +117,17 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   async onAddNewDefinitionClicked() {
     if (!this.slug || !this.defaultValue) return
 
-    const definition = await DataStore.save(new Definition({
-      defaultValue: this.defaultValue,
-      slug: this.slug,
-      product: this.product
-    }))
+    if (this.definitions.some(d => d.slug === this.slug)) {
+      alert('This SLUG is already used')
+      return
+    }
 
-    const languages = (await DataStore.query(Language))
-      .filter(d => d.product?.id === this.product.id)
-
-    languages.forEach(language => {
-      const value = language.isDefault ? definition.defaultValue : ""
-      DataStore.save(new Translation({
-        definition,
-        language,
-        value,
-        isRequireTranslatorAction: language.isDefault ? false : true
-      }))
-
-      DataStore.save(Language.copyOf(language, updated => {
-        updated.isRequireTranslatorAction = language.isDefault ? false : true
-      }))
-    })
+    await this.i18nSvc.addDefinition(this.slug, this.defaultValue, this.product.id)
 
     this.fetch()
     this.slug = ""
     this.defaultValue = ""
+
+    this.slugInput.nativeElement.focus()
   }
 }
