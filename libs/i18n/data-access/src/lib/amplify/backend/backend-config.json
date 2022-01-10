@@ -88,5 +88,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "i18ntranslations": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

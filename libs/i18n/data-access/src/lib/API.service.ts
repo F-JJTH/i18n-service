@@ -30,6 +30,8 @@ export type CreateProductInput = {
   defaultLanguage: string;
   members?: Array<string | null> | null;
   authorizations?: Array<MemberInput | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   _version?: number | null;
 };
 
@@ -50,6 +52,8 @@ export type ModelProductConditionInput = {
   name?: ModelStringInput | null;
   defaultLanguage?: ModelStringInput | null;
   members?: ModelStringInput | null;
+  publishedPreprodAt?: ModelStringInput | null;
+  publishedProdAt?: ModelStringInput | null;
   and?: Array<ModelProductConditionInput | null> | null;
   or?: Array<ModelProductConditionInput | null> | null;
   not?: ModelProductConditionInput | null;
@@ -104,6 +108,8 @@ export type Product = {
   translations?: ModelTranslationConnection | null;
   members?: Array<string | null> | null;
   authorizations?: Array<Member | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -203,6 +209,8 @@ export type UpdateProductInput = {
   defaultLanguage?: string | null;
   members?: Array<string | null> | null;
   authorizations?: Array<MemberInput | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   _version?: number | null;
 };
 
@@ -341,6 +349,8 @@ export type ModelProductFilterInput = {
   name?: ModelStringInput | null;
   defaultLanguage?: ModelStringInput | null;
   members?: ModelStringInput | null;
+  publishedPreprodAt?: ModelStringInput | null;
+  publishedProdAt?: ModelStringInput | null;
   and?: Array<ModelProductFilterInput | null> | null;
   or?: Array<ModelProductFilterInput | null> | null;
   not?: ModelProductFilterInput | null;
@@ -413,6 +423,8 @@ export type CreateProductMutation = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -446,6 +458,8 @@ export type UpdateProductMutation = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -479,6 +493,8 @@ export type DeleteProductMutation = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -498,6 +514,8 @@ export type CreateLanguageMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -530,6 +548,8 @@ export type UpdateLanguageMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -562,6 +582,8 @@ export type DeleteLanguageMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -593,6 +615,8 @@ export type CreateDefinitionMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -623,6 +647,8 @@ export type UpdateDefinitionMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -653,6 +679,8 @@ export type DeleteDefinitionMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -707,6 +735,8 @@ export type CreateTranslationMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -760,6 +790,8 @@ export type UpdateTranslationMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -813,6 +845,8 @@ export type DeleteTranslationMutation = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -857,6 +891,8 @@ export type GetProductQuery = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -872,6 +908,8 @@ export type ListProductsQuery = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -890,6 +928,8 @@ export type SyncProductsQuery = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -912,6 +952,8 @@ export type GetLanguageQuery = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -983,6 +1025,8 @@ export type GetDefinitionQuery = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1073,6 +1117,8 @@ export type GetTranslationQuery = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1157,6 +1203,8 @@ export type OnCreateProductSubscription = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1190,6 +1238,8 @@ export type OnUpdateProductSubscription = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1223,6 +1273,8 @@ export type OnDeleteProductSubscription = {
     id: string;
     email: string;
   } | null> | null;
+  publishedPreprodAt?: string | null;
+  publishedProdAt?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1242,6 +1294,8 @@ export type OnCreateLanguageSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1274,6 +1328,8 @@ export type OnUpdateLanguageSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1306,6 +1362,8 @@ export type OnDeleteLanguageSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1337,6 +1395,8 @@ export type OnCreateDefinitionSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1367,6 +1427,8 @@ export type OnUpdateDefinitionSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1397,6 +1459,8 @@ export type OnDeleteDefinitionSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1451,6 +1515,8 @@ export type OnCreateTranslationSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1504,6 +1570,8 @@ export type OnUpdateTranslationSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1557,6 +1625,8 @@ export type OnDeleteTranslationSubscription = {
     name: string;
     defaultLanguage: string;
     members?: Array<string | null> | null;
+    publishedPreprodAt?: string | null;
+    publishedProdAt?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1610,6 +1680,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -1659,6 +1731,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -1708,6 +1782,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -1743,6 +1819,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -1791,6 +1869,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -1839,6 +1919,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -1886,6 +1968,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -1932,6 +2016,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -1978,6 +2064,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2048,6 +2136,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2117,6 +2207,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2186,6 +2278,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2243,6 +2337,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -2272,6 +2368,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2312,6 +2410,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2354,6 +2454,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2481,6 +2583,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2627,6 +2731,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2770,6 +2876,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -2813,6 +2921,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -2856,6 +2966,8 @@ export class APIService {
             id
             email
           }
+          publishedPreprodAt
+          publishedProdAt
           createdAt
           updatedAt
           _version
@@ -2885,6 +2997,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2927,6 +3041,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -2969,6 +3085,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3010,6 +3128,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3050,6 +3170,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3090,6 +3212,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3154,6 +3278,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3217,6 +3343,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version
@@ -3280,6 +3408,8 @@ export class APIService {
             name
             defaultLanguage
             members
+            publishedPreprodAt
+            publishedProdAt
             createdAt
             updatedAt
             _version

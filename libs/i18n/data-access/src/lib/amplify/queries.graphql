@@ -21,6 +21,8 @@ query GetProduct($id: ID!) {
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -39,6 +41,8 @@ query ListProducts(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -66,6 +70,8 @@ query SyncProducts(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -87,6 +93,8 @@ query GetLanguage($id: ID!) {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -168,6 +176,8 @@ query GetDefinition($id: ID!) {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -266,6 +276,8 @@ query GetTranslation($id: ID!) {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version

@@ -21,6 +21,8 @@ subscription OnCreateProduct {
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -50,6 +52,8 @@ subscription OnUpdateProduct {
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -79,6 +83,8 @@ subscription OnDeleteProduct {
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -97,6 +103,8 @@ subscription OnCreateLanguage {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -127,6 +135,8 @@ subscription OnUpdateLanguage {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -157,6 +167,8 @@ subscription OnDeleteLanguage {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -186,6 +198,8 @@ subscription OnCreateDefinition {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -214,6 +228,8 @@ subscription OnUpdateDefinition {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -242,6 +258,8 @@ subscription OnDeleteDefinition {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -292,6 +310,8 @@ subscription OnCreateTranslation {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -342,6 +362,8 @@ subscription OnUpdateTranslation {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -392,6 +414,8 @@ subscription OnDeleteTranslation {
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version

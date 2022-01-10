@@ -24,6 +24,8 @@ mutation CreateProduct(
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -56,6 +58,8 @@ mutation UpdateProduct(
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -88,6 +92,8 @@ mutation DeleteProduct(
       id
       email
     }
+    publishedPreprodAt
+    publishedProdAt
     createdAt
     updatedAt
     _version
@@ -109,6 +115,8 @@ mutation CreateLanguage(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -142,6 +150,8 @@ mutation UpdateLanguage(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -175,6 +185,8 @@ mutation DeleteLanguage(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -207,6 +219,8 @@ mutation CreateDefinition(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -238,6 +252,8 @@ mutation UpdateDefinition(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -269,6 +285,8 @@ mutation DeleteDefinition(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -322,6 +340,8 @@ mutation CreateTranslation(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -375,6 +395,8 @@ mutation UpdateTranslation(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version
@@ -428,6 +450,8 @@ mutation DeleteTranslation(
       name
       defaultLanguage
       members
+      publishedPreprodAt
+      publishedProdAt
       createdAt
       updatedAt
       _version

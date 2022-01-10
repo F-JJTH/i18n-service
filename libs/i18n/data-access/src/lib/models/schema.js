@@ -84,6 +84,20 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
+                "publishedPreprodAt": {
+                    "name": "publishedPreprodAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "publishedProdAt": {
+                    "name": "publishedProdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -504,5 +518,5 @@ export const schema = {
             }
         }
     },
-    "version": "5672992f07630202d290bd5f05505037"
+    "version": "7f3bd99d3cc0e412a8e7f0b3f0b00c36"
 };

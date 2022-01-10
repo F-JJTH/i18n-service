@@ -1,10 +1,11 @@
-import { Injectable } from "@angular/core";
-import { DataStore } from "aws-amplify";
-import { Definition, Language, MemberAuthorization, Product, Translation } from "..";
+import {Injectable} from "@angular/core";
+import {DataStore, Storage} from "aws-amplify";
+import {Definition, Language, MemberAuthorization, Product, Translation} from "..";
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
-  constructor() { }
+  constructor() {
+  }
 
   clearLocalDB() {
     DataStore.clear()
@@ -41,7 +42,7 @@ export class I18nService {
         email: memberEmail,
         id: memberId,
         authorizations
-      }]      
+      }]
     }))
   }
 
@@ -82,7 +83,7 @@ export class I18nService {
       .filter(p => p.members?.includes(memberId) || false)
   }
 
-  async createProduct(name: string, defaultLanguage: {code: string, label: string}, currentUser: {sub: string, email: string}) {
+  async createProduct(name: string, defaultLanguage: { code: string, label: string }, currentUser: { sub: string, email: string }) {
     const product = await DataStore.save(new Product({
       name: name,
       defaultLanguage: defaultLanguage.code,
@@ -125,14 +126,19 @@ export class I18nService {
       .filter(d => d.product?.id === productId)
   }
 
-  async updateTranslations(translationItems: {id: string, value: string}[]) {
+  async getTranslationsByLanguageId(languageId: string) {
+    return (await DataStore.query(Translation))
+      .filter(d => d.language?.id === languageId)
+  }
+
+  async updateTranslations(translationItems: { id: string, value: string }[]) {
     let promises: Promise<any>[] = []
     const modifiedLanguages: Map<string, Language> = new Map()
 
     translationItems.forEach(async translationItem => {
       const translation = await DataStore.query(Translation, translationItem.id)
       if (!translation) return
-      
+
       modifiedLanguages.set(translation.language.id, translation.language)
 
       promises.push(
@@ -166,12 +172,12 @@ export class I18nService {
 
     await DataStore.save(Definition.copyOf(definition, updated => {
       updated.slug = slug,
-      updated.defaultValue = defaultValue
+        updated.defaultValue = defaultValue
     }))
 
     const translations = (await DataStore.query(Translation))
       .filter(t => t.definition.id === definition!.id)
-    
+
     let promises: Promise<any>[] = []
     translations.forEach(t => {
       promises.push(
@@ -273,5 +279,55 @@ export class I18nService {
 
   async deleteDefinition(id: string) {
     return DataStore.delete(Definition, id)
+  }
+
+  async publishPreprodTranslationsForProduct(id: string) {
+    const languages = await this.getLanguagesByProductId(id)
+
+    const promises = languages.map(async l => {
+      return new Promise(async (resolve, reject) => {
+        const translations = await this.getTranslationsByLanguageId(l.id)
+        const fileContent = translations.reduce((prev, t) => {
+          return {...prev, [t.definition.slug]: t.value}
+        }, {})
+        try {
+          const result = await Storage.put(`${id}/preprod/${l.code}.json`, fileContent)
+
+          resolve(result)
+        } catch (err) {
+          console.warn(err)
+          reject("cannot write to s3")
+        }
+      })
+    })
+
+    await Promise.all(promises)
+
+    const product = await this.getProductById(id)
+    if (!product) {
+      return Promise.reject(`Product ${id} not found`)
+    }
+    DataStore.save(Product.copyOf(product, updated => {
+      updated.publishedPreprodAt = new Date().toISOString()
+    }))
+
+    return Promise.resolve()
+  }
+
+  async publishProdTranslationsForProduct(id: string) {
+    const preprodFiles = await Storage.list(`${id}/preprod/`)
+    preprodFiles.forEach(pf => {
+      Storage.copy({ key: pf.key! }, { key: pf.key!.replace("preprod", "prod") });
+    })
+
+    const product = await this.getProductById(id)
+    if (!product) {
+      return Promise.reject(`Product ${id} not found`)
+    }
+    DataStore.save(Product.copyOf(product, updated => {
+      updated.publishedProdAt = new Date().toISOString()
+    }))
+
+    return Promise.resolve()
   }
 }

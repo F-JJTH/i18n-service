@@ -42,6 +42,8 @@ export declare class Product {
   readonly translations?: (Translation | null)[];
   readonly members?: (string | null)[];
   readonly authorizations?: (Member | null)[];
+  readonly publishedPreprodAt?: string;
+  readonly publishedProdAt?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Product, ProductMetaData>);

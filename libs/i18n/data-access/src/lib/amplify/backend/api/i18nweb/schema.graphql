@@ -23,6 +23,8 @@ type Product @model @auth(rules: [{ allow: private }]) {
   translations: [Translation] @hasMany
   members: [String]
   authorizations: [Member]
+  publishedPreprodAt: AWSDateTime
+  publishedProdAt: AWSDateTime
 }
 
 type Language @model @auth(rules: [{ allow: private }]) {

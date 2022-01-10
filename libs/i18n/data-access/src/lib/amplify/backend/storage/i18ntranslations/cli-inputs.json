@@ -1,0 +1,16 @@
+{
+  "resourceName": "i18ntranslations",
+  "policyUUID": "ccf2fda9",
+  "bucketName": "i18ntranslations",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

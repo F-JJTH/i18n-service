@@ -1,7 +1,6 @@
 <nz-content>
   <div nz-row>
     <div nz-col nzSpan="24">
-      <p>Last translation modification at: xxxxxx</p>
       <nz-alert *ngIf="hasIncompleteTranslations"
         nzType="warning"
         nzMessage="Translations are not completed"
@@ -10,15 +9,15 @@
   </div>
   <div nz-row nzJustify="space-around" class="m-t-80 m-b-80">
     <div nz-col>
-      <p>Last staging deploy at: xxxxxxxxxx</p>
-      <button nz-button nzType="primary">
+      <p *ngIf="product?.publishedPreprodAt">Last staging deploy at: {{ product!.publishedPreprodAt | date:'short' }}</p>
+      <button nz-button nzType="primary" (click)="onPublishPreprodClicked()" [nzLoading]="isLoadingPreprod">
         Deploy translations for staging
         <i nz-icon nzType="rocket" nzTheme="outline"></i>
       </button>
     </div>
     <div nz-col>
-      <p>Last production deploy at: xxxxxxxxxx</p>
-      <button nz-button nzType="primary">
+      <p *ngIf="product?.publishedProdAt">Last production deploy at: {{ product!.publishedProdAt | date:'short' }}</p>
+      <button nz-button nzType="primary" (click)="onPublishProdClicked()" [nzLoading]="isLoadingProd">
         Deploy translations for production
         <i nz-icon nzType="rocket" nzTheme="outline"></i>
       </button>
