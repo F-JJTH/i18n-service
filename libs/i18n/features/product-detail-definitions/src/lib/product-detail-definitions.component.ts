@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
-import { DataStore, Predicates } from 'aws-amplify';
+import { I18nService, Product } from '@kizeo/i18n/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
 
@@ -37,8 +36,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async fetch() {
-    this.definitions = (await DataStore.query(Definition))
-      .filter(d => d.product?.id === this.product.id)
+    this.definitions = (await this.i18nSvc.getDefinitionsByProductId(this.product.id))
       .map(d => ({
         id: d.id,
         slug: d.slug,
@@ -63,41 +61,9 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async stopEdit(slug: string, defaultValue: string) {
-    if (!slug || !defaultValue) return
+    if (!slug || !defaultValue || !this.editId) return
 
-    const definition = await DataStore.query(Definition, this.editId!)
-    await DataStore.save(Definition.copyOf(definition!, updated => {
-      updated.slug = slug,
-      updated.defaultValue = defaultValue
-    }))
-
-    const translations = (await DataStore.query(Translation))
-      .filter(t => t.definition.id === definition!.id)
-    
-    let promises: Promise<any>[] = []
-    translations.forEach(t => {
-      promises.push(
-        DataStore.save(
-          Translation.copyOf(t, updated => {
-            if (t.language.isDefault) {
-              updated.value = defaultValue
-            }
-            updated.isRequireTranslatorAction = t.language.isDefault ? false : true
-          })
-        )
-      )
-
-      if (!t.language.isDefault) {
-        promises.push(
-          DataStore.save(
-            Language.copyOf(t.language!, updated => {
-              updated.isRequireTranslatorAction = true
-            })
-          )
-        )
-      }
-    })
-    await Promise.all(promises)
+    await this.i18nSvc.updateDefinition(this.editId, slug, defaultValue)
 
     this.fetch()
     this.editId = null;
@@ -109,8 +75,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async confirmDelete(definitionId: string) {
-    const definition = await DataStore.query(Definition, definitionId)
-    await DataStore.delete(definition!)
+    await this.i18nSvc.deleteDefinition(definitionId)
     this.fetch()
   }
 

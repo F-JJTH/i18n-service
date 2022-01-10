@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminQueriesService, Member, Product } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { AdminQueriesService, I18nService, Member, Product } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -28,6 +27,7 @@ export class AddEditMemberModalComponent implements OnInit {
   constructor(
     private readonly modalRef: NzModalRef,
     private readonly adminQueries: AdminQueriesService,
+    private readonly i18nSvc: I18nService,
   ) {}
 
   async ngOnInit() {
@@ -54,32 +54,18 @@ export class AddEditMemberModalComponent implements OnInit {
   }
 
   async onCreateOrEditClicked() {
-    const newAuthorizations = {
+    const authorizations = {
       definitions: this.manageDefinitions,
       deploy: this.manageDeploy,
       languages: this.manageLanguages,
       translations: this.manageTranslations === 'all' ? ['ALL'] : this.languages.filter(l => l.code !== 'ALL').map(l => l.code)
     }
 
-    if (this.isNew && ! this.selectedMember) return
-
-    const product: Product = (await DataStore.query(Product, this.product.id))!
-    await DataStore.save(Product.copyOf(product, updated => {
-      if (this.isNew) {
-        updated.members = [...product.members!, this.selectedMember?.id!]
-
-        updated.authorizations = [...product.authorizations!, {
-          email: this.selectedMember?.email!,
-          id: this.selectedMember?.id!,
-          authorizations: newAuthorizations
-        }]
-      } else {
-        updated.authorizations = product.authorizations?.map(a => {
-          if (a?.id !== this.member?.id) return a
-          return {...a!, authorizations: newAuthorizations}
-        })
-      }
-    }))
+    if (this.isNew && this.selectedMember) {
+      await this.i18nSvc.addMemberToProduct(this.selectedMember.id, this.selectedMember.email, authorizations, this.product.id)
+    } else if (this.member) {
+      await this.i18nSvc.updateMemberForProduct(this.member.id, authorizations, this.product.id)
+    }
 
     this.modalRef.triggerOk()
   }

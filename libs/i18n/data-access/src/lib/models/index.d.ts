@@ -39,6 +39,7 @@ export declare class Product {
   readonly defaultLanguage: string;
   readonly languages?: (Language | null)[];
   readonly definitions?: (Definition | null)[];
+  readonly translations?: (Translation | null)[];
   readonly members?: (string | null)[];
   readonly authorizations?: (Member | null)[];
   readonly createdAt?: string;
@@ -65,6 +66,7 @@ export declare class Translation {
   readonly id: string;
   readonly definition: Definition;
   readonly language: Language;
+  readonly product: Product;
   readonly value?: string;
   readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;

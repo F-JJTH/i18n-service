@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CurrentUserService, Product, Language } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { CurrentUserService, Product, Language, I18nService } from '@kizeo/i18n/data-access';
 import { ZenObservable } from 'zen-observable-ts';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-app-modal.component";
@@ -21,12 +20,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private readonly modal: NzModalService,
     private readonly currentUser: CurrentUserService,
+    private readonly i18nSvc: I18nService,
   ) {}
 
   async ngOnInit() {
     this.fetch()
     this.canCreateApplication = await this.currentUser.isAdmin()
-    this.dtStoreSubscriptions = DataStore.observe(Product).subscribe(() => this.fetch())
+    this.dtStoreSubscriptions = this.i18nSvc.observeProducts().subscribe(() => this.fetch())
   }
 
   ngOnDestroy(): void {
@@ -35,16 +35,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   
   async fetch() {
     if (await this.currentUser.isAdmin()) {
-      this.products = await DataStore.query(Product)
+      this.products = await this.i18nSvc.getProducts()
     } else {
       const user: any = await this.currentUser.getPayload()
-      this.products = (await DataStore.query(Product))
-        .filter(p => p.members?.includes(user.sub) || false)
+      this.products = await this.i18nSvc.getProductsForMember(user.sub)
     }
 
     this.products.forEach(async p => {
-      const languages = (await DataStore.query(Language)).filter(l => l.product?.id === p.id)
-      this.productLanguages[p.id] = languages
+      this.productLanguages[p.id] = await this.i18nSvc.getLanguagesByProductId(p.id)
     })
   }
 

@@ -12,6 +12,10 @@ subscription OnCreateProduct {
       nextToken
       startedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
     members
     authorizations {
       id
@@ -37,6 +41,10 @@ subscription OnUpdateProduct {
       nextToken
       startedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
     members
     authorizations {
       id
@@ -59,6 +67,10 @@ subscription OnDeleteProduct {
       startedAt
     }
     definitions {
+      nextToken
+      startedAt
+    }
+    translations {
       nextToken
       startedAt
     }
@@ -275,6 +287,17 @@ subscription OnCreateTranslation {
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -282,6 +305,7 @@ subscription OnCreateTranslation {
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
@@ -313,6 +337,17 @@ subscription OnUpdateTranslation {
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -320,6 +355,7 @@ subscription OnUpdateTranslation {
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
@@ -351,6 +387,17 @@ subscription OnDeleteTranslation {
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -358,6 +405,7 @@ subscription OnDeleteTranslation {
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }

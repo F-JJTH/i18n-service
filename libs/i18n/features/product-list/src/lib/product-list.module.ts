@@ -12,6 +12,7 @@ import { FormsModule } from "@angular/forms";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
+import { NzResultModule } from "ng-zorro-antd/result";
 import { SelectLanguageModule } from '@kizeo/ui';
 
 @NgModule({
@@ -30,6 +31,7 @@ import { SelectLanguageModule } from '@kizeo/ui';
     NzInputModule,
     NzTagModule,
     NzSkeletonModule,
+    NzResultModule,
     SelectLanguageModule,
   ],
 })

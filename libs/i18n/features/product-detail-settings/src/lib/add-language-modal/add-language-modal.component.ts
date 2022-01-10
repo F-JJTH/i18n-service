@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
+import { I18nService, Product } from '@kizeo/i18n/data-access';
 import { SelectLanguageOption } from '@kizeo/ui';
-import { DataStore } from 'aws-amplify';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({

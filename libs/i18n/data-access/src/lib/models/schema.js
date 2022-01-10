@@ -52,6 +52,20 @@ export const schema = {
                         "associatedWith": "productDefinitionsId"
                     }
                 },
+                "translations": {
+                    "name": "translations",
+                    "isArray": true,
+                    "type": {
+                        "model": "Translation"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "productTranslationsId"
+                    }
+                },
                 "members": {
                     "name": "members",
                     "isArray": true,
@@ -253,6 +267,19 @@ export const schema = {
                     "association": {
                         "connectionType": "BELONGS_TO",
                         "targetName": "languageTranslationsId"
+                    }
+                },
+                "product": {
+                    "name": "product",
+                    "isArray": false,
+                    "type": {
+                        "model": "Product"
+                    },
+                    "isRequired": true,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "productTranslationsId"
                     }
                 },
                 "value": {
@@ -477,5 +504,5 @@ export const schema = {
             }
         }
     },
-    "version": "0b22871aa810d92fbfc9b942a31ce2f0"
+    "version": "5672992f07630202d290bd5f05505037"
 };

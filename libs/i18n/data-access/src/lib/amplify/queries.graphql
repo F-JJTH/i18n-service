@@ -12,6 +12,10 @@ query GetProduct($id: ID!) {
       nextToken
       startedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
     members
     authorizations {
       id
@@ -257,6 +261,17 @@ query GetTranslation($id: ID!) {
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -264,6 +279,7 @@ query GetTranslation($id: ID!) {
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
@@ -283,6 +299,7 @@ query ListTranslations(
       _version
       _deleted
       _lastChangedAt
+      productTranslationsId
       languageTranslationsId
       definitionTranslationsId
     }
@@ -311,6 +328,7 @@ query SyncTranslations(
       _version
       _deleted
       _lastChangedAt
+      productTranslationsId
       languageTranslationsId
       definitionTranslationsId
     }

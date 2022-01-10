@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CurrentUserService, Member, Product } from '@kizeo/i18n/data-access';
+import { CurrentUserService, I18nService, Member, Product } from '@kizeo/i18n/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddEditMemberModalComponent } from '../add-edit-member-modal/add-edit-member-modal.component';
-import { DataStore } from 'aws-amplify';
 import { ZenObservable } from 'zen-observable-ts';
 
 @Component({
@@ -23,12 +22,13 @@ export class MembersComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
     private readonly currentUser: CurrentUserService,
+    private readonly i18nSvc: I18nService,
   ) { }
 
   async ngOnInit() {
     this.product = this.route.parent?.parent?.snapshot.data['product']
 
-    this.dtStoreSubscription = DataStore.observe(Product, this.product.id).subscribe(data => {
+    this.dtStoreSubscription = this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
       this.product = data.element
     })
 
@@ -53,11 +53,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   async confirmDelete(member: Member) {
-    const product = (await DataStore.query(Product, this.product.id))!
-    await DataStore.save(Product.copyOf(product, updated => {
-      updated.members = product.members?.filter(m => m !== member.id)
-      updated.authorizations = product.authorizations?.filter(a => a?.id !== member.id)
-    }))
+    await this.i18nSvc.deleteMemberFromProduct(member.id, this.product.id)
   }
 
   onEditMemberClicked(member: Member) {

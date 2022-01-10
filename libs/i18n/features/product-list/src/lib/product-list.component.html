@@ -1,18 +1,24 @@
-<nz-layout>
-  <nz-content>
-    <header>
-      <button *ngIf="canCreateApplication" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new application</button>
-    </header>
-    <div class="product-list">
-      <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
-        <h1 class="title">{{ product.name }}</h1>
-        <nz-skeleton-element nzType="image"></nz-skeleton-element>
-        <div class="languages">
-          <nz-tag *ngFor="let language of productLanguages[product.id]" [nzColor]="language.isRequireTranslatorAction ? 'orange' : 'green'">
-            {{ language.code }}
-          </nz-tag>
-        </div>
+<nz-content>
+  <header>
+    <button *ngIf="canCreateApplication && !!products.length" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new product</button>
+  </header>
+  <div *ngIf="!!products.length" class="product-list">
+    <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
+      <h1 class="title">{{ product.name }}</h1>
+      <nz-skeleton-element nzType="image"></nz-skeleton-element>
+      <div class="languages">
+        <nz-tag *ngFor="let language of productLanguages[product.id]" [nzColor]="language.isRequireTranslatorAction ? 'orange' : 'green'">
+          {{ language.code }}
+        </nz-tag>
       </div>
     </div>
-  </nz-content>
-</nz-layout>
+  </div>
+  <nz-result *ngIf="!products.length"
+    [nzIcon]="'smile-twotone'"
+    nzStatus="404"
+    [nzTitle]="'There is no product yet!'">
+    <div nz-result-extra>
+      <button *ngIf="canCreateApplication" nzSize="large" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new product</button>
+    </div>
+  </nz-result>
+</nz-content>

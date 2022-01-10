@@ -1,17 +1,30 @@
 import { Injectable } from '@angular/core';
 import {
   Resolve,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
+  Router
 } from '@angular/router';
-import { Product } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { I18nService, Product } from '@kizeo/i18n/data-access';
 
 @Injectable({providedIn: 'root'})
 export class ProductResolver implements Resolve<Product | undefined> {
-  resolve(route: ActivatedRouteSnapshot): Promise<Product | undefined> {
-    const productId = route.paramMap.get('productId')
-    if (!productId) return Promise.resolve(undefined)
+  constructor(
+    private readonly router: Router,
+    private readonly i18nSvc: I18nService,
+  ) {}
 
-    return DataStore.query(Product, productId)
+  async resolve(route: ActivatedRouteSnapshot): Promise<Product> {
+    const productId = route.paramMap.get('productId')
+    if (!productId) {
+      this.router.navigateByUrl('/')
+    }
+
+    const product = await this.i18nSvc.getProductById(productId!)
+
+    if (!product) {
+      this.router.navigateByUrl('/')
+    }
+
+    return product!
   }
 }

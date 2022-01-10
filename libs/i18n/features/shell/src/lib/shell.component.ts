@@ -1,7 +1,7 @@
 import { Component, Inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { I18nService } from '@kizeo/i18n/data-access';
 import { IEnvironment } from '@kizeo/i18n/util';
-import { DataStore } from 'aws-amplify';
 
 @Component({
   selector: 'kizeo-i18n-shell',
@@ -15,6 +15,7 @@ export class ShellComponent {
   constructor(
     private readonly router: Router,
     @Inject('ENVIRONMENT') public environment: IEnvironment,
+    private readonly i18nSvc: I18nService
   ) { }
 
   logout() {
@@ -22,8 +23,8 @@ export class ShellComponent {
     this.signOut()
   }
 
-  clearDatastore() {
-    DataStore.clear()
+  clearLocalDB() {
+    this.i18nSvc.clearLocalDB()
     window.location.reload()
   }
 }

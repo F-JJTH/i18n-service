@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PredicateAll } from '@aws-amplify/datastore/lib-esm/predicates';
-import { Language, Product } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { I18nService, Language, Product } from '@kizeo/i18n/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from '../add-language-modal/add-language-modal.component';
 
@@ -20,6 +18,7 @@ export class LanguagesComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
+    private readonly i18nSvc: I18nService,
   ) { }
 
   ngOnInit() {
@@ -28,11 +27,11 @@ export class LanguagesComponent implements OnInit {
   }
 
   async fetch() {
-    this.languages = (await DataStore.query(Language)).filter(l => l.product?.id === this.product.id)
+    this.languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
   }
 
   async confirmDelete(language: Language) {
-    await DataStore.delete(Language, language.id)
+    await this.i18nSvc.deleteLanguage(language.id)
     this.fetch()
   }
 

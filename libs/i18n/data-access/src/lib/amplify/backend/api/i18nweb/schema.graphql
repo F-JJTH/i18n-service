@@ -20,6 +20,7 @@ type Product @model @auth(rules: [{ allow: private }]) {
   defaultLanguage: String!
   languages: [Language] @hasMany
   definitions: [Definition] @hasMany
+  translations: [Translation] @hasMany
   members: [String]
   authorizations: [Member]
 }
@@ -46,6 +47,7 @@ type Translation @model @auth(rules: [{ allow: private }]) {
   id: ID!
   definition: Definition! @belongsTo
   language: Language! @belongsTo
+  product: Product! @belongsTo
   value: String
   isRequireTranslatorAction: Boolean @default(value: "false")
 }

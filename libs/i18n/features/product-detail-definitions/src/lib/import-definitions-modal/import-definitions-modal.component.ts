@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Definition, I18nService } from '@kizeo/i18n/data-access';
-import { DataStore } from 'aws-amplify';
+import { I18nService } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -34,9 +33,8 @@ export class ImportDefinitionsModalComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.knownSlugs = (await DataStore.query(Definition))
-    .filter(d => d.product?.id === this.productId)
-    .map(d => d.slug)
+    this.knownSlugs = (await this.i18nSvc.getDefinitionsByProductId(this.productId))
+      .map(d => d.slug)
   }
 
   onInputValueChanged() {

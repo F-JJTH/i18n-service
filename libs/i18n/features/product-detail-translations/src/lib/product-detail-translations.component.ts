@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Language, Product, Translation } from '@kizeo/i18n/data-access';
+import { I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
 import { DataStore } from 'aws-amplify';
 import { ZenObservable } from 'zen-observable-ts';
@@ -38,21 +38,21 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly i18nSvc: I18nService,
   ) { }
 
   async ngOnInit() {
     this.product = this.route.parent?.parent?.snapshot.data['product']
-    const languageCodesForProduct = (await DataStore.query(Language))
-      .filter(l => l.product.id === this.product.id)
+
+    const languageCodesForProduct = (await this.i18nSvc.getLanguagesByProductId(this.product.id))
       .map(l => l.code)
     this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
     this.fetch()
   }
 
   async fetch() {
-    this.translations = (await DataStore.query(Translation))
+    this.translations = (await this.i18nSvc.getTranslationsByProductId(this.product.id))
       .filter(t => (
-          (t.definition as any).productDefinitionsId === this.product.id &&
           (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language.code) : true)
         )
       )
@@ -78,35 +78,39 @@ export class ProductDetailTranslationsComponent implements OnInit {
     this.modifiedTranslationItems.set(translation.id, translation)
   }
 
-  async onSaveClicked() {
+  async onSaveTranslationsClicked() {
     this.isSaving = true
 
-    let promises: Promise<any>[] = []
-    const modifierLanguages: Map<string, Language> = new Map()
-    this.modifiedTranslationItems.forEach(translationItem => {
-      modifierLanguages.set(translationItem.language.id, translationItem.language)
+    await this.i18nSvc.updateTranslations(
+      Array.from(this.modifiedTranslationItems.values())
+    )
 
-      promises.push(
-        DataStore.save(
-          Translation.copyOf(translationItem.translation!, updated => {
-            updated.value = translationItem.value
-            updated.isRequireTranslatorAction = translationItem.value ? false : true
-          })
-        )
-      )
-    })
+    // let promises: Promise<any>[] = []
+    // const modifierLanguages: Map<string, Language> = new Map()
+    // this.modifiedTranslationItems.forEach(translationItem => {
+    //   modifierLanguages.set(translationItem.language.id, translationItem.language)
 
-    await Promise.all(promises)
+    //   promises.push(
+    //     DataStore.save(
+    //       Translation.copyOf(translationItem.translation!, updated => {
+    //         updated.value = translationItem.value
+    //         updated.isRequireTranslatorAction = translationItem.value ? false : true
+    //       })
+    //     )
+    //   )
+    // })
 
-    modifierLanguages.forEach(async language => {
-      const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
-        .filter(t => t.language.id === language.id && t.isRequireTranslatorAction === true)
-      DataStore.save(
-        Language.copyOf(language, updated => {
-          updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
-        })
-      )
-    })
+    // await Promise.all(promises)
+
+    // modifierLanguages.forEach(async language => {
+    //   const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
+    //     .filter(t => t.language.id === language.id && t.isRequireTranslatorAction === true)
+    //   DataStore.save(
+    //     Language.copyOf(language, updated => {
+    //       updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
+    //     })
+    //   )
+    // })
 
     setTimeout(() => {
       this.modifiedTranslationItems.clear()

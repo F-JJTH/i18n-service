@@ -15,6 +15,10 @@ mutation CreateProduct(
       nextToken
       startedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
     members
     authorizations {
       id
@@ -43,6 +47,10 @@ mutation UpdateProduct(
       nextToken
       startedAt
     }
+    translations {
+      nextToken
+      startedAt
+    }
     members
     authorizations {
       id
@@ -68,6 +76,10 @@ mutation DeleteProduct(
       startedAt
     }
     definitions {
+      nextToken
+      startedAt
+    }
+    translations {
       nextToken
       startedAt
     }
@@ -305,6 +317,17 @@ mutation CreateTranslation(
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -312,6 +335,7 @@ mutation CreateTranslation(
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
@@ -346,6 +370,17 @@ mutation UpdateTranslation(
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -353,6 +388,7 @@ mutation UpdateTranslation(
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
@@ -387,6 +423,17 @@ mutation DeleteTranslation(
       _lastChangedAt
       productLanguagesId
     }
+    product {
+      id
+      name
+      defaultLanguage
+      members
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     value
     isRequireTranslatorAction
     createdAt
@@ -394,6 +441,7 @@ mutation DeleteTranslation(
     _version
     _deleted
     _lastChangedAt
+    productTranslationsId
     languageTranslationsId
     definitionTranslationsId
   }
