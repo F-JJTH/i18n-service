@@ -71,6 +71,20 @@
           ]
         }
       ]
+    },
+    "public": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "publicProduct",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     }
   },
   "function": {
@@ -84,6 +98,20 @@
           "resourceName": "kizeob05c728a",
           "attributes": [
             "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "publicProduct": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "i18ntranslations",
+          "attributes": [
+            "BucketName"
           ]
         }
       ]

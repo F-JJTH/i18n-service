@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "storage": {
+      "i18ntranslations": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

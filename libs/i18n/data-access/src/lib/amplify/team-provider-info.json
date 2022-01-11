@@ -80,6 +80,10 @@
         "AdminQueries1b900f20": {
           "deploymentBucketName": "amplify-kizeo-romaindev-114823-deployment",
           "s3Key": "amplify-builds/AdminQueries1b900f20-53356d2b70654b2b6c57-build.zip"
+        },
+        "publicProduct": {
+          "deploymentBucketName": "amplify-kizeo-romaindev-114823-deployment",
+          "s3Key": "amplify-builds/publicProduct-53643549474e4276532b-build.zip"
         }
       }
     }
