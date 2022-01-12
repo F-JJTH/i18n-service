@@ -130,7 +130,7 @@ export type Language = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: Product;
   translations?: ModelTranslationConnection | null;
   isRequireTranslatorAction?: boolean | null;
@@ -225,7 +225,7 @@ export type CreateLanguageInput = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   isRequireTranslatorAction?: boolean | null;
   _version?: number | null;
   productLanguagesId?: string | null;
@@ -513,7 +513,7 @@ export type CreateLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -548,7 +548,7 @@ export type UpdateLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -583,7 +583,7 @@ export type DeleteLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -729,7 +729,7 @@ export type CreateTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -785,7 +785,7 @@ export type UpdateTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -841,7 +841,7 @@ export type DeleteTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -957,7 +957,7 @@ export type GetLanguageQuery = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -994,7 +994,7 @@ export type ListLanguagesQuery = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1015,7 +1015,7 @@ export type SyncLanguagesQuery = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1117,7 +1117,7 @@ export type GetTranslationQuery = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1303,7 +1303,7 @@ export type OnCreateLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -1338,7 +1338,7 @@ export type OnUpdateLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -1373,7 +1373,7 @@ export type OnDeleteLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
-  isDisabled: boolean;
+  isDisabled?: boolean | null;
   product: {
     __typename: "Product";
     id: string;
@@ -1519,7 +1519,7 @@ export type OnCreateTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1575,7 +1575,7 @@ export type OnUpdateTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1631,7 +1631,7 @@ export type OnDeleteTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
-    isDisabled: boolean;
+    isDisabled?: boolean | null;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;

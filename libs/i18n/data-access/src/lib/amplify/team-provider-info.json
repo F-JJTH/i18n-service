@@ -28,7 +28,7 @@
         },
         "publicProduct": {
           "deploymentBucketName": "amplify-kizeo-dev-164448-deployment",
-          "s3Key": "amplify-builds/publicProduct-3347684a505741727841-build.zip"
+          "s3Key": "amplify-builds/publicProduct-35686a55686263365156-build.zip"
         }
       }
     }

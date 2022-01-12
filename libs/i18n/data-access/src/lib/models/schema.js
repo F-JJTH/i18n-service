@@ -175,7 +175,7 @@ export const schema = {
                     "name": "isDisabled",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "product": {
@@ -525,5 +525,5 @@ export const schema = {
             }
         }
     },
-    "version": "156be4067d90e52ab87028da9c6e7c1a"
+    "version": "f2742b8fc9613a0010fe3ea5398aac9d"
 };
