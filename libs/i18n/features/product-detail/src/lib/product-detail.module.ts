@@ -9,6 +9,7 @@ import { ProductResolver } from './product.resolver';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const productDetailRoutes: Route[] = [
   {
@@ -48,6 +49,7 @@ export const productDetailRoutes: Route[] = [
     NzIconModule,
     NzTagModule,
     NzSkeletonModule,
+    TranslateModule,
   ],
 })
 export class ProductDetailModule {}

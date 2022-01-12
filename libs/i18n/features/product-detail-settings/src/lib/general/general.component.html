@@ -1,19 +1,19 @@
 <form nz-form>
   <nz-form-item>
-    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzFor="id">ID</nz-form-label>
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24">ID</nz-form-label>
     <nz-form-control [nzMd]="14" [nzSm]="24">
       {{ product?.id }}
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzFor="id">Default language</nz-form-label>
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24">{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>
     <nz-form-control [nzMd]="14" [nzSm]="24">
       {{ product?.defaultLanguage }}
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzRequired nzFor="name">Name</nz-form-label>
-    <nz-form-control [nzMd]="14" [nzSm]="24" nzErrorTip="The input is not valid E-mail!">
+    <nz-form-label [nzXl]="3" [nzMd]="6" [nzSm]="24" nzRequired nzFor="name">{{ 'NAME' | translate }}</nz-form-label>
+    <nz-form-control [nzMd]="14" [nzSm]="24">
       <input nz-input name="name" id="name" [(ngModel)]="_name" />
     </nz-form-control>
   </nz-form-item>
@@ -21,7 +21,7 @@
     <nz-form-control>
       <button class="align-right" nz-button nzType="primary" [disabled]="!_name" (click)="onSaveClicked()">
         <i nz-icon nzType="save" nzTheme="outline"></i>
-        Save
+        {{ 'SAVE' | translate }}
       </button>
     </nz-form-control>
   </nz-form-item>
@@ -32,9 +32,9 @@
 <button nz-button nzDanger nzType="primary"
   nzBlock
   nz-popconfirm
-  nzPopconfirmTitle="Are you sure delete this product?"
+  [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_PRODUCT' | translate"
   nzPopconfirmPlacement="bottom"
-  nzCancelText="Cancel"
-  nzOkText="Delete"
+  [nzCancelText]="'CANCEL' | translate"
+  [nzOkText]="'DELETE' | translate"
   nzOkType="danger"
-  (nzOnConfirm)="confirmDelete()">Delete this product</button>
+  (nzOnConfirm)="confirmDelete()">{{ 'DELETE_THIS_PRODUCT' | translate }}</button>

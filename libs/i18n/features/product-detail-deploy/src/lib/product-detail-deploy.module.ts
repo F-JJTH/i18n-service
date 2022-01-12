@@ -7,6 +7,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProductDetailDeployComponent],
@@ -20,6 +21,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzAlertModule,
     NzButtonModule,
     NzIconModule,
+    TranslateModule,
   ],
 })
 export class ProductDetailDeployModule {}

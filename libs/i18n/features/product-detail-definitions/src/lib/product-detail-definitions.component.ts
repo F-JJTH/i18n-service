@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { I18nService, Product } from '@kizeo/i18n/data-access';
+import { TranslateService } from '@ngx-translate/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
 
@@ -28,6 +29,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
     private readonly i18nSvc: I18nService,
+    private readonly translate: TranslateService,
   ) { }
 
   async ngOnInit() {
@@ -83,7 +85,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     if (!this.slug || !this.defaultValue) return
 
     if (this.definitions.some(d => d.slug === this.slug)) {
-      alert('This SLUG is already used')
+      alert(this.translate.instant('SLUG_ALREADY_USED'))
       return
     }
 

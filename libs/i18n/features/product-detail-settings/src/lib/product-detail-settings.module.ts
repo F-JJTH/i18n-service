@@ -22,6 +22,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzSelectModule,
     NzIconModule,
     SelectLanguageModule,
+    TranslateModule,
   ],
 })
 export class ProductDetailSettingsModule {}

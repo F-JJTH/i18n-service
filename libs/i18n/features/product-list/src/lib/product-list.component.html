@@ -1,6 +1,9 @@
 <nz-content>
   <header>
-    <button *ngIf="canCreateApplication && !!products.length" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new product</button>
+    <button *ngIf="canCreateApplication && !!products.length"
+      nz-button
+      nzType="primary"
+      (click)="onCreateNewApplicationClicked()">{{ 'CREATE_NEW_PRODUCT' | translate }}</button>
   </header>
   <div *ngIf="!!products.length" class="product-list">
     <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
@@ -18,7 +21,11 @@
     nzStatus="404"
     [nzTitle]="'There is no product yet!'">
     <div nz-result-extra>
-      <button *ngIf="canCreateApplication" nzSize="large" nz-button nzType="primary" (click)="onCreateNewApplicationClicked()">Create new product</button>
+      <button *ngIf="canCreateApplication"
+        nz-button
+        nzSize="large"
+        nzType="primary"
+        (click)="onCreateNewApplicationClicked()">{{ 'CREATE_NEW_PRODUCT' | translate }}</button>
     </div>
   </nz-result>
 </nz-content>

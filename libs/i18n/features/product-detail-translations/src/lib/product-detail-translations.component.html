@@ -2,7 +2,7 @@
   <header>
     <div nz-row>
       <div nz-col nzSpan="16">
-        <nz-alert nzType="info" nzMessage="Use «Tab» key to switch between fields" nzShowIcon></nz-alert>
+        <nz-alert nzType="info" [nzMessage]="'USE_TAB_KEY_TO_SWITCH_BETWEEN_FIELDS' | translate" nzShowIcon></nz-alert>
       </div>
       <div nz-col nzSpan="8" class="text-right">
         <button *ngIf="!!modifiedTranslationItems.size"
@@ -10,7 +10,7 @@
           (click)="onSaveTranslationsClicked()"
           nzType="primary"
           [nzLoading]="isSaving">
-          <i nz-icon nzType="save" nzTheme="outline"></i> Save
+          <i nz-icon nzType="save" nzTheme="outline"></i> {{ 'SAVE' | translate }}
         </button>
       </div>
     </div>
@@ -19,7 +19,7 @@
   <nz-table #table [nzData]="translations" nzSize="middle" [nzPageSize]="25">
     <thead>
       <tr>
-        <th>Default value
+        <th>{{ 'DEFAULT_VALUE' | translate }}
           <nz-badge
             nzStandalone
             [nzOverflowCount]="99999"
@@ -30,7 +30,7 @@
         <th nzWidth="220px">
           <kizeo-select-language name="selectedLanguage"
           nz-tooltip
-          nzTooltipTitle="Veuillez sauvegarder vos modifications avant de modifier la liste"
+          [nzTooltipTitle]="'SAVE_YOUR_MODIFICATIONS_BEFORE_MODIFY_LIST' | translate"
           [nzTooltipTrigger]="!!modifiedTranslationItems.size ? 'hover' : null"
           [disabled]="!!modifiedTranslationItems.size"
           [(ngModel)]="selectedLanguages"
@@ -38,7 +38,7 @@
           (ngModelChange)="onFilterTranslationChanged()"
           mode="multiple"></kizeo-select-language>
         </th>
-        <th>Translation</th>
+        <th>{{ 'TRANSLATION' | translate }}</th>
       </tr>
     </thead>
     <tbody>

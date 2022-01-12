@@ -1,9 +1,9 @@
-<div *nzModalTitle>Create new product</div>
+<div *nzModalTitle>{{ 'CREATE_NEW_PRODUCT' | translate }}</div>
 <div>
   <form nz-form>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Name</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your beautiful name!">
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>{{ 'NAME' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
         <input
           nz-input
           type="text"
@@ -14,14 +14,14 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="defaultLanguage" nzRequired>Default language</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a default language!">
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="defaultLanguage" nzRequired>{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
         <kizeo-select-language name="defaultLanguage" [(ngModel)]="defaultLanguage"></kizeo-select-language>
       </nz-form-control>
     </nz-form-item>
   </form>
 </div>
 <div *nzModalFooter>
-  <button nz-button nzType="default" (click)="onCancelClicked()">Cancel</button>
-  <button nz-button nzType="primary" (click)="onCreateClicked()" [disabled]="!name || !defaultLanguage">Create</button>
+  <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
+  <button nz-button nzType="primary" (click)="onCreateClicked()" [disabled]="!name || !defaultLanguage">{{ 'CREATE' | translate }}</button>
 </div>

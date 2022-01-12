@@ -3,26 +3,26 @@
   <nz-sider nzWidth="250px" nzTheme="light">
     <header>
       <button nz-button nzType="text" [routerLink]="['/']">
-        <i nz-icon nzType="left-circle" nzTheme="outline"></i> Back
+        <i nz-icon nzType="left-circle" nzTheme="outline"></i> {{ 'BACK' | translate }}
       </button>
       <h1>{{ product?.name }}</h1>
       <nz-skeleton-element nzType="image"></nz-skeleton-element>
     </header>
     <ul nz-menu nzMode="inline" class="sider-menu">
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.translations">
-        <a routerLink="translations">Translations</a>
+        <a routerLink="translations">{{ 'TRANSLATIONS' | translate }}</a>
         <nz-tag *ngIf="isTranslatorRequireAction" [nzColor]="'orange'">
           <i nz-icon nzType="warning" nzTheme="outline"></i>
         </nz-tag>
       </li>
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.definitions">
-        <a routerLink="definitions">Definitions</a>
+        <a routerLink="definitions">{{ 'DEFINITIONS' | translate }}</a>
       </li>
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.deploy">
-        <a routerLink="deploy">Deploy</a>
+        <a routerLink="deploy">{{ 'DEPLOY' | translate }}</a>
       </li>
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.settings">
-        <a routerLink="settings">Settings</a>
+        <a routerLink="settings">{{ 'SETTINGS' | translate }}</a>
       </li>
     </ul>
   </nz-sider>

@@ -3,7 +3,7 @@
     <div nz-col nzSpan="24">
       <nz-alert *ngIf="hasIncompleteTranslations"
         nzType="warning"
-        nzMessage="Translations are not completed"
+        [nzMessage]="'TRANSLATIONS_ARE_INCOMPLET' | translate"
         nzShowIcon></nz-alert>
     </div>
   </div>

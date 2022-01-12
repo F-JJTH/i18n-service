@@ -14,6 +14,7 @@ import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
 import { NzResultModule } from "ng-zorro-antd/result";
 import { SelectLanguageModule } from '@kizeo/ui';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProductListComponent, CreateNewAppModalComponent],
@@ -33,6 +34,7 @@ import { SelectLanguageModule } from '@kizeo/ui';
     NzSkeletonModule,
     NzResultModule,
     SelectLanguageModule,
+    TranslateModule,
   ],
 })
 export class ProductListModule {}

@@ -12,6 +12,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProductDetailDefinitionsComponent, ImportDefinitionsModalComponent],
@@ -29,6 +30,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
     NzButtonModule,
     NzBadgeModule,
     NzModalModule,
+    TranslateModule,
   ],
 })
 export class ProductDetailDefinitionsModule {}

@@ -9,8 +9,18 @@ nz-header {
   justify-content: space-between;
   padding: 0 8px;
 
-  .logo {
+  .left {
+    display: flex;
+    gap: 18px;
     color: white;
+
+    .logo {
+      font-size: 42px;
+    }
+
+    .app-name {
+      font-size: 26px;
+    }
   }
 
   .right {

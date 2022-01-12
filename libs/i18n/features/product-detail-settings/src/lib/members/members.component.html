@@ -1,13 +1,13 @@
 <nz-table nzTemplateMode nzSize="middle">
   <thead>
     <tr>
-      <th>Member</th>
-      <th nzAlign="center">Definitions</th>
-      <th nzAlign="center">Languages</th>
-      <th nzAlign="center">Deploy</th>
-      <th nzAlign="center">Translations</th>
+      <th>{{ 'MEMBER' | translate }}</th>
+      <th nzAlign="center">{{ 'DEFINITIONS' | translate }}</th>
+      <th nzAlign="center">{{ 'LANGUAGES' | translate }}</th>
+      <th nzAlign="center">{{ 'DEPLOY' | translate }}</th>
+      <th nzAlign="center">{{ 'TRANSLATIONS' | translate }}</th>
       <th>
-        <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">Add new member</button>
+        <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">{{ 'ADD_NEW_MEMBER' | translate }}</button>
       </th>
     </tr>
   </thead>
@@ -26,22 +26,22 @@
       <td nzAlign="center">
         <ng-container *ngIf="member.authorizations.translations?.length === 0"></ng-container>
         <ng-container *ngIf="member.authorizations.translations?.length !== 0">
-          <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">All</ng-container>
+          <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">{{ 'ALL' | translate }}</ng-container>
           <ng-template #translationList>{{ member.authorizations.translations?.join(', ') }}</ng-template>
         </ng-container>
       </td>
       <td>
-        <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">Edit</button>
+        <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">{{ 'EDIT' | translate }}</button>
         <button
           [disabled]="currentUserId === member.id"
           nz-button nzDanger nzType="primary"
           nz-popconfirm
-          nzPopconfirmTitle="Are you sure delete this product?"
+          [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_MEMBER' | translate"
           nzPopconfirmPlacement="bottom"
-          nzCancelText="Cancel"
-          nzOkText="Delete"
+          nzCancelText="'CANCEL' | translate"
+          nzOkText="'DELETE' | translate"
           nzOkType="danger"
-          (nzOnConfirm)="confirmDelete(member)">Delete</button>
+          (nzOnConfirm)="confirmDelete(member)">{{ 'DELETE' | translate }}</button>
       </td>
     </tr>
   </tbody>

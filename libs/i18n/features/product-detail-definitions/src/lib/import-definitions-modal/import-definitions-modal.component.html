@@ -1,4 +1,4 @@
-<div *nzModalTitle>Import definitions</div>
+<div *nzModalTitle>{{ 'IMPORT_DEFINITIONS' | translate }}</div>
 <div nz-row>
   <div nz-col nzSpan="12">
     <textarea rows="24" [placeholder]="placeholder" nz-input [(ngModel)]="inputValue" (ngModelChange)="onInputValueChanged()"></textarea>
@@ -7,8 +7,8 @@
     <nz-table nzTemplateMode nzSize="small" [nzScroll]="{ y: '500px' }">
       <thead>
         <tr>
-          <th>Slug (only new Slug are imported)</th>
-          <th>Default value</th>
+          <th>{{ 'SLUG' | translate }} ({{ 'ONLY_NEW_SLUG_ARE_IMPORTED' | translate }})</th>
+          <th>{{ 'DEFAULT_VALUE' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -21,10 +21,10 @@
   </div>
 </div>
 <div *nzModalFooter>
-  <button nz-button nzType="default" (click)="onCancelClicked()">Cancel</button>
+  <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
   <button nz-button
     nzType="primary"
     [nzLoading]="isLoading"
     [disabled]="!parsedValues.length"
-    (click)="onImportClicked()">Import {{ parsedValues.length }} new definitions</button>
+    (click)="onImportClicked()">{{ 'IMPORT_NEW_DEFINITIONS' | translate: {count: parsedValues.length} }}</button>
 </div>

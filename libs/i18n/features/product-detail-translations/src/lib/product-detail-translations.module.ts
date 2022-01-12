@@ -13,6 +13,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent],
@@ -32,6 +33,7 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
     NzIconModule,
     NzBadgeModule,
     SelectLanguageModule,
+    TranslateModule,
   ],
 })
 export class ProductDetailTranslationsModule {}
