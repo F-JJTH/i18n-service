@@ -25,6 +25,10 @@
         "AdminQueries1b900f20": {
           "deploymentBucketName": "amplify-kizeo-dev-164448-deployment",
           "s3Key": "amplify-builds/AdminQueries1b900f20-6c632f6864726c71346d-build.zip"
+        },
+        "publicProduct": {
+          "deploymentBucketName": "amplify-kizeo-dev-164448-deployment",
+          "s3Key": "amplify-builds/publicProduct-3347684a505741727841-build.zip"
         }
       }
     }

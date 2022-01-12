@@ -10,6 +10,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { TranslateModule } from '@ngx-translate/core'
 
 export const shellRoutes: Route[] = [
   {
@@ -34,6 +35,7 @@ export const shellRoutes: Route[] = [
     NzLayoutModule,
     NzIconModule,
     NzDropDownModule,
+    TranslateModule,
   ],
   declarations: [
     ShellComponent

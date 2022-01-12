@@ -1,6 +1,21 @@
 {
   "version": 1,
   "projects": {
+    "i18n-client": {
+      "root": "libs/i18n/client",
+      "sourceRoot": "libs/i18n/client/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/i18n/client/**/*.ts"]
+          }
+        }
+      },
+      "tags": []
+    },
     "i18n-data-access": {
       "projectType": "library",
       "root": "libs/i18n/data-access",

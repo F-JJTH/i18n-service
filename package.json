@@ -21,6 +21,8 @@
     "@angular/router": "~13.1.1",
     "@ant-design/icons-angular": "^13.0.2",
     "@aws-amplify/ui-angular": "^2.0.5",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@nrwl/angular": "^13.4.3",
     "aws-amplify": "^4.3.11",
     "ng-zorro-antd": "^13.0.0",

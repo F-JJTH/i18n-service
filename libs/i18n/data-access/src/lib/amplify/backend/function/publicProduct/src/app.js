@@ -18,7 +18,7 @@ var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
 var AWS = require('aws-sdk')
-const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
+const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
 // declare a new express app
 var app = express()
 app.use(bodyParser.json())
@@ -29,20 +29,15 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "*")
   next()
-});
-
-
-/**********************
- * Example get method *
- **********************/
+})
 
 app.get('/public/product/:id/:env/languages', function(req, res, next) {
   const productId = req.params.id
   const env = req.params.env
   if (!productId || !env) {
-    const err = new Error('product id and env is required');
-    err.statusCode = 400;
-    return next(err);
+    const err = new Error('product id and env is required')
+    err.statusCode = 400
+    return next(err)
   }
 
   const params = {
@@ -51,12 +46,12 @@ app.get('/public/product/:id/:env/languages', function(req, res, next) {
   }
   s3.listObjects(params, function (err, data) {
     if(err) {
-      err.statusCode = 500;
-      return next(err);
+      err.statusCode = 500
+      return next(err)
     }
 
     const languages = data.Contents.map(content => content.Key.split('/').pop().replace('.json', ''))
-    res.json(languages);
+    res.json(languages)
   })
 });
 
@@ -65,22 +60,24 @@ app.get('/public/product/:id/:env/translation/:code', function(req, res, next) {
   const env = req.params.env
   const code = req.params.code
   if (!productId || !env || !code) {
-    const err = new Error('product id, env and code are required');
+    const err = new Error('product id, env and code are required')
     err.statusCode = 400;
-    return next(err);
+    return next(err)
   }
 
+  const filepath = `public/${productId}/${env}/${code}.json`
   const params = {
     Bucket: process.env.STORAGE_I18NTRANSLATIONS_BUCKETNAME,
-    Key: `public/${productId}/${env}/${code}.json`
+    Key: filepath
   }
   s3.getObject(params, function (err, data) {
     if(err) {
-      err.statusCode = 500;
-      return next(err);
+      err.statusCode = 500
+      return next(err)
     }
 
-    res.json(data.Body.toString('utf-8'));
+    const result = JSON.parse(data.Body.toString())
+    res.json(result)
   })
 });
 

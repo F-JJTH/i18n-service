@@ -284,6 +284,8 @@ export class I18nService {
   async publishPreprodTranslationsForProduct(id: string) {
     const languages = await this.getLanguagesByProductId(id)
 
+    await this.deleteOldTranslationsForProduct(id, "preprod")
+
     const promises = languages.map(async l => {
       return new Promise(async (resolve, reject) => {
         const translations = await this.getTranslationsByLanguageId(l.id)
@@ -315,6 +317,8 @@ export class I18nService {
   }
 
   async publishProdTranslationsForProduct(id: string) {
+    await this.deleteOldTranslationsForProduct(id, "prod")
+
     const preprodFiles = await Storage.list(`${id}/preprod/`)
     preprodFiles.forEach(pf => {
       Storage.copy({ key: pf.key! }, { key: pf.key!.replace("preprod", "prod") });
@@ -329,5 +333,14 @@ export class I18nService {
     }))
 
     return Promise.resolve()
+  }
+
+  async deleteOldTranslationsForProduct(id: string, env: string) {
+    const files = await Storage.list(`${id}/${env}/`)
+  
+    const promises = files.map(pf => {
+      return Storage.remove(pf.key!);
+    })
+    return Promise.all(promises)
   }
 }

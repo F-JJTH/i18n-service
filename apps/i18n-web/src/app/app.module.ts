@@ -5,6 +5,7 @@ import { ShellModule } from '@kizeo/i18n/features/shell';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { environment } from '../environments/environment';
+import { I18nClientAngularModule } from '@kizeo/i18n/client';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,11 +14,15 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     AmplifyAuthenticatorModule,
     ShellModule,
+    I18nClientAngularModule.forRoot({
+      appId: environment.i18n.appId,
+      env: environment.i18n.env,
+      url: environment.i18n.url
+    }),
   ],
-  providers: [{
-    provide: 'ENVIRONMENT',
-    useValue: environment
-  }],
+  providers: [
+    { provide: 'ENVIRONMENT', useValue: environment},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

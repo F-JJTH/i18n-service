@@ -15,7 +15,7 @@ export class ShellComponent {
   constructor(
     private readonly router: Router,
     @Inject('ENVIRONMENT') public environment: IEnvironment,
-    private readonly i18nSvc: I18nService
+    private readonly i18nSvc: I18nService,
   ) { }
 
   logout() {

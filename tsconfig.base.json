@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kizeo/i18n/client": ["libs/i18n/client/src/index.ts"],
       "@kizeo/i18n/data-access": ["libs/i18n/data-access/src/index.ts"],
       "@kizeo/i18n/features/product-detail": [
         "libs/i18n/features/product-detail/src/index.ts"
