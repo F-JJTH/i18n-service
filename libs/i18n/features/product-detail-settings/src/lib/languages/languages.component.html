@@ -3,6 +3,7 @@
     <tr>
       <th>{{ 'NAME' | translate }}</th>
       <th>{{ 'CODE' | translate }}</th>
+      <th>{{ 'IS_DISABLED' | translate }}</th>
       <th>
         <button nz-button nzType="primary" (click)="onAddNewLanguageClicked()">{{ 'ADD_NEW_LANGUAGE' | translate }}</button>
       </th>
@@ -10,8 +11,17 @@
   </thead>
   <tbody>
     <tr *ngFor="let language of languages" [class.warning]="language.isRequireTranslatorAction">
-      <td>{{ language.name }}</td>
+      <td>{{ language.name }} <i *ngIf="language.isDefault" nz-icon nzType="crown" nzTheme="twotone" nz-tooltip [nzTooltipTitle]="'DEFAULT_LANGUAGE' | translate"></i></td>
       <td>{{ language.code }}</td>
+      <td>
+        <nz-switch
+          *ngIf="!language.isDefault"
+          name="isDisabled"
+          [ngModel]="language.isDisabled"
+          (ngModelChange)="onDisabledSwitchToggled(language)">
+          nzNoAnimation
+        </nz-switch>
+      </td>
       <td>
         <button
           *ngIf="!language.isDefault"

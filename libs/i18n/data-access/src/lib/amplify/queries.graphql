@@ -88,6 +88,7 @@ query GetLanguage($id: ID!) {
     name
     code
     isDefault
+    isDisabled
     product {
       id
       name
@@ -125,6 +126,7 @@ query ListLanguages(
       name
       code
       isDefault
+      isDisabled
       isRequireTranslatorAction
       createdAt
       updatedAt
@@ -154,6 +156,7 @@ query SyncLanguages(
       name
       code
       isDefault
+      isDisabled
       isRequireTranslatorAction
       createdAt
       updatedAt
@@ -263,6 +266,7 @@ query GetTranslation($id: ID!) {
       name
       code
       isDefault
+      isDisabled
       isRequireTranslatorAction
       createdAt
       updatedAt

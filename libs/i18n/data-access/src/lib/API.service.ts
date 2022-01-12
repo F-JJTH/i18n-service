@@ -130,6 +130,7 @@ export type Language = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: Product;
   translations?: ModelTranslationConnection | null;
   isRequireTranslatorAction?: boolean | null;
@@ -224,6 +225,7 @@ export type CreateLanguageInput = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   isRequireTranslatorAction?: boolean | null;
   _version?: number | null;
   productLanguagesId?: string | null;
@@ -233,6 +235,7 @@ export type ModelLanguageConditionInput = {
   name?: ModelStringInput | null;
   code?: ModelStringInput | null;
   isDefault?: ModelBooleanInput | null;
+  isDisabled?: ModelBooleanInput | null;
   isRequireTranslatorAction?: ModelBooleanInput | null;
   and?: Array<ModelLanguageConditionInput | null> | null;
   or?: Array<ModelLanguageConditionInput | null> | null;
@@ -268,6 +271,7 @@ export type UpdateLanguageInput = {
   name?: string | null;
   code?: string | null;
   isDefault?: boolean | null;
+  isDisabled?: boolean | null;
   isRequireTranslatorAction?: boolean | null;
   _version?: number | null;
   productLanguagesId?: string | null;
@@ -368,6 +372,7 @@ export type ModelLanguageFilterInput = {
   name?: ModelStringInput | null;
   code?: ModelStringInput | null;
   isDefault?: ModelBooleanInput | null;
+  isDisabled?: ModelBooleanInput | null;
   isRequireTranslatorAction?: ModelBooleanInput | null;
   and?: Array<ModelLanguageFilterInput | null> | null;
   or?: Array<ModelLanguageFilterInput | null> | null;
@@ -508,6 +513,7 @@ export type CreateLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -542,6 +548,7 @@ export type UpdateLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -576,6 +583,7 @@ export type DeleteLanguageMutation = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -721,6 +729,7 @@ export type CreateTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -776,6 +785,7 @@ export type UpdateTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -831,6 +841,7 @@ export type DeleteTranslationMutation = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -946,6 +957,7 @@ export type GetLanguageQuery = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -982,6 +994,7 @@ export type ListLanguagesQuery = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1002,6 +1015,7 @@ export type SyncLanguagesQuery = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1103,6 +1117,7 @@ export type GetTranslationQuery = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1288,6 +1303,7 @@ export type OnCreateLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -1322,6 +1338,7 @@ export type OnUpdateLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -1356,6 +1373,7 @@ export type OnDeleteLanguageSubscription = {
   name: string;
   code: string;
   isDefault: boolean;
+  isDisabled: boolean;
   product: {
     __typename: "Product";
     id: string;
@@ -1501,6 +1519,7 @@ export type OnCreateTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1556,6 +1575,7 @@ export type OnUpdateTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1611,6 +1631,7 @@ export type OnDeleteTranslationSubscription = {
     name: string;
     code: string;
     isDefault: boolean;
+    isDisabled: boolean;
     isRequireTranslatorAction?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -1813,6 +1834,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -1863,6 +1885,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -1913,6 +1936,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -2122,6 +2146,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2193,6 +2218,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2264,6 +2290,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2448,6 +2475,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -2498,6 +2526,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2540,6 +2569,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2717,6 +2747,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -2991,6 +3022,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -3035,6 +3067,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -3079,6 +3112,7 @@ export class APIService {
           name
           code
           isDefault
+          isDisabled
           product {
             __typename
             id
@@ -3264,6 +3298,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -3329,6 +3364,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt
@@ -3394,6 +3430,7 @@ export class APIService {
             name
             code
             isDefault
+            isDisabled
             isRequireTranslatorAction
             createdAt
             updatedAt

@@ -12,7 +12,6 @@ import { AddLanguageModalComponent } from '../add-language-modal/add-language-mo
 export class LanguagesComponent implements OnInit {
 
   languages: Language[] = []
-
   product!: Product
 
   constructor(
@@ -44,5 +43,10 @@ export class LanguagesComponent implements OnInit {
       },
       nzOnOk: () => this.fetch()
     })
+  }
+
+  async onDisabledSwitchToggled(language: Language) {
+    const result = await this.i18nSvc.setIsDisabledForLanguage(language.id, !language.isDisabled)
+    this.fetch()
   }
 }

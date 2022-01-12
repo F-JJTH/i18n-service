@@ -104,6 +104,7 @@ export class I18nService {
       code: defaultLanguage.code,
       name: defaultLanguage.label,
       isDefault: true,
+      isDisabled: false,
       product,
       isRequireTranslatorAction: false
     }))
@@ -252,6 +253,7 @@ export class I18nService {
       code: languageCode,
       name: languageLabel,
       isDefault: false,
+      isDisabled: false,
       product: product,
       isRequireTranslatorAction: definitions.length ? true : false
     }))
@@ -269,6 +271,14 @@ export class I18nService {
     return Promise.resolve()
   }
 
+  async setIsDisabledForLanguage(id: string, isDisabled: boolean) {
+    const language = await DataStore.query(Language, id)
+    if (!language) { return }
+    return DataStore.save(Language.copyOf(language, updated => {
+      updated.isDisabled = isDisabled
+    }))
+  }
+
   async deleteLanguage(id: string) {
     return DataStore.delete(Language, id)
   }
@@ -282,7 +292,7 @@ export class I18nService {
   }
 
   async publishPreprodTranslationsForProduct(id: string) {
-    const languages = await this.getLanguagesByProductId(id)
+    const languages = (await this.getLanguagesByProductId(id)).filter(l => !l.isDisabled)
 
     await this.deleteOldTranslationsForProduct(id, "preprod")
 
@@ -337,7 +347,7 @@ export class I18nService {
 
   async deleteOldTranslationsForProduct(id: string, env: string) {
     const files = await Storage.list(`${id}/${env}/`)
-  
+
     const promises = files.map(pf => {
       return Storage.remove(pf.key!);
     })

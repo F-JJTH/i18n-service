@@ -171,6 +171,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "isDisabled": {
+                    "name": "isDisabled",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "product": {
                     "name": "product",
                     "isArray": false,
@@ -518,5 +525,5 @@ export const schema = {
             }
         }
     },
-    "version": "7f3bd99d3cc0e412a8e7f0b3f0b00c36"
+    "version": "156be4067d90e52ab87028da9c6e7c1a"
 };

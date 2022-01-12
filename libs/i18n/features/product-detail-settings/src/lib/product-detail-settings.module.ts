@@ -23,6 +23,9 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { NzSwitchModule } from "ng-zorro-antd/switch";
+import { NzNoAnimationModule } from "ng-zorro-antd/core/no-animation";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 
 @NgModule({
   declarations: [
@@ -37,7 +40,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: '', component: ProductDetailSettingsComponent }
+      {path: '', component: ProductDetailSettingsComponent}
     ]),
     NzLayoutModule,
     NzButtonModule,
@@ -53,7 +56,10 @@ import { TranslateModule } from '@ngx-translate/core';
     NzSelectModule,
     NzIconModule,
     SelectLanguageModule,
+    NzSwitchModule,
     TranslateModule,
+    NzNoAnimationModule,
+    NzToolTipModule,
   ],
 })
 export class ProductDetailSettingsModule {}

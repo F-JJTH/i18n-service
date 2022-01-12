@@ -32,6 +32,7 @@ type Language @model @auth(rules: [{ allow: private }]) {
   name: String!
   code: String!
   isDefault: Boolean!
+  isDisabled: Boolean!
   product: Product! @belongsTo
   translations: [Translation] @hasMany
   isRequireTranslatorAction: Boolean @default(value: "false")

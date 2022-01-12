@@ -55,6 +55,7 @@ export declare class Language {
   readonly name: string;
   readonly code: string;
   readonly isDefault: boolean;
+  readonly isDisabled: boolean;
   readonly product: Product;
   readonly translations?: (Translation | null)[];
   readonly isRequireTranslatorAction?: boolean;
