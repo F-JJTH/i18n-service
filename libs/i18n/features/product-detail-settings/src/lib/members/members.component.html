@@ -3,9 +3,9 @@
     <tr>
       <th>{{ 'MEMBER' | translate }}</th>
       <th nzAlign="center">{{ 'DEFINITIONS' | translate }}</th>
-      <th nzAlign="center">{{ 'LANGUAGES' | translate }}</th>
-      <th nzAlign="center">{{ 'DEPLOY' | translate }}</th>
       <th nzAlign="center">{{ 'TRANSLATIONS' | translate }}</th>
+      <th nzAlign="center">{{ 'DEPLOY' | translate }}</th>
+      <th nzAlign="center">{{ 'SETTINGS' | translate }}</th>
       <th>
         <button nz-button nzType="primary" (click)="onAddNewMemberClicked()">{{ 'ADD_NEW_MEMBER' | translate }}</button>
       </th>
@@ -18,17 +18,17 @@
         <i *ngIf="member.authorizations.definitions" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td nzAlign="center">
-        <i *ngIf="member.authorizations.languages" nz-icon nzType="check-square" nzTheme="outline"></i>
-      </td>
-      <td nzAlign="center">
-        <i *ngIf="member.authorizations.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>
-      </td>
-      <td nzAlign="center">
         <ng-container *ngIf="member.authorizations.translations?.length === 0"></ng-container>
         <ng-container *ngIf="member.authorizations.translations?.length !== 0">
           <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">{{ 'ALL' | translate }}</ng-container>
           <ng-template #translationList>{{ member.authorizations.translations?.join(', ') }}</ng-template>
         </ng-container>
+      </td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>
+      </td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.settings" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td>
         <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">{{ 'EDIT' | translate }}</button>

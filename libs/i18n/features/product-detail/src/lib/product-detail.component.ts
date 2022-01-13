@@ -21,7 +21,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   canAccess = {
     translations: false,
-    languages: false,
     definitions: false,
     deploy: false,
     settings: false,

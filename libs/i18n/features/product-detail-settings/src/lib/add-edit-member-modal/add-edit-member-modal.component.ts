@@ -15,7 +15,7 @@ export class AddEditMemberModalComponent implements OnInit {
   selectedMember?: Member
 
   manageDefinitions = false
-  manageLanguages = false
+  manageSettings = false
   manageDeploy = false
   manageTranslations = 'all'
   languages: {code: string}[] = []
@@ -35,7 +35,7 @@ export class AddEditMemberModalComponent implements OnInit {
 
     if (this.member) {
       this.manageDefinitions = this.member.authorizations.definitions
-      this.manageLanguages = this.member.authorizations.languages
+      this.manageSettings = this.member.authorizations.settings
       this.manageDeploy = this.member.authorizations.deploy
       this.manageTranslations = this.member.authorizations.translations?.includes('ALL') ? 'all' : 'specific'
       this.languages = (this.member.authorizations.translations as string[]).map(t => ({code: t}))
@@ -57,7 +57,7 @@ export class AddEditMemberModalComponent implements OnInit {
     const authorizations = {
       definitions: this.manageDefinitions,
       deploy: this.manageDeploy,
-      languages: this.manageLanguages,
+      settings: this.manageSettings,
       translations: this.manageTranslations === 'all' ? ['ALL'] : this.languages.filter(l => l.code !== 'ALL').map(l => l.code)
     }
 

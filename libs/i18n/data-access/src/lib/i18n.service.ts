@@ -94,7 +94,7 @@ export class I18nService {
         authorizations: {
           definitions: true,
           deploy: true,
-          languages: true,
+          settings: true,
           translations: ['ALL']
         }
       }]

@@ -8,6 +8,8 @@ export class ProductGuard implements CanLoad {
   }
 
   async canLoad(route: Route): Promise<boolean> {
+    if (await this.currentUser.isAdmin()) { return true }
+    
     const url = this.router.getCurrentNavigation()?.extractedUrl.toString() || '/'
     const [, productId, page] = url.split('/')
     const product = await this.i18n.getProductById(productId)

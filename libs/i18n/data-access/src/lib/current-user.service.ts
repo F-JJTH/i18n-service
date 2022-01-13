@@ -22,7 +22,7 @@ export class CurrentUserService {
     return {
       definitions: await this.canAccessDefinitionsForProduct(product),
       deploy: await this.canAccessDeployForProduct(product),
-      languages: await this.canAccessLanguagesForProduct(product),
+      settings: await this.canAccessSettingsForProduct(product),
       translations: await this.canAccessTranslationsForProduct(product),
     }
   }
@@ -39,10 +39,10 @@ export class CurrentUserService {
     return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.deploy || false)
   }
 
-  async canAccessLanguagesForProduct(product: Product): Promise<boolean> {
+  async canAccessSettingsForProduct(product: Product): Promise<boolean> {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
-    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.languages || false)
+    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.settings || false)
   }
 
   async canAccessTranslationsForProduct(product: Product): Promise<boolean> {
@@ -64,8 +64,8 @@ export class CurrentUserService {
         return 'translations'
       case authorizations.deploy:
         return 'deploy'
-      case authorizations.languages:
-        return 'languages'
+      case authorizations.settings:
+        return 'settings'
       default:
         return '/'
     }

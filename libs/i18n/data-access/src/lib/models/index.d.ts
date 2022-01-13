@@ -4,7 +4,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 export declare class MemberAuthorization {
   readonly definitions: boolean;
-  readonly languages: boolean;
+  readonly settings: boolean;
   readonly deploy: boolean;
   readonly translations?: (string | null)[];
   constructor(init: ModelInit<MemberAuthorization>);
