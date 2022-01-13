@@ -13,7 +13,7 @@ export interface UserPayload {
 @Injectable({providedIn: 'root'})
 export class CurrentUserService {
   constructor() { }
-  
+
   async isAdmin() {
     return (await this.getPayload())['cognito:groups']?.includes('Admin') || false
   }
@@ -53,5 +53,22 @@ export class CurrentUserService {
 
   async getPayload(): Promise<UserPayload> {
     return (await Auth.currentSession()).getIdToken().payload as UserPayload
+  }
+
+  async getLandingPageForProduct(product: Product): Promise<string> {
+    const authorizations = await this.getAuthorizationsForProduct(product)
+    switch (true) {
+      case authorizations.definitions:
+        return 'definitions'
+      case authorizations.translations:
+        return 'translations'
+      case authorizations.deploy:
+        return 'deploy'
+      case authorizations.languages:
+        return 'languages'
+      default:
+        return '/'
+    }
+
   }
 }

@@ -6,7 +6,7 @@
       (click)="onCreateNewApplicationClicked()">{{ 'CREATE_NEW_PRODUCT' | translate }}</button>
   </header>
   <div *ngIf="!!products.length" class="product-list">
-    <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id]">
+    <div class="product-item" *ngFor="let product of products" [routerLink]="[product.id, product.page]">
       <h1 class="title">{{ product.name }}</h1>
       <nz-skeleton-element nzType="image"></nz-skeleton-element>
       <div class="languages">
