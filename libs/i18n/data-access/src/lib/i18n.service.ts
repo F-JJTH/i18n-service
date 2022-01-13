@@ -1,11 +1,10 @@
-import {Injectable} from "@angular/core";
-import {DataStore, Storage} from "aws-amplify";
-import {Definition, Language, MemberAuthorization, Product, Translation} from "..";
+import { Injectable } from "@angular/core";
+import { DataStore, Storage } from "aws-amplify";
+import { Definition, Language, MemberAuthorization, Product, Translation } from "..";
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
-  constructor() {
-  }
+  constructor() {}
 
   clearLocalDB() {
     DataStore.clear()
@@ -259,6 +258,7 @@ export class I18nService {
     }))
 
     definitions.forEach(definition => {
+      //FIXME: batch
       DataStore.save(new Translation({
         definition,
         language,
