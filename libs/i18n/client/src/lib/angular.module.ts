@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { TranslateModule, TranslateService, TranslateLoader } from '@ngx-translate/core'
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, from, Observable, of, tap } from 'rxjs';
 import { NzI18nModule, NzI18nService } from 'ng-zorro-antd/i18n';
 
 export class I18nClientConfig {
@@ -14,6 +14,7 @@ class I18nTranslateLoader implements TranslateLoader {
   constructor(private http: HttpClient, public prefix: string) {}
   public getTranslation(lang: string): Observable<Object> {
     return this.http.get(`${this.prefix}${lang}`)
+      .pipe(catchError((err, caught) => of({})))
   }
 }
 
@@ -25,6 +26,7 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
   return () => {
     return http.get<string[]>(`${config.url}/public/product/${config.appId}/${config.env}/languages`)
     .pipe(
+      catchError((err, caught) => of([])),
       tap(languages => {
         translate.addLangs(languages)
         const browserLanguage = translate.getBrowserLang()
