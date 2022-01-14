@@ -6,7 +6,7 @@
     "framework": "angular",
     "config": {
       "SourceDir": "./",
-      "DistributionDir": "../../../../dist/apps/i18n-web",
+      "DistributionDir": "../../../../../dist/apps/i18n-web",
       "BuildCommand": "nx build i18n-web",
       "StartCommand": "nx serve i18n-web"
     }

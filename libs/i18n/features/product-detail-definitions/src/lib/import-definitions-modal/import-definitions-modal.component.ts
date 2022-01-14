@@ -56,6 +56,7 @@ export class ImportDefinitionsModalComponent implements OnInit {
 
   async onImportClicked() {
     this.isLoading = true
+    // FIXME: implement a dedicated optimized `addDefintions` method
     await Promise.all(this.parsedValues.map(v => {
       return this.i18nSvc.addDefinition(v.slug, v.defaultValue, this.productId)
     }))

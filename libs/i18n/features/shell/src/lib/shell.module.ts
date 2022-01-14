@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { TranslateModule } from '@ngx-translate/core'
+import { I18nClientAngularModule } from '@kizeo/i18n/client';
 
 export const shellRoutes: Route[] = [
   {
@@ -36,6 +37,7 @@ export const shellRoutes: Route[] = [
     NzIconModule,
     NzDropDownModule,
     TranslateModule,
+    I18nClientAngularModule,
   ],
   declarations: [
     ShellComponent

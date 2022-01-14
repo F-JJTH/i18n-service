@@ -5,7 +5,7 @@ export interface SelectLanguageOption {
 
 export enum SelectLanguageCodes {
   FR = 'fr-FR',
-  EN = 'en-EN',
+  EN = 'en-GB',
   ES = 'es-ES',
   DE = 'de-DE'
 }
