@@ -56,7 +56,7 @@ export declare class Language {
   readonly code: string;
   readonly isDefault: boolean;
   readonly isDisabled?: boolean;
-  readonly product: Product;
+  readonly product?: Product;
   readonly translations?: (Translation | null)[];
   readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;
@@ -67,9 +67,9 @@ export declare class Language {
 
 export declare class Translation {
   readonly id: string;
-  readonly definition: Definition;
-  readonly language: Language;
-  readonly product: Product;
+  readonly definition?: Definition;
+  readonly language?: Language;
+  readonly product?: Product;
   readonly value?: string;
   readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;
@@ -83,7 +83,7 @@ export declare class Definition {
   readonly id: string;
   readonly slug: string;
   readonly defaultValue: string;
-  readonly product: Product;
+  readonly product?: Product;
   readonly translations?: (Translation | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;

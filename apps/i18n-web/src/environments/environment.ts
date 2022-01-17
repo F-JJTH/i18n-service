@@ -8,7 +8,7 @@ export const environment: IEnvironment = {
   production: false,
   version: '1.0.0-dev',
   i18n: {
-    appId: '3db7a5c4-dec4-44c6-b689-c3490025c372',
+    appId: '6737a8c1-177e-4ec8-aa82-298adc04a356',
     env: 'dev',
     url: 'https://z8hwo7cd3g.execute-api.eu-west-3.amazonaws.com/dev'
   }
