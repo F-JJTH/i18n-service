@@ -9,21 +9,16 @@ import { TranslateService } from '@ngx-translate/core';
   </button>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-      <li nz-menu-item *ngFor="let language of languages" (click)="selectLanguage(language)">{{ language }}</li>
+      <li nz-menu-item
+        *ngFor="let language of translate.getLangs()"
+        (click)="translate.use(language)"
+        [nzSelected]="language === translate.currentLang">
+        {{ language }}
+      </li>
     </ul>
   </nz-dropdown-menu>`,
 
 })
-export class AngularLanguageSelectorComponent implements OnInit {
-  languages: string[] = []
-
-  constructor(private readonly translate: TranslateService) { }
-
-  ngOnInit() {
-    this.languages = this.translate.getLangs()
-  }
-
-  selectLanguage(language: string) {
-    this.translate.use(language)
-  }
+export class AngularLanguageSelectorComponent {
+  constructor(public readonly translate: TranslateService) {}
 }

@@ -34,15 +34,19 @@ export function createTranslateLoader(http: HttpClient, config: I18nClientConfig
 
 function initializeAppFactory(http: HttpClient, translate: TranslateService, config: I18nClientConfig): () => Observable<any> {
   return () => {
+    translate.onLangChange.subscribe(e => {
+      localStorage.setItem(`i18n-client-${config.appId}`, e.lang)
+    })
     return http.get<string[]>(`${config.url}/public/product/${config.appId}/${config.env}/languages`)
     .pipe(
       catchError((err, caught) => of([])),
       tap(languages => {
         translate.addLangs(languages)
+        const savedLanguage = localStorage.getItem(`i18n-client-${config.appId}`)
         const browserLanguage = translate.getBrowserLang()
         const defaultLanguage = languages.find(l => l.includes(browserLanguage!)) || languages[0]
         translate.setDefaultLang(defaultLanguage)
-        translate.use(defaultLanguage)
+        translate.use(savedLanguage || defaultLanguage)
       })
     );
   }
