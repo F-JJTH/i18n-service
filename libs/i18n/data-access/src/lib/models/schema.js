@@ -184,7 +184,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -270,7 +270,7 @@ export const schema = {
                     "type": {
                         "model": "Definition"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -283,7 +283,7 @@ export const schema = {
                     "type": {
                         "model": "Language"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -296,7 +296,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -396,7 +396,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -472,8 +472,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "languages": {
-                    "name": "languages",
+                "settings": {
+                    "name": "settings",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
@@ -525,5 +525,5 @@ export const schema = {
             }
         }
     },
-    "version": "f2742b8fc9613a0010fe3ea5398aac9d"
+    "version": "f40c13c37dc29e6c2b843b2fcd5b729b"
 };
