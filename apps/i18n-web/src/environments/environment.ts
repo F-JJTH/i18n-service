@@ -10,7 +10,6 @@ export const environment: IEnvironment = {
   i18n: {
     appId: '6737a8c1-177e-4ec8-aa82-298adc04a356',
     env: 'dev',
-    url: 'https://z8hwo7cd3g.execute-api.eu-west-3.amazonaws.com/dev'
   }
 };
 
