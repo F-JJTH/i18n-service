@@ -332,13 +332,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isReadOnly": true
-                },
-                "definitionTranslationsId": {
-                    "name": "definitionTranslationsId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -472,8 +465,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "languages": {
-                    "name": "languages",
+                "settings": {
+                    "name": "settings",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
@@ -525,5 +518,5 @@ export const schema = {
             }
         }
     },
-    "version": "f2742b8fc9613a0010fe3ea5398aac9d"
+    "version": "02e3d3d1559fade0a9326e8aa493434a"
 };

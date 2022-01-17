@@ -3,7 +3,7 @@
 
 type MemberAuthorization {
   definitions: Boolean!
-  languages: Boolean!
+  settings: Boolean!
   deploy: Boolean!
   translations: [String]
 }

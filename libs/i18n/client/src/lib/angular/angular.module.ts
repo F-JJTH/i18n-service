@@ -1,19 +1,31 @@
 import { APP_INITIALIZER, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TranslateModule, TranslateService, TranslateLoader } from '@ngx-translate/core'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { NzI18nModule, NzI18nService } from 'ng-zorro-antd/i18n';
 import { I18nTranslateLoader } from './loader.class';
-import { AngularLanguageSelectorComponent } from './language-selector.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { CommonModule } from '@angular/common';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { TranslationOutline } from '@ant-design/icons-angular/icons';
+import { AngularLanguageSelectorComponent } from './language-selector.component';
+import { I18N_API_URL } from '../util';
+
+const icons: IconDefinition[] = [TranslationOutline];
 
 export class I18nClientConfig {
   appId = ''
-  env = ''
-  url = ''
+  env?: string
+  url?: string
+
+  constructor(config: I18nClientConfig) {
+    this.appId = config.appId
+    this.env = config.env || 'prod'
+    this.url = config.url || I18N_API_URL
+  }
 }
 
 export function createTranslateLoader(http: HttpClient, config: I18nClientConfig, nzI18n: NzI18nService) {
@@ -42,6 +54,8 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     NzI18nModule,
     TranslateModule.forRoot({
       loader: {
@@ -51,7 +65,7 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
       },
     }),
     NzDropDownModule,
-    NzIconModule,
+    NzIconModule.forRoot(icons),
     NzButtonModule,
   ],
   providers: [
@@ -64,6 +78,7 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
   ],
   exports: [
     AngularLanguageSelectorComponent,
+    TranslateModule,
   ]
 })
 export class I18nClientAngularModule {
@@ -80,7 +95,7 @@ export class I18nClientAngularModule {
     return {
       ngModule: I18nClientAngularModule,
       providers: [
-        { provide: I18nClientConfig, useValue: config },
+        { provide: I18nClientConfig, useValue: new I18nClientConfig(config) },
       ],
     }
   }

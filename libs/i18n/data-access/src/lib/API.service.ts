@@ -43,7 +43,7 @@ export type MemberInput = {
 
 export type MemberAuthorizationInput = {
   definitions: boolean;
-  languages: boolean;
+  settings: boolean;
   deploy: boolean;
   translations?: Array<string | null> | null;
 };
@@ -199,7 +199,7 @@ export type Member = {
 export type MemberAuthorization = {
   __typename: "MemberAuthorization";
   definitions: boolean;
-  languages: boolean;
+  settings: boolean;
   deploy: boolean;
   translations?: Array<string | null> | null;
 };
