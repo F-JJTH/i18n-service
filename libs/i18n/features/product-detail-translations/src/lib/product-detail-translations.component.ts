@@ -53,17 +53,17 @@ export class ProductDetailTranslationsComponent implements OnInit {
   async fetch() {
     this.translations = (await this.i18nSvc.getTranslationsByProductId(this.product.id))
       .filter(t => (
-          (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language.code) : true)
+          (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language!.code) : true)
         )
       )
       .map(t => {
         return {
           id: t.id,
-          slug: t.definition.slug,
+          slug: t.definition!.slug,
           value: t.value || "",
-          language: t.language,
+          language: t.language!,
           translation: t,
-          defaultValue: t.definition.defaultValue,
+          defaultValue: t.definition!.defaultValue,
           isRequireTranslatorAction: t.isRequireTranslatorAction
         }
       })

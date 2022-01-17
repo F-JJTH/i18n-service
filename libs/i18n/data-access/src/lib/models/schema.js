@@ -184,7 +184,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -270,7 +270,7 @@ export const schema = {
                     "type": {
                         "model": "Definition"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -283,7 +283,7 @@ export const schema = {
                     "type": {
                         "model": "Language"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -296,7 +296,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
@@ -389,7 +389,7 @@ export const schema = {
                     "type": {
                         "model": "Product"
                     },
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",

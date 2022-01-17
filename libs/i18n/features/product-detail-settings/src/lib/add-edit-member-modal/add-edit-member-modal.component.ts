@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AdminQueriesService, I18nService, Member, Product } from '@kizeo/i18n/data-access';
+import { I18nService, Member, Product } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -26,7 +26,6 @@ export class AddEditMemberModalComponent implements OnInit {
 
   constructor(
     private readonly modalRef: NzModalRef,
-    private readonly adminQueries: AdminQueriesService,
     private readonly i18nSvc: I18nService,
   ) {}
 
@@ -42,7 +41,7 @@ export class AddEditMemberModalComponent implements OnInit {
     }
 
     if (this.isNew) {
-      this.memberOptions = await this.adminQueries.listUsers()
+      this.memberOptions = await this.i18nSvc.listUsers()
         .then((users: any[]) => users.map((u: any) => ({
             ...u,
             id: u.Attributes.find((a: any) => a.Name === 'sub').Value,

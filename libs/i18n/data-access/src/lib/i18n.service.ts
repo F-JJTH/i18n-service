@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 import { DataStore, Storage } from "aws-amplify";
-import { Definition, Language, MemberAuthorization, Product, Translation } from "..";
+import { AdminQueriesService, Definition, Language, MemberAuthorization, Product, Translation } from "..";
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
-  constructor() {}
+  constructor(
+    private readonly adminQueries: AdminQueriesService,
+  ) {}
 
   clearLocalDB() {
     DataStore.clear()
@@ -139,7 +141,7 @@ export class I18nService {
         const translation = await DataStore.query(Translation, translationItem.id)
         if (!translation) { throw new Error(`Translation ${translationItem.id} not found`) }
 
-        modifiedLanguages.set(translation.language.id, translation.language)
+        modifiedLanguages.set(translation.language!.id, translation.language!)
         await DataStore.save(
           Translation.copyOf(translation, updated => {
             updated.value = translationItem.value
@@ -155,7 +157,7 @@ export class I18nService {
 
     const promisesB = Array.from(modifiedLanguages.values()).map(async language => {
       const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
-        .filter(t => t.language.id === language.id && t.isRequireTranslatorAction === true)
+        .filter(t => t.language!.id === language.id && t.isRequireTranslatorAction === true)
       return DataStore.save(
         Language.copyOf(language, updated => {
           updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
@@ -169,7 +171,7 @@ export class I18nService {
     const language = await DataStore.query(Language, languageId)
     if (!language) { throw new Error(`Language ${languageId} not found`) }
 
-    this.publishDevTranslationsForProduct(language.product.id)
+    this.publishDevTranslationsForProduct(language.product!.id)
   }
 
   async updateDefinition(id: string, slug: string, defaultValue: string) {
@@ -182,20 +184,20 @@ export class I18nService {
     }))
 
     const translations = (await DataStore.query(Translation))
-      .filter(t => t.definition.id === definition!.id)
+      .filter(t => t.definition!.id === definition!.id)
 
     const promises = translations.map(t => {
       return new Promise<void>(async (resolve, reject) => {
         await DataStore.save(
           Translation.copyOf(t, updated => {
-            if (t.language.isDefault) {
+            if (t.language!.isDefault) {
               updated.value = defaultValue
             }
-            updated.isRequireTranslatorAction = t.language.isDefault ? false : true
+            updated.isRequireTranslatorAction = t.language!.isDefault ? false : true
           })
         )
 
-        if (!t.language.isDefault) {
+        if (!t.language!.isDefault) {
           await DataStore.save(
             Language.copyOf(t.language!, updated => {
               updated.isRequireTranslatorAction = true
@@ -209,7 +211,7 @@ export class I18nService {
 
     await Promise.all(promises)
 
-    this.publishDevTranslationsForProduct(definition.product.id)
+    this.publishDevTranslationsForProduct(definition.product!.id)
   }
 
   async addDefinition(slug: string, defaultValue: string, productId: string) {
@@ -253,7 +255,7 @@ export class I18nService {
     if (!product) { throw new Error(`Product ${productId} not found`) }
 
     const definitions = (await DataStore.query(Definition))
-      .filter(d => d.product.id === product.id)
+      .filter(d => d.product!.id === product.id)
 
     const language = await DataStore.save(new Language({
       code: languageCode,
@@ -289,7 +291,7 @@ export class I18nService {
       updated.isDisabled = isDisabled
     }))
 
-    this.publishDevTranslationsForProduct(language.product.id)
+    this.publishDevTranslationsForProduct(language.product!.id)
   }
 
   async deleteLanguage(id: string) {
@@ -297,7 +299,7 @@ export class I18nService {
     if (!language) { throw new Error(`Language ${id} not found`) }
 
     await  DataStore.delete(Language, id)
-    this.publishDevTranslationsForProduct(language.product.id)
+    this.publishDevTranslationsForProduct(language.product!.id)
   }
 
   async deleteProduct(id: string) {
@@ -309,7 +311,7 @@ export class I18nService {
     if (!definition) { throw new Error(`Definition ${id} not found`) }
 
     await  DataStore.delete(Definition, id)
-    this.publishDevTranslationsForProduct(definition.product.id)
+    this.publishDevTranslationsForProduct(definition.product!.id)
   }
 
   private async uploadTranslationsFilesForLanguages(languages: Language[], env: 'dev' | 'preprod') {
@@ -317,10 +319,10 @@ export class I18nService {
       return new Promise(async (resolve, reject) => {
         const translations = await this.getTranslationsByLanguageId(l.id)
         const fileContent = translations.reduce((prev, t) => {
-          return {...prev, [t.definition.slug]: t.value}
+          return {...prev, [t.definition!.slug]: t.value}
         }, {})
         try {
-          const result = await Storage.put(`${l.product.id}/${env}/${l.code}.json`, fileContent)
+          const result = await Storage.put(`${l.product!.id}/${env}/${l.code}.json`, fileContent)
 
           resolve(result)
         } catch (err) {
@@ -372,12 +374,16 @@ export class I18nService {
     return Promise.resolve()
   }
 
-  async deleteOldTranslationsForProduct(id: string, env: 'dev' | 'preprod' | 'prod') {
+  private async deleteOldTranslationsForProduct(id: string, env: 'dev' | 'preprod' | 'prod') {
     const files = await Storage.list(`${id}/${env}/`)
 
     const promises = files.map(pf => {
       return Storage.remove(pf.key!);
     })
     return Promise.all(promises)
+  }
+
+  async listUsers() {
+    return this.adminQueries.listUsers()
   }
 }

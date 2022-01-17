@@ -131,7 +131,7 @@ export type Language = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: Product;
+  product?: Product | null;
   translations?: ModelTranslationConnection | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -152,9 +152,9 @@ export type ModelTranslationConnection = {
 export type Translation = {
   __typename: "Translation";
   id: string;
-  definition: Definition;
-  language: Language;
-  product: Product;
+  definition?: Definition | null;
+  language?: Language | null;
+  product?: Product | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -172,7 +172,7 @@ export type Definition = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: Product;
+  product?: Product | null;
   translations?: ModelTranslationConnection | null;
   createdAt: string;
   updatedAt: string;
@@ -514,7 +514,7 @@ export type CreateLanguageMutation = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -527,7 +527,7 @@ export type CreateLanguageMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -549,7 +549,7 @@ export type UpdateLanguageMutation = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -562,7 +562,7 @@ export type UpdateLanguageMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -584,7 +584,7 @@ export type DeleteLanguageMutation = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -597,7 +597,7 @@ export type DeleteLanguageMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -617,7 +617,7 @@ export type CreateDefinitionMutation = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -630,7 +630,7 @@ export type CreateDefinitionMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -649,7 +649,7 @@ export type UpdateDefinitionMutation = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -662,7 +662,7 @@ export type UpdateDefinitionMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -681,7 +681,7 @@ export type DeleteDefinitionMutation = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -694,7 +694,7 @@ export type DeleteDefinitionMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -711,7 +711,7 @@ export type DeleteDefinitionMutation = {
 export type CreateTranslationMutation = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -722,8 +722,8 @@ export type CreateTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -737,8 +737,8 @@ export type CreateTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -751,7 +751,7 @@ export type CreateTranslationMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -767,7 +767,7 @@ export type CreateTranslationMutation = {
 export type UpdateTranslationMutation = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -778,8 +778,8 @@ export type UpdateTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -793,8 +793,8 @@ export type UpdateTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -807,7 +807,7 @@ export type UpdateTranslationMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -823,7 +823,7 @@ export type UpdateTranslationMutation = {
 export type DeleteTranslationMutation = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -834,8 +834,8 @@ export type DeleteTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -849,8 +849,8 @@ export type DeleteTranslationMutation = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -863,7 +863,7 @@ export type DeleteTranslationMutation = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -958,7 +958,7 @@ export type GetLanguageQuery = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -971,7 +971,7 @@ export type GetLanguageQuery = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1033,7 +1033,7 @@ export type GetDefinitionQuery = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1046,7 +1046,7 @@ export type GetDefinitionQuery = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1099,7 +1099,7 @@ export type SyncDefinitionsQuery = {
 export type GetTranslationQuery = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -1110,8 +1110,8 @@ export type GetTranslationQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -1125,8 +1125,8 @@ export type GetTranslationQuery = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1139,7 +1139,7 @@ export type GetTranslationQuery = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -1304,7 +1304,7 @@ export type OnCreateLanguageSubscription = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1317,7 +1317,7 @@ export type OnCreateLanguageSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1339,7 +1339,7 @@ export type OnUpdateLanguageSubscription = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1352,7 +1352,7 @@ export type OnUpdateLanguageSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1374,7 +1374,7 @@ export type OnDeleteLanguageSubscription = {
   code: string;
   isDefault: boolean;
   isDisabled?: boolean | null;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1387,7 +1387,7 @@ export type OnDeleteLanguageSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1407,7 +1407,7 @@ export type OnCreateDefinitionSubscription = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1420,7 +1420,7 @@ export type OnCreateDefinitionSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1439,7 +1439,7 @@ export type OnUpdateDefinitionSubscription = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1452,7 +1452,7 @@ export type OnUpdateDefinitionSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1471,7 +1471,7 @@ export type OnDeleteDefinitionSubscription = {
   id: string;
   slug: string;
   defaultValue: string;
-  product: {
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1484,7 +1484,7 @@ export type OnDeleteDefinitionSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   translations?: {
     __typename: "ModelTranslationConnection";
     nextToken?: string | null;
@@ -1501,7 +1501,7 @@ export type OnDeleteDefinitionSubscription = {
 export type OnCreateTranslationSubscription = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -1512,8 +1512,8 @@ export type OnCreateTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -1527,8 +1527,8 @@ export type OnCreateTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1541,7 +1541,7 @@ export type OnCreateTranslationSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -1557,7 +1557,7 @@ export type OnCreateTranslationSubscription = {
 export type OnUpdateTranslationSubscription = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -1568,8 +1568,8 @@ export type OnUpdateTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -1583,8 +1583,8 @@ export type OnUpdateTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1597,7 +1597,7 @@ export type OnUpdateTranslationSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;
@@ -1613,7 +1613,7 @@ export type OnUpdateTranslationSubscription = {
 export type OnDeleteTranslationSubscription = {
   __typename: "Translation";
   id: string;
-  definition: {
+  definition?: {
     __typename: "Definition";
     id: string;
     slug: string;
@@ -1624,8 +1624,8 @@ export type OnDeleteTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productDefinitionsId?: string | null;
-  };
-  language: {
+  } | null;
+  language?: {
     __typename: "Language";
     id: string;
     name: string;
@@ -1639,8 +1639,8 @@ export type OnDeleteTranslationSubscription = {
     _deleted?: boolean | null;
     _lastChangedAt: number;
     productLanguagesId?: string | null;
-  };
-  product: {
+  } | null;
+  product?: {
     __typename: "Product";
     id: string;
     name: string;
@@ -1653,7 +1653,7 @@ export type OnDeleteTranslationSubscription = {
     _version: number;
     _deleted?: boolean | null;
     _lastChangedAt: number;
-  };
+  } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
   createdAt: string;

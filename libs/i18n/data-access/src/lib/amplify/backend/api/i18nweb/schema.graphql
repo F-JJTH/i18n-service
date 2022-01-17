@@ -33,7 +33,7 @@ type Language @model @auth(rules: [{ allow: private }]) {
   code: String!
   isDefault: Boolean!
   isDisabled: Boolean
-  product: Product! @belongsTo
+  product: Product @belongsTo
   translations: [Translation] @hasMany
   isRequireTranslatorAction: Boolean @default(value: "false")
 }
@@ -42,15 +42,15 @@ type Definition @model @auth(rules: [{ allow: private }]) {
   id: ID!
   slug: String!
   defaultValue: String!
-  product: Product! @belongsTo
+  product: Product @belongsTo
   translations: [Translation] @hasMany
 }
 
 type Translation @model @auth(rules: [{ allow: private }]) {
   id: ID!
-  definition: Definition! @belongsTo
-  language: Language! @belongsTo
-  product: Product! @belongsTo
+  definition: Definition @belongsTo
+  language: Language @belongsTo
+  product: Product @belongsTo
   value: String
   isRequireTranslatorAction: Boolean @default(value: "false")
 }
