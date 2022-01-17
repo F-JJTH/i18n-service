@@ -74,7 +74,6 @@ export declare class Translation {
   readonly isRequireTranslatorAction?: boolean;
   readonly createdAt?: string;
   readonly updatedAt?: string;
-  readonly definitionTranslationsId?: string;
   constructor(init: ModelInit<Translation, TranslationMetaData>);
   static copyOf(source: Translation, mutator: (draft: MutableModel<Translation, TranslationMetaData>) => MutableModel<Translation, TranslationMetaData> | void): Translation;
 }
