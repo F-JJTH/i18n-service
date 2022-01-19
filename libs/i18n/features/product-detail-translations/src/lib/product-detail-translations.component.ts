@@ -3,7 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
 import { DataStore } from 'aws-amplify';
+import { NzImageService } from 'ng-zorro-antd/image';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { ZenObservable } from 'zen-observable-ts';
+import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
 
 interface TranslationItem {
   id: string;
@@ -26,6 +29,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   translations: TranslationItem[] = []
 
+  languages: Language[] = []
+
   selectedLanguages: SelectLanguageOption[] = []
 
   languageCodesToExclude: string[] = []
@@ -39,13 +44,16 @@ export class ProductDetailTranslationsComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
+    private readonly imageSvc: NzImageService,
+    private readonly modal: NzModalService,
   ) { }
 
   async ngOnInit() {
     this.product = this.route.parent?.parent?.snapshot.data['product']
 
-    const languageCodesForProduct = (await this.i18nSvc.getLanguagesByProductId(this.product.id))
-      .map(l => l.code)
+    this.languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
+
+    const languageCodesForProduct = this.languages.map(l => l.code)
     this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
     this.fetch()
   }
@@ -68,6 +76,34 @@ export class ProductDetailTranslationsComponent implements OnInit {
         }
       })
       .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
+  }
+
+  onImportTranslationClicked(language: Language) {
+    this.modal.create({
+      nzContent: ImportTranslationsModalComponent,
+      nzWidth: 1280,
+      nzComponentParams: {
+        productId: this.product.id,
+        languageId: language.id,
+      },
+      nzOnOk: () => this.fetch()
+    })
+  }
+
+  onDownloadTranslationClicked(language: Language) {
+    alert('not yet implemented')
+  }
+
+  onTranslationLinkClicked(translation: TranslationItem) {
+    console.warn('onTranslationLinkClicked : not yet implemented')
+    window.open("https://www.kizeo-forms.com", '_blank')
+  }
+
+  onTranslationImageClicked(translation: TranslationItem) {
+    console.warn('onTranslationImageClicked : not yet implemented')
+    this.imageSvc.preview([
+      { src: "https://www.kizeo-forms.com/wp-content/uploads/2020/12/option-exports-formulaire-1.png", alt: translation.defaultValue }
+    ])
   }
 
   async onFilterTranslationChanged() {

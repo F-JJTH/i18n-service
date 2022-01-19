@@ -5,6 +5,22 @@ nz-content {
   border-radius: 4px;
 }
 
+.icon-tools {
+  float: right;
+  font-size: 12px;
+
+  i {
+    margin-left: 10px;
+    color: var(--nz-primary-color);
+    transition: transform .2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(2);
+    }
+  }
+}
+
 .ant-form-item-label {
   text-align: left;
 }

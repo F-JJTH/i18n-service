@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { I18nService, Product } from '@kizeo/i18n/data-access';
+import { Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
@@ -69,6 +69,14 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
     this.fetch()
     this.editId = null;
+  }
+
+  onSetLinkClicked(definition: Definition) {
+    alert('not yet implemented')
+  }
+
+  onSetPictureClicked(definition: Definition) {
+    alert('not yet implemented')
   }
 
   endEdit() {

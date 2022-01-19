@@ -1,0 +1,30 @@
+<div *nzModalTitle>{{ 'IMPORT_TRANSLATIONS' | translate }}</div>
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <textarea rows="24" [placeholder]="placeholder" nz-input [(ngModel)]="inputValue" (ngModelChange)="onInputValueChanged()"></textarea>
+  </div>
+  <div nz-col nzSpan="12">
+    <nz-table nzTemplateMode nzSize="small" [nzScroll]="{ y: '500px' }">
+      <thead>
+        <tr>
+          <th>{{ 'SLUG' | translate }}</th>
+          <th>{{ 'TRANSLATION' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of parsedValues">
+          <td>{{ i.slug }}</td>
+          <td>{{ i.translation }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
+  <button nz-button
+    nzType="primary"
+    [nzLoading]="isLoading"
+    [disabled]="!parsedValues.length"
+    (click)="onImportClicked()">{{ 'IMPORT_NEW_TRANSLATIONS' | translate: {count: parsedValues.length} }}</button>
+</div>

@@ -13,6 +13,8 @@ import { ImportDefinitionsModalComponent } from './import-definitions-modal/impo
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { TranslateModule } from '@ngx-translate/core';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [ProductDetailDefinitionsComponent, ImportDefinitionsModalComponent],
@@ -30,6 +32,8 @@ import { TranslateModule } from '@ngx-translate/core';
     NzButtonModule,
     NzBadgeModule,
     NzModalModule,
+    NzIconModule,
+    NzDropDownModule,
     TranslateModule,
   ],
 })

@@ -274,7 +274,10 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["apps/i18n-web/src/styles.scss"],
+            "styles": [
+              "apps/i18n-web/src/styles.scss",
+              "apps/i18n-web/src/styles.less"
+            ],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "@aws-crypto/crc32",

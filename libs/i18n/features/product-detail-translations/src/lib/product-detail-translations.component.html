@@ -1,10 +1,10 @@
 <nz-content>
   <header>
-    <div nz-row>
-      <div nz-col nzSpan="16">
+    <div nz-row [nzGutter]="8">
+      <div nz-col nzSpan="12">
         <nz-alert nzType="info" [nzMessage]="'USE_TAB_KEY_TO_SWITCH_BETWEEN_FIELDS' | translate" nzShowIcon></nz-alert>
       </div>
-      <div nz-col nzSpan="8" class="text-right">
+      <div nz-col nzSpan="12" class="action-buttons">
         <button *ngIf="!!modifiedTranslationItems.size"
           nz-button
           (click)="onSaveTranslationsClicked()"
@@ -12,6 +12,26 @@
           [nzLoading]="isSaving">
           <i nz-icon nzType="save" nzTheme="outline"></i> {{ 'SAVE' | translate }}
         </button>
+
+        <a nz-dropdown [nzDropdownMenu]="menuImport">
+          {{ 'IMPORT_TRANSLATIONS' | translate }}
+          <i nz-icon nzType="down"></i>
+        </a>
+        <nz-dropdown-menu #menuImport="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item *ngFor="let language of languages" (click)="onImportTranslationClicked(language)">{{ language.name }}</li>
+          </ul>
+        </nz-dropdown-menu>
+
+        <a nz-dropdown [nzDropdownMenu]="menuDownload">
+          {{ 'DOWNLOAD_TRANSLATIONS' | translate }}
+          <i nz-icon nzType="down"></i>
+        </a>
+        <nz-dropdown-menu #menuDownload="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item *ngFor="let language of languages" (click)="onDownloadTranslationClicked(language)">{{ language.name }}</li>
+          </ul>
+        </nz-dropdown-menu>
       </div>
     </div>
   </header>
@@ -44,7 +64,13 @@
     <tbody>
       <tr *ngFor="let translation of table.data" [class.warning]="translation.isRequireTranslatorAction">
         <td>
-          <p class="slug">{{ translation.slug }}</p>
+          <p class="slug">
+            {{ translation.slug }}
+            <span class="icon-tools">
+              <i nz-icon nzType="link" nzTheme="outline" (click)="onTranslationLinkClicked(translation)"></i>
+              <i nz-icon nzType="picture" nzTheme="outline" (click)="onTranslationImageClicked(translation)"></i>
+            </span>
+          </p>
           <p class="m-0">{{ translation.defaultValue }}</p>
         </td>
         <td>{{ translation.language.name }}</td>

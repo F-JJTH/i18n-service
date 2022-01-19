@@ -51,6 +51,10 @@
         <td>
           <div class="editable-cell" [hidden]="editId === def.id">
             {{ def.slug }}
+            <span class="icon-tools">
+              <i nz-icon nzType="link" nzTheme="outline"></i>
+              <i nz-icon nzType="picture" nzTheme="outline"></i>
+            </span>
           </div>
           <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.slug" />
         </td>
@@ -61,8 +65,19 @@
           <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.defaultValue" />
         </td>
         <td>
-          <button *ngIf="editId !== def.id" nz-button nzType="primary" (click)="startEdit(def.id)">{{ 'EDIT' | translate }}</button>
+          <nz-button-group *ngIf="editId !== def.id">
+            <button nz-button (click)="startEdit(def.id)">{{ 'EDIT' | translate }}</button>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
+              <i nz-icon nzType="ellipsis"></i>
+            </button>
+          </nz-button-group>
           <button *ngIf="editId === def.id" nz-button nzType="primary" (click)="stopEdit(def.slug, def.defaultValue)">{{ 'SAVE' | translate }}</button>
+          <nz-dropdown-menu #menu1="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="onSetLinkClicked(def)">{{ 'SET_LINK' | translate }}</li>
+              <li nz-menu-item (click)="onSetPictureClicked(def)">{{ 'SET_PICTURE' | translate }}</li>
+            </ul>
+          </nz-dropdown-menu>
           <!-- Pas sur les maquettes mais pourra être rajouté facilement -->
           <!--button
             nz-button nzDanger nzType="primary"

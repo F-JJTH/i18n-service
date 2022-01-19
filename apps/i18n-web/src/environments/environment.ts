@@ -8,7 +8,7 @@ export const environment: IEnvironment = {
   production: false,
   version: '1.0.0-dev',
   i18n: {
-    appId: '6737a8c1-177e-4ec8-aa82-298adc04a356',
+    appId: 'eb6261ac-c9b1-42f3-bdb5-a13bfa89491b',
     env: 'dev',
   }
 };

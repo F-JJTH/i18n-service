@@ -28,8 +28,16 @@ export class I18nService {
     return DataStore.query(Product, id)
   }
 
+  getLanguageById(id: string) {
+    return DataStore.query(Language, id)
+  }
+
   getProducts() {
     return DataStore.query(Product)
+  }
+
+  async getDefinitionBySlug(slug: string) {
+    return (await DataStore.query(Definition)).filter(d => d.slug === slug)[0]
   }
 
   async addMemberToProduct(memberId: string, memberEmail: string, authorizations: MemberAuthorization, productId: string) {
@@ -212,6 +220,48 @@ export class I18nService {
     await Promise.all(promises)
 
     this.publishDevTranslationsForProduct(definition.product!.id)
+  }
+
+  async importTranslations(translations: {slug: string, translation: string}[], productId: string, languageId: string) {
+    const product = await this.getProductById(productId)
+    const language = await this.getLanguageById(languageId)
+    if (!product || !language) {
+      return
+    }
+
+    await Promise.all(translations.map(v => {
+      return new Promise<void | string>(async (resolve, reject) => {
+        const definition = await this.getDefinitionBySlug(v.slug)
+        if (!definition) { return resolve(`Unknown slug '${v.slug}'`) }
+
+        const translation = (await DataStore.query(Translation)).filter(t => t.definition!.id === definition.id && t.language!.id === languageId && t.product!.id === productId)[0]
+        if (!translation) { return resolve(`Unknown translation for slug '${v.slug}' and language '${languageId}'`) }
+
+        await DataStore.save(
+          Translation.copyOf(translation, updated => {
+            updated.value = v.translation,
+            updated.isRequireTranslatorAction = v.translation ? false : true
+          })
+        )
+        resolve()
+      })
+    }))
+
+    this.publishDevTranslationsForProduct(productId)
+
+    const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
+      .filter(t => t.language!.id === language.id && t.isRequireTranslatorAction === true)
+    return DataStore.save(
+      Language.copyOf(language, updated => {
+        updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
+      })
+    )
+  }
+
+  async importDefinitions(definitions: {slug: string, defaultValue: string}[], productId: string) {
+    return Promise.all(definitions.map(v => {
+      return this.addDefinition(v.slug, v.defaultValue, productId)
+    }))
   }
 
   async addDefinition(slug: string, defaultValue: string, productId: string) {
