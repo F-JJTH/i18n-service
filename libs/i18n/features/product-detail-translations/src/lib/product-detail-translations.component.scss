@@ -34,6 +34,22 @@ header {
   margin-bottom: 8px;
 }
 
+.validator-btn {
+
+  i {
+    color: rgb(255, 233, 191);
+  }
+
+  &.validator-btn-is-valid {
+    background-color: var(--nz-success-color);
+    border-color: var(--nz-success-color);
+
+    i {
+      color: white;
+    }
+  }
+}
+
 nz-content {
   background-color: #fff;
   margin: 8px;

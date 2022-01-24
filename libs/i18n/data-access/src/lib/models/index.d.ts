@@ -6,6 +6,7 @@ export declare class MemberAuthorization {
   readonly definitions: boolean;
   readonly settings: boolean;
   readonly deploy: boolean;
+  readonly validator?: boolean;
   readonly translations?: (string | null)[];
   constructor(init: ModelInit<MemberAuthorization>);
 }
@@ -72,6 +73,7 @@ export declare class Translation {
   readonly product?: Product;
   readonly value?: string;
   readonly isRequireTranslatorAction?: boolean;
+  readonly isValid?: boolean;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Translation, TranslationMetaData>);
@@ -84,6 +86,8 @@ export declare class Definition {
   readonly defaultValue: string;
   readonly product?: Product;
   readonly translations?: (Translation | null)[];
+  readonly link?: string;
+  readonly picture?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Definition, DefinitionMetaData>);

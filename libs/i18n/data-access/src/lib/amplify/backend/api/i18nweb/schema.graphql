@@ -5,6 +5,7 @@ type MemberAuthorization {
   definitions: Boolean!
   settings: Boolean!
   deploy: Boolean!
+  validator: Boolean
   translations: [String]
 }
 
@@ -44,6 +45,8 @@ type Definition @model @auth(rules: [{ allow: private }]) {
   defaultValue: String!
   product: Product @belongsTo
   translations: [Translation] @hasMany
+  link: String
+  picture: String
 }
 
 type Translation @model @auth(rules: [{ allow: private }]) {
@@ -53,4 +56,5 @@ type Translation @model @auth(rules: [{ allow: private }]) {
   product: Product @belongsTo
   value: String
   isRequireTranslatorAction: Boolean @default(value: "false")
+  isValid: Boolean @default(value: "false")
 }

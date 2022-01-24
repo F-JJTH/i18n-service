@@ -67,7 +67,9 @@
           <p class="slug">
             {{ translation.slug }}
             <span class="icon-tools">
-              <i nz-icon nzType="link" nzTheme="outline" (click)="onTranslationLinkClicked(translation)"></i>
+              <a *ngIf="translation.definition.link" [href]="translation.definition.link" target="_blank">
+                <i nz-icon nzType="link" nzTheme="outline"></i>
+              </a>
               <i nz-icon nzType="picture" nzTheme="outline" (click)="onTranslationImageClicked(translation)"></i>
             </span>
           </p>
@@ -75,10 +77,21 @@
         </td>
         <td>{{ translation.language.name }}</td>
         <td>
-          <input nz-input 
-          [(ngModel)]="translation.value"
-          [name]="translation.slug+translation.language.code"
-          (ngModelChange)="onTranslationChanged(translation)">
+          <nz-input-group nzSearch [nzAddOnAfter]="canValidate ? suffixButton : undefined">
+            <input nz-input 
+              [(ngModel)]="translation.value"
+              [name]="translation.slug+translation.language.code"
+              (ngModelChange)="onTranslationChanged(translation)">
+          </nz-input-group>
+          <ng-template #suffixButton>
+            <button nz-button
+              class="validator-btn"
+              [class.validator-btn-is-valid]="translation.isValid"
+              [nzType]="translation.isValid ? 'primary' : 'default'"
+              (click)="toggleValidation(translation)">
+              <i nz-icon nzType="check" nzTheme="outline"></i>
+            </button>
+          </ng-template>
         </td>
       </tr>
     </tbody>

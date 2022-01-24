@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { I18nService, Member, Product } from '@kizeo/i18n/data-access';
+import { I18nService, Member, MemberAuthorization, Product } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -14,10 +14,11 @@ export class AddEditMemberModalComponent implements OnInit {
 
   selectedMember?: Member
 
+  manageValidations = false
   manageDefinitions = false
   manageSettings = false
   manageDeploy = false
-  manageTranslations = 'all'
+  manageTranslations = 'none'
   languages: {code: string}[] = []
 
   memberOptions: any[] = []
@@ -33,10 +34,11 @@ export class AddEditMemberModalComponent implements OnInit {
     this.isNew = !this.member
 
     if (this.member) {
+      this.manageValidations = this.member.authorizations.validator ?? false
       this.manageDefinitions = this.member.authorizations.definitions
       this.manageSettings = this.member.authorizations.settings
       this.manageDeploy = this.member.authorizations.deploy
-      this.manageTranslations = this.member.authorizations.translations?.includes('ALL') ? 'all' : 'specific'
+      this.manageTranslations = this.member.authorizations.translations?.includes('ALL') ? 'all' : this.member.authorizations.translations?.length ? 'specific' : 'none'
       this.languages = (this.member.authorizations.translations as string[]).map(t => ({code: t}))
     }
 
@@ -53,11 +55,12 @@ export class AddEditMemberModalComponent implements OnInit {
   }
 
   async onCreateOrEditClicked() {
-    const authorizations = {
+    const authorizations: MemberAuthorization = {
+      validator: this.manageValidations,
       definitions: this.manageDefinitions,
       deploy: this.manageDeploy,
       settings: this.manageSettings,
-      translations: this.manageTranslations === 'all' ? ['ALL'] : this.languages.filter(l => l.code !== 'ALL').map(l => l.code)
+      translations: this.manageTranslations === 'all' ? ['ALL'] : this.manageTranslations === 'none' ? [] : this.languages.filter(l => l.code !== 'ALL').map(l => l.code)
     }
 
     if (this.isNew && this.selectedMember) {
@@ -71,5 +74,16 @@ export class AddEditMemberModalComponent implements OnInit {
 
   onCancelClicked() {
     this.modalRef.triggerCancel()
+  }
+
+  isValidForm(): boolean {
+    return (!!this.selectedMember || !!this.member) &&
+      (
+        this.manageDefinitions ||
+        this.manageSettings ||
+        this.manageDeploy ||
+        this.manageValidations ||
+        this.manageTranslations === 'all' || (this.manageTranslations === 'specific' && !!this.languages.length)
+      )
   }
 }

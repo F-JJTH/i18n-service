@@ -317,6 +317,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "isValid": {
+                    "name": "isValid",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -410,6 +417,20 @@ export const schema = {
                         "associatedWith": "definitionTranslationsId"
                     }
                 },
+                "link": {
+                    "name": "link",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "picture": {
+                    "name": "picture",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -479,6 +500,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "validator": {
+                    "name": "validator",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "translations": {
                     "name": "translations",
                     "isArray": true,
@@ -518,5 +546,5 @@ export const schema = {
             }
         }
     },
-    "version": "38771bae0652a5db4936ef8ad8b2696f"
+    "version": "7711297b4d468f8d40cc5d15771ce133"
 };

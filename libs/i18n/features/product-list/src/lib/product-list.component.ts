@@ -20,6 +20,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   canAccess: any = {}
 
+  isLoading = false
+
   constructor(
     private readonly modal: NzModalService,
     private readonly currentUser: CurrentUserService,
@@ -37,6 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   async fetch() {
+    this.isLoading = true
     if (await this.currentUser.isAdmin()) {
       const products = await this.i18nSvc.getProducts()
       this.products = products.map(p => ({
@@ -52,6 +55,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.products.forEach(async p => {
       this.productLanguages[p.id] = await this.i18nSvc.getLanguagesByProductId(p.id)
     })
+
+    this.isLoading = false
   }
 
   onCreateNewApplicationClicked() {

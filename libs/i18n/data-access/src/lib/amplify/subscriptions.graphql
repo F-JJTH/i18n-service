@@ -213,6 +213,8 @@ subscription OnCreateDefinition {
       nextToken
       startedAt
     }
+    link
+    picture
     createdAt
     updatedAt
     _version
@@ -243,6 +245,8 @@ subscription OnUpdateDefinition {
       nextToken
       startedAt
     }
+    link
+    picture
     createdAt
     updatedAt
     _version
@@ -273,6 +277,8 @@ subscription OnDeleteDefinition {
       nextToken
       startedAt
     }
+    link
+    picture
     createdAt
     updatedAt
     _version
@@ -288,6 +294,8 @@ subscription OnCreateTranslation {
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -324,6 +332,7 @@ subscription OnCreateTranslation {
     }
     value
     isRequireTranslatorAction
+    isValid
     createdAt
     updatedAt
     _version
@@ -341,6 +350,8 @@ subscription OnUpdateTranslation {
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -377,6 +388,7 @@ subscription OnUpdateTranslation {
     }
     value
     isRequireTranslatorAction
+    isValid
     createdAt
     updatedAt
     _version
@@ -394,6 +406,8 @@ subscription OnDeleteTranslation {
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -430,6 +444,7 @@ subscription OnDeleteTranslation {
     }
     value
     isRequireTranslatorAction
+    isValid
     createdAt
     updatedAt
     _version

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
+import { CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
 import { DataStore } from 'aws-amplify';
 import { NzImageService } from 'ng-zorro-antd/image';
@@ -13,7 +13,9 @@ interface TranslationItem {
   slug: string;
   language: Language;
   translation: Translation;
+  definition: Definition;
   value: string;
+  isValid: boolean;
   defaultValue: string;
   isRequireTranslatorAction: boolean | undefined;
 }
@@ -41,11 +43,14 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   dtStoreSubscription?: ZenObservable.Subscription
 
+  canValidate = false
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
     private readonly imageSvc: NzImageService,
     private readonly modal: NzModalService,
+    private readonly currentUser: CurrentUserService,
   ) { }
 
   async ngOnInit() {
@@ -56,6 +61,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
     const languageCodesForProduct = this.languages.map(l => l.code)
     this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
     this.fetch()
+
+    this.canValidate = await this.currentUser.canAccessValidateTranslationsForProduct(this.product)
   }
 
   async fetch() {
@@ -71,6 +78,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
           value: t.value || "",
           language: t.language!,
           translation: t,
+          isValid: t.isValid ?? false,
+          definition: t.definition!,
           defaultValue: t.definition!.defaultValue,
           isRequireTranslatorAction: t.isRequireTranslatorAction
         }
@@ -94,11 +103,6 @@ export class ProductDetailTranslationsComponent implements OnInit {
     alert('not yet implemented')
   }
 
-  onTranslationLinkClicked(translation: TranslationItem) {
-    console.warn('onTranslationLinkClicked : not yet implemented')
-    window.open("https://www.kizeo-forms.com", '_blank')
-  }
-
   onTranslationImageClicked(translation: TranslationItem) {
     console.warn('onTranslationImageClicked : not yet implemented')
     this.imageSvc.preview([
@@ -114,39 +118,18 @@ export class ProductDetailTranslationsComponent implements OnInit {
     this.modifiedTranslationItems.set(translation.id, translation)
   }
 
+  async toggleValidation(translation: TranslationItem) {
+    const value = !translation.isValid
+    translation.isValid = value
+    await this.i18nSvc.setIsValidForTranslation(translation.translation.id, value)
+  }
+
   async onSaveTranslationsClicked() {
     this.isSaving = true
 
     await this.i18nSvc.updateTranslations(
       Array.from(this.modifiedTranslationItems.values())
     )
-
-    // let promises: Promise<any>[] = []
-    // const modifierLanguages: Map<string, Language> = new Map()
-    // this.modifiedTranslationItems.forEach(translationItem => {
-    //   modifierLanguages.set(translationItem.language.id, translationItem.language)
-
-    //   promises.push(
-    //     DataStore.save(
-    //       Translation.copyOf(translationItem.translation!, updated => {
-    //         updated.value = translationItem.value
-    //         updated.isRequireTranslatorAction = translationItem.value ? false : true
-    //       })
-    //     )
-    //   )
-    // })
-
-    // await Promise.all(promises)
-
-    // modifierLanguages.forEach(async language => {
-    //   const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
-    //     .filter(t => t.language.id === language.id && t.isRequireTranslatorAction === true)
-    //   DataStore.save(
-    //     Language.copyOf(language, updated => {
-    //       updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
-    //     })
-    //   )
-    // })
 
     setTimeout(() => {
       this.modifiedTranslationItems.clear()

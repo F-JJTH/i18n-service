@@ -191,6 +191,8 @@ query GetDefinition($id: ID!) {
       nextToken
       startedAt
     }
+    link
+    picture
     createdAt
     updatedAt
     _version
@@ -209,6 +211,8 @@ query ListDefinitions(
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -236,6 +240,8 @@ query SyncDefinitions(
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -254,6 +260,8 @@ query GetTranslation($id: ID!) {
       id
       slug
       defaultValue
+      link
+      picture
       createdAt
       updatedAt
       _version
@@ -290,6 +298,7 @@ query GetTranslation($id: ID!) {
     }
     value
     isRequireTranslatorAction
+    isValid
     createdAt
     updatedAt
     _version
@@ -310,6 +319,7 @@ query ListTranslations(
       id
       value
       isRequireTranslatorAction
+      isValid
       createdAt
       updatedAt
       _version
@@ -339,6 +349,7 @@ query SyncTranslations(
       id
       value
       isRequireTranslatorAction
+      isValid
       createdAt
       updatedAt
       _version

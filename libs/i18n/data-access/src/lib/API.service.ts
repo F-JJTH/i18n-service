@@ -45,6 +45,7 @@ export type MemberAuthorizationInput = {
   definitions: boolean;
   settings: boolean;
   deploy: boolean;
+  validator?: boolean | null;
   translations?: Array<string | null> | null;
 };
 
@@ -157,6 +158,7 @@ export type Translation = {
   product?: Product | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -174,6 +176,8 @@ export type Definition = {
   defaultValue: string;
   product?: Product | null;
   translations?: ModelTranslationConnection | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -201,6 +205,7 @@ export type MemberAuthorization = {
   definitions: boolean;
   settings: boolean;
   deploy: boolean;
+  validator?: boolean | null;
   translations?: Array<string | null> | null;
 };
 
@@ -286,6 +291,8 @@ export type CreateDefinitionInput = {
   id?: string | null;
   slug: string;
   defaultValue: string;
+  link?: string | null;
+  picture?: string | null;
   _version?: number | null;
   productDefinitionsId?: string | null;
 };
@@ -293,6 +300,8 @@ export type CreateDefinitionInput = {
 export type ModelDefinitionConditionInput = {
   slug?: ModelStringInput | null;
   defaultValue?: ModelStringInput | null;
+  link?: ModelStringInput | null;
+  picture?: ModelStringInput | null;
   and?: Array<ModelDefinitionConditionInput | null> | null;
   or?: Array<ModelDefinitionConditionInput | null> | null;
   not?: ModelDefinitionConditionInput | null;
@@ -303,6 +312,8 @@ export type UpdateDefinitionInput = {
   id: string;
   slug?: string | null;
   defaultValue?: string | null;
+  link?: string | null;
+  picture?: string | null;
   _version?: number | null;
   productDefinitionsId?: string | null;
 };
@@ -316,6 +327,7 @@ export type CreateTranslationInput = {
   id?: string | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   _version?: number | null;
   productTranslationsId?: string | null;
   languageTranslationsId?: string | null;
@@ -325,6 +337,7 @@ export type CreateTranslationInput = {
 export type ModelTranslationConditionInput = {
   value?: ModelStringInput | null;
   isRequireTranslatorAction?: ModelBooleanInput | null;
+  isValid?: ModelBooleanInput | null;
   and?: Array<ModelTranslationConditionInput | null> | null;
   or?: Array<ModelTranslationConditionInput | null> | null;
   not?: ModelTranslationConditionInput | null;
@@ -337,6 +350,7 @@ export type UpdateTranslationInput = {
   id: string;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   _version?: number | null;
   productTranslationsId?: string | null;
   languageTranslationsId?: string | null;
@@ -384,6 +398,8 @@ export type ModelDefinitionFilterInput = {
   id?: ModelIDInput | null;
   slug?: ModelStringInput | null;
   defaultValue?: ModelStringInput | null;
+  link?: ModelStringInput | null;
+  picture?: ModelStringInput | null;
   and?: Array<ModelDefinitionFilterInput | null> | null;
   or?: Array<ModelDefinitionFilterInput | null> | null;
   not?: ModelDefinitionFilterInput | null;
@@ -394,6 +410,7 @@ export type ModelTranslationFilterInput = {
   id?: ModelIDInput | null;
   value?: ModelStringInput | null;
   isRequireTranslatorAction?: ModelBooleanInput | null;
+  isValid?: ModelBooleanInput | null;
   and?: Array<ModelTranslationFilterInput | null> | null;
   or?: Array<ModelTranslationFilterInput | null> | null;
   not?: ModelTranslationFilterInput | null;
@@ -636,6 +653,8 @@ export type CreateDefinitionMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -668,6 +687,8 @@ export type UpdateDefinitionMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -700,6 +721,8 @@ export type DeleteDefinitionMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -716,6 +739,8 @@ export type CreateTranslationMutation = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -754,6 +779,7 @@ export type CreateTranslationMutation = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -772,6 +798,8 @@ export type UpdateTranslationMutation = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -810,6 +838,7 @@ export type UpdateTranslationMutation = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -828,6 +857,8 @@ export type DeleteTranslationMutation = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -866,6 +897,7 @@ export type DeleteTranslationMutation = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1052,6 +1084,8 @@ export type GetDefinitionQuery = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1067,6 +1101,8 @@ export type ListDefinitionsQuery = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1085,6 +1121,8 @@ export type SyncDefinitionsQuery = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1104,6 +1142,8 @@ export type GetTranslationQuery = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1142,6 +1182,7 @@ export type GetTranslationQuery = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1159,6 +1200,7 @@ export type ListTranslationsQuery = {
     id: string;
     value?: string | null;
     isRequireTranslatorAction?: boolean | null;
+    isValid?: boolean | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1179,6 +1221,7 @@ export type SyncTranslationsQuery = {
     id: string;
     value?: string | null;
     isRequireTranslatorAction?: boolean | null;
+    isValid?: boolean | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1426,6 +1469,8 @@ export type OnCreateDefinitionSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1458,6 +1503,8 @@ export type OnUpdateDefinitionSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1490,6 +1537,8 @@ export type OnDeleteDefinitionSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
+  link?: string | null;
+  picture?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1506,6 +1555,8 @@ export type OnCreateTranslationSubscription = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1544,6 +1595,7 @@ export type OnCreateTranslationSubscription = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1562,6 +1614,8 @@ export type OnUpdateTranslationSubscription = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1600,6 +1654,7 @@ export type OnUpdateTranslationSubscription = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -1618,6 +1673,8 @@ export type OnDeleteTranslationSubscription = {
     id: string;
     slug: string;
     defaultValue: string;
+    link?: string | null;
+    picture?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1656,6 +1713,7 @@ export type OnDeleteTranslationSubscription = {
   } | null;
   value?: string | null;
   isRequireTranslatorAction?: boolean | null;
+  isValid?: boolean | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -2005,6 +2063,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -2053,6 +2113,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -2101,6 +2163,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -2133,6 +2197,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2171,6 +2237,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -2205,6 +2272,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2243,6 +2312,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -2277,6 +2347,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2315,6 +2387,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -2626,6 +2699,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -2655,6 +2730,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2695,6 +2772,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2734,6 +2813,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -2772,6 +2853,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -2803,6 +2885,7 @@ export class APIService {
             id
             value
             isRequireTranslatorAction
+            isValid
             createdAt
             updatedAt
             _version
@@ -2845,6 +2928,7 @@ export class APIService {
             id
             value
             isRequireTranslatorAction
+            isValid
             createdAt
             updatedAt
             _version
@@ -3175,6 +3259,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -3217,6 +3303,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -3259,6 +3347,8 @@ export class APIService {
             nextToken
             startedAt
           }
+          link
+          picture
           createdAt
           updatedAt
           _version
@@ -3285,6 +3375,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -3323,6 +3415,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -3351,6 +3444,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -3389,6 +3484,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version
@@ -3417,6 +3513,8 @@ export class APIService {
             id
             slug
             defaultValue
+            link
+            picture
             createdAt
             updatedAt
             _version
@@ -3455,6 +3553,7 @@ export class APIService {
           }
           value
           isRequireTranslatorAction
+          isValid
           createdAt
           updatedAt
           _version

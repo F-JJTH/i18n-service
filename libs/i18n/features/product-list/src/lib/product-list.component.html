@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-  <nz-result *ngIf="!products.length"
+  <nz-result *ngIf="!products.length && !isLoading"
     [nzIcon]="'smile-twotone'"
     nzStatus="404"
     [nzTitle]="'There is no product yet!'">

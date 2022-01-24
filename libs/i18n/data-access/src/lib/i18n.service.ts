@@ -36,6 +36,17 @@ export class I18nService {
     return DataStore.query(Product)
   }
 
+  async setIsValidForTranslation(id: string, isValid: boolean) {
+    const translation = await DataStore.query(Translation, id)
+    if (!translation) { throw new Error(`Translation ${id} not found`) }
+
+    return DataStore.save(
+      Translation.copyOf(translation, updated => {
+        updated.isValid = isValid
+      })
+    )
+  }
+
   async getDefinitionBySlug(slug: string) {
     return (await DataStore.query(Definition)).filter(d => d.slug === slug)[0]
   }
@@ -101,6 +112,7 @@ export class I18nService {
         id: currentUser.sub,
         email: currentUser.email,
         authorizations: {
+          validator: true,
           definitions: true,
           deploy: true,
           settings: true,

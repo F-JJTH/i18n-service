@@ -4,6 +4,7 @@
       <th>{{ 'MEMBER' | translate }}</th>
       <th nzAlign="center">{{ 'DEFINITIONS' | translate }}</th>
       <th nzAlign="center">{{ 'TRANSLATIONS' | translate }}</th>
+      <th nzAlign="center">{{ 'VALIDATIONS' | translate }}</th>
       <th nzAlign="center">{{ 'DEPLOY' | translate }}</th>
       <th nzAlign="center">{{ 'SETTINGS' | translate }}</th>
       <th>
@@ -23,6 +24,9 @@
           <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">{{ 'ALL' | translate }}</ng-container>
           <ng-template #translationList>{{ member.authorizations.translations?.join(', ') }}</ng-template>
         </ng-container>
+      </td>
+      <td nzAlign="center">
+        <i *ngIf="member.authorizations.validator" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td nzAlign="center">
         <i *ngIf="member.authorizations.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>

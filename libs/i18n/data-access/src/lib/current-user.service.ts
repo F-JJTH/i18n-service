@@ -48,7 +48,24 @@ export class CurrentUserService {
   async canAccessTranslationsForProduct(product: Product): Promise<boolean> {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
-    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.translations?.length !== 0 || false)
+
+    if (userIsAdmin) {
+      return true
+    }
+
+    const productAuthorizations = product.authorizations?.find(a => a?.id === userPayload.sub)
+    if (productAuthorizations) {
+      return productAuthorizations.authorizations.translations?.length !== 0 || productAuthorizations.authorizations.validator || false
+    }
+
+    return false
+  }
+
+  async canAccessValidateTranslationsForProduct(product: Product): Promise<boolean> {
+    const userIsAdmin = await this.isAdmin()
+    const userPayload = await this.getPayload()
+
+    return userIsAdmin || product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.validator || false
   }
 
   async getPayload(): Promise<UserPayload> {

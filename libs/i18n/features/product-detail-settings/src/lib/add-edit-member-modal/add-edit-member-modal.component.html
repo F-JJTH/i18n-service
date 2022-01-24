@@ -41,7 +41,14 @@
 
     <nz-form-item>
       <nz-form-control>
+        <label nz-checkbox [(ngModel)]="manageValidations" name="manageValidations">Manage validations</label>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control>
         <nz-radio-group [(ngModel)]="manageTranslations" name="manageTranslations">
+          <label nz-radio nzValue="none">Do not manage translations</label>
           <label nz-radio nzValue="all">Manage all translations</label>
           <label nz-radio nzValue="specific">Manage specific translations
             <kizeo-select-language *ngIf="manageTranslations === 'specific'"
@@ -59,7 +66,7 @@
 </div>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
-  <button nz-button nzType="primary" (click)="onCreateOrEditClicked()" [disabled]="!selectedMember && !member">
+  <button nz-button nzType="primary" (click)="onCreateOrEditClicked()" [disabled]="!isValidForm()">
     <i nz-icon nzType="save" nzTheme="outline"></i>
     Créer/Modifier
   </button>
