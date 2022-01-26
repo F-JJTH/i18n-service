@@ -75,7 +75,9 @@
           <nz-dropdown-menu #menu1="nzDropdownMenu">
             <ul nz-menu>
               <li nz-menu-item (click)="onSetLinkClicked(def)">{{ 'SET_LINK' | translate }}</li>
+              <li nz-menu-item (click)="onClearLinkClicked(def)">{{ 'CLEAR_LINK' | translate }}</li>
               <li nz-menu-item (click)="onSetPictureClicked(def)">{{ 'SET_PICTURE' | translate }}</li>
+              <li nz-menu-item (click)="onClearPictureClicked(def)">{{ 'CLEAR_PICTURE' | translate }}</li>
             </ul>
           </nz-dropdown-menu>
           <!-- Pas sur les maquettes mais pourra être rajouté facilement -->

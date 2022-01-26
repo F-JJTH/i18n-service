@@ -77,7 +77,7 @@
         </td>
         <td>{{ translation.language.name }}</td>
         <td>
-          <nz-input-group nzSearch [nzAddOnAfter]="canValidate ? suffixButton : undefined">
+          <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
             <input nz-input 
               [(ngModel)]="translation.value"
               [name]="translation.slug+translation.language.code"
@@ -86,6 +86,7 @@
           <ng-template #suffixButton>
             <button nz-button
               class="validator-btn"
+              [disabled]="!canValidate"
               [class.validator-btn-is-valid]="translation.isValid"
               [nzType]="translation.isValid ? 'primary' : 'default'"
               (click)="toggleValidation(translation)">

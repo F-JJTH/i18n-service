@@ -79,6 +79,14 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     alert('not yet implemented')
   }
 
+  onClearLinkClicked(definition: Definition) {
+    alert('not yet implemented')
+  }
+
+  onClearPictureClicked(definition: Definition) {
+    alert('not yet implemented')
+  }
+
   endEdit() {
     this.fetch()
     this.editId = null;
