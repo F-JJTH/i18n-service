@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "username": "root",
+  "password": "unsecure_password",
+  "database": "i18n.kizeo.com",
+  "entities": ["./**/*.entity.js"],
+  "migrations": ["./migrations/*"]
+}

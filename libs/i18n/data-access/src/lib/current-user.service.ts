@@ -73,8 +73,10 @@ export class CurrentUserService {
   }
 
   async getLandingPageForProduct(product: Product): Promise<string> {
+    const isAdmin = await this.isAdmin()
     const authorizations = await this.getAuthorizationsForProduct(product)
     switch (true) {
+      case isAdmin:
       case authorizations.definitions:
         return 'definitions'
       case authorizations.translations:

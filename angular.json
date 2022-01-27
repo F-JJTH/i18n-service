@@ -1,6 +1,81 @@
 {
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "projects": {
+    "i18n-backend": {
+      "root": "apps/i18n-backend",
+      "sourceRoot": "apps/i18n-backend/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/i18n-backend",
+            "main": "apps/i18n-backend/src/main.ts",
+            "tsConfig": "apps/i18n-backend/tsconfig.app.json",
+            "assets": [
+              "apps/i18n-backend/src/assets",
+              "apps/i18n-backend/src/migrations"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/i18n-backend/src/environments/environment.ts",
+                  "with": "apps/i18n-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "local": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/i18n-backend/src/environments/environment.ts",
+                  "with": "apps/i18n-backend/src/environments/environment.local.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "configurations": {
+            "production": {
+              "buildTarget": "i18n-backend:build:production"
+            },
+            "local": {
+              "buildTarget": "i18n-backend:build:local"
+            }
+          },
+          "defaultConfiguration": "local"
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/i18n-backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/i18n-backend"],
+          "options": {
+            "jestConfig": "apps/i18n-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "i18n-client": {
       "root": "libs/i18n/client",
       "sourceRoot": "libs/i18n/client/src",
@@ -337,7 +412,10 @@
               "browserTarget": "i18n-web:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "apps/i18n-web/proxy.conf.json"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

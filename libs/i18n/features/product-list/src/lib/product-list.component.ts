@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CurrentUserService, Product, Language, I18nService } from '@kizeo/i18n/data-access';
+import { CurrentUserService, Product, Language, I18nService, ProductListItem } from '@kizeo/i18n/data-access';
 import { ZenObservable } from 'zen-observable-ts';
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-app-modal.component";
-
-type ProductItem = Product & {page: string}
 
 @Component({
   selector: 'kizeo-i18n-product-list',
@@ -12,7 +10,7 @@ type ProductItem = Product & {page: string}
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-  products: ProductItem[] = []
+  products: ProductListItem[] = []
   productLanguages: {[productId: string]: Language[]} = {}
 
   canCreateApplication = false
@@ -35,22 +33,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dtStoreSubscriptions.unsubscribe()
+    this.dtStoreSubscriptions?.unsubscribe()
   }
 
   async fetch() {
     this.isLoading = true
-    if (await this.currentUser.isAdmin()) {
-      const products = await this.i18nSvc.getProducts()
-      this.products = products.map(p => ({
-        ...p,
-        page: 'definitions'
-      }))
-    } else {
-      const user: any = await this.currentUser.getPayload()
-      const products = await this.i18nSvc.getProductsForMember(user.sub)
-      this.products = await this.canAccessProductItem(products)
-    }
+
+    const products = await this.i18nSvc.getProducts()
+    this.products = await this.setLandingPageForProductItem(products)
 
     this.products.forEach(async p => {
       this.productLanguages[p.id] = await this.i18nSvc.getLanguagesByProductId(p.id)
@@ -65,9 +55,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       nzOnOk: () => this.fetch()
     })
   }
-
-  async canAccessProductItem(products: Product[]): Promise<ProductItem[]> {
-    const promises = products.map<Promise<ProductItem>>(p => {
+  
+  private async setLandingPageForProductItem(products: Product[]): Promise<ProductListItem[]> {
+    const promises = products.map<Promise<ProductListItem>>(p => {
       return new Promise(async (resolve, reject) => {
         const page = await this.currentUser.getLandingPageForProduct(p)
         resolve({
