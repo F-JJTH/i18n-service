@@ -2,7 +2,7 @@ import { StringField } from "../../../decorators/field.decorators"
 import { ApiProperty } from "@nestjs/swagger"
 import { ValidateNested, IsObject } from 'class-validator'
 
-class DefaultLanguageDto {
+export class DefaultLanguageDto {
   @StringField()
   code: string
 

@@ -22,9 +22,4 @@ export class ShellComponent {
     this.router.navigateByUrl('/')
     this.signOut()
   }
-
-  clearLocalDB() {
-    this.i18nSvc.clearLocalDB()
-    window.location.reload()
-  }
 }

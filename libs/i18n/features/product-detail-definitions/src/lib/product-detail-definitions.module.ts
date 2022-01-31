@@ -15,9 +15,18 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { SetLinkModalComponent } from './set-link-modal/set-link-modal.component';
+import { SetPictureModalComponent } from './set-picture-modal/set-picture-modal.component';
 
 @NgModule({
-  declarations: [ProductDetailDefinitionsComponent, ImportDefinitionsModalComponent],
+  declarations: [
+    ProductDetailDefinitionsComponent,
+    ImportDefinitionsModalComponent,
+    SetLinkModalComponent,
+    SetPictureModalComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -34,6 +43,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzModalModule,
     NzIconModule,
     NzDropDownModule,
+    NzPopoverModule,
+    NzImageModule,
     TranslateModule,
   ],
 })

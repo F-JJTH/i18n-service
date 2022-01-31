@@ -12,7 +12,15 @@ export interface UserPayload {
 
 @Injectable({providedIn: 'root'})
 export class CurrentUserService {
-  constructor() { }
+  idToken: string = ''
+  accessToken: string = ''
+
+  constructor() {
+    Auth.currentSession().then(session => {
+      this.idToken = session.getIdToken().getJwtToken()
+      this.accessToken = session.getAccessToken().getJwtToken()
+    })
+  }
 
   async isAdmin() {
     return (await this.getPayload())['cognito:groups']?.includes('Admin') || false
@@ -30,19 +38,19 @@ export class CurrentUserService {
   async canAccessDefinitionsForProduct(product: Product): Promise<boolean> {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
-    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.definitions || false)
+    return userIsAdmin || (product.authorizations?.find(a => a?.memberId === userPayload.sub)?.definitions || false)
   }
 
   async canAccessDeployForProduct(product: Product): Promise<boolean> {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
-    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.deploy || false)
+    return userIsAdmin || (product.authorizations?.find(a => a?.memberId === userPayload.sub)?.deploy || false)
   }
 
   async canAccessSettingsForProduct(product: Product): Promise<boolean> {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
-    return userIsAdmin || (product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.settings || false)
+    return userIsAdmin || (product.authorizations?.find(a => a?.memberId === userPayload.sub)?.settings || false)
   }
 
   async canAccessTranslationsForProduct(product: Product): Promise<boolean> {
@@ -53,9 +61,9 @@ export class CurrentUserService {
       return true
     }
 
-    const productAuthorizations = product.authorizations?.find(a => a?.id === userPayload.sub)
+    const productAuthorizations = product.authorizations?.find(a => a?.memberId === userPayload.sub)
     if (productAuthorizations) {
-      return productAuthorizations.authorizations.translations?.length !== 0 || productAuthorizations.authorizations.validator || false
+      return productAuthorizations.translations?.length !== 0 || productAuthorizations.validator || false
     }
 
     return false
@@ -65,7 +73,7 @@ export class CurrentUserService {
     const userIsAdmin = await this.isAdmin()
     const userPayload = await this.getPayload()
 
-    return userIsAdmin || product.authorizations?.find(a => a?.id === userPayload.sub)?.authorizations.validator || false
+    return userIsAdmin || product.authorizations?.find(a => a?.memberId === userPayload.sub)?.validator || false
   }
 
   async getPayload(): Promise<UserPayload> {
@@ -86,7 +94,7 @@ export class CurrentUserService {
       case authorizations.settings:
         return 'settings'
       default:
-        return '/'
+        return ''
     }
 
   }

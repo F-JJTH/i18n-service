@@ -34,12 +34,12 @@ export class AddEditMemberModalComponent implements OnInit {
     this.isNew = !this.member
 
     if (this.member) {
-      this.manageValidations = this.member.authorizations.validator ?? false
-      this.manageDefinitions = this.member.authorizations.definitions
-      this.manageSettings = this.member.authorizations.settings
-      this.manageDeploy = this.member.authorizations.deploy
-      this.manageTranslations = this.member.authorizations.translations?.includes('ALL') ? 'all' : this.member.authorizations.translations?.length ? 'specific' : 'none'
-      this.languages = (this.member.authorizations.translations as string[]).map(t => ({code: t}))
+      this.manageValidations = this.member.validator ?? false
+      this.manageDefinitions = this.member.definitions
+      this.manageSettings = this.member.settings
+      this.manageDeploy = this.member.deploy
+      this.manageTranslations = this.member.translations?.includes('ALL') ? 'all' : this.member.translations?.length ? 'specific' : 'none'
+      this.languages = (this.member.translations as string[]).map(t => ({code: t}))
     }
 
     if (this.isNew) {

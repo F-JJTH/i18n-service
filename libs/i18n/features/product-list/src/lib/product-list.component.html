@@ -10,8 +10,8 @@
       <h1 class="title">{{ product.name }}</h1>
       <nz-skeleton-element nzType="image"></nz-skeleton-element>
       <div class="languages">
-        <nz-tag *ngFor="let language of productLanguages[product.id]" [nzColor]="language.isRequireTranslatorAction ? 'orange' : 'green'">
-          {{ language.code }}
+        <nz-tag *ngFor="let language of product.languages" [nzColor]="language!.isRequireTranslatorAction ? 'orange' : 'green'">
+          {{ language!.code }}
         </nz-tag>
       </div>
     </div>

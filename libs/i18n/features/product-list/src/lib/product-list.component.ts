@@ -11,10 +11,10 @@ import { CreateNewAppModalComponent } from "./create-new-app-modal/create-new-ap
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   products: ProductListItem[] = []
-  productLanguages: {[productId: string]: Language[]} = {}
+  //productLanguages: {[productId: string]: Language[]} = {}
 
   canCreateApplication = false
-  dtStoreSubscriptions!: ZenObservable.Subscription
+  //dtStoreSubscriptions!: ZenObservable.Subscription
 
   canAccess: any = {}
 
@@ -29,11 +29,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     this.fetch()
     this.canCreateApplication = await this.currentUser.isAdmin()
-    this.dtStoreSubscriptions = this.i18nSvc.observeProducts().subscribe(() => this.fetch())
+    //this.dtStoreSubscriptions = this.i18nSvc.observeProducts().subscribe(() => this.fetch())
   }
 
   ngOnDestroy(): void {
-    this.dtStoreSubscriptions?.unsubscribe()
+    //this.dtStoreSubscriptions?.unsubscribe()
   }
 
   async fetch() {
@@ -42,9 +42,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const products = await this.i18nSvc.getProducts()
     this.products = await this.setLandingPageForProductItem(products)
 
-    this.products.forEach(async p => {
+    /*this.products.forEach(async p => {
       this.productLanguages[p.id] = await this.i18nSvc.getLanguagesByProductId(p.id)
-    })
+    })*/
 
     this.isLoading = false
   }

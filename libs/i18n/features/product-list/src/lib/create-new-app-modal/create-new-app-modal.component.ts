@@ -22,8 +22,7 @@ export class CreateNewAppModalComponent {
       return
     }
 
-    const currentUser: any = await this.currentUser.getPayload()
-    await this.i18nSvc.createProduct(this.name, this.defaultLanguage, currentUser)
+    await this.i18nSvc.createProduct(this.name, this.defaultLanguage)
 
     this.modalRef.triggerOk()
   }

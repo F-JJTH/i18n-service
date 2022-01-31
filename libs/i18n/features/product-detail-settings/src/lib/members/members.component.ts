@@ -14,7 +14,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   product!: Product
 
-  dtStoreSubscription?: ZenObservable.Subscription
+  // dtStoreSubscription?: ZenObservable.Subscription
 
   currentUserId = ""
 
@@ -26,17 +26,18 @@ export class MembersComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    this.product = this.route.parent?.parent?.snapshot.data['product']
+    const productId = this.route.parent?.parent?.snapshot.data['product'].id
+    this.product = await this.i18nSvc.getProductById(productId)
 
-    this.dtStoreSubscription = this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
-      this.product = data.element
-    })
+    // this.dtStoreSubscription = this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
+    //   this.product = data.element
+    // })
 
     this.currentUserId = (await this.currentUser.getPayload()).sub
   }
 
   ngOnDestroy(): void {
-    this.dtStoreSubscription?.unsubscribe()
+    // this.dtStoreSubscription?.unsubscribe()
   }
 
   get members() {

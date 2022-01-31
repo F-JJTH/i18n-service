@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, Index } from "typeorm";
 import { Timestamp } from "../../../classes/timestamp.class";
 import { Product } from "./product.entity";
 
@@ -9,6 +9,10 @@ export class MemberAuthorization extends Timestamp {
 
   @ManyToOne(() => Product, product => product.authorizations)
   product: Product
+
+  @Index()
+  @Column()
+  memberId: string;
 
   @Column()
   email: string;

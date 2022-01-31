@@ -2,8 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
+import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
+import { SetLinkModalComponent } from './set-link-modal/set-link-modal.component';
+import { SetPictureModalComponent } from './set-picture-modal/set-picture-modal.component';
 
 @Component({
   selector: 'kizeo-i18n-product-detail-definitions',
@@ -19,9 +22,11 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   defaultValue?: string
 
-  definitions: {id: string, slug: string, defaultValue: string}[] = []
+  definitions: Definition[] = []
 
   editId: string | null = null;
+
+  isEditLinkVisible = false;
 
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
@@ -30,6 +35,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     private readonly modal: NzModalService,
     private readonly i18nSvc: I18nService,
     private readonly translate: TranslateService,
+    private readonly imageSvc: NzImageService,
   ) { }
 
   async ngOnInit() {
@@ -38,12 +44,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async fetch() {
-    this.definitions = (await this.i18nSvc.getDefinitionsByProductId(this.product.id))
-      .map(d => ({
-        id: d.id,
-        slug: d.slug,
-        defaultValue: d.defaultValue
-      }))
+    this.definitions = await this.i18nSvc.getDefinitionsByProductId(this.product.id)
   }
 
   onImportDefinitionsClicked() {
@@ -71,25 +72,42 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     this.editId = null;
   }
 
-  onSetLinkClicked(definition: Definition) {
-    alert('not yet implemented')
-  }
-
-  onSetPictureClicked(definition: Definition) {
-    alert('not yet implemented')
-  }
-
-  onClearLinkClicked(definition: Definition) {
-    alert('not yet implemented')
-  }
-
-  onClearPictureClicked(definition: Definition) {
-    alert('not yet implemented')
-  }
-
   endEdit() {
     this.fetch()
     this.editId = null;
+  }
+
+  onSetLinkClicked(definition: Definition) {
+    this.modal.create({
+      nzContent: SetLinkModalComponent,
+      nzComponentParams: { definition },
+      nzOnOk: () => this.fetch()
+    })
+  }
+
+  async onClearLinkClicked(definition: Definition) {
+    definition.link = null
+    await this.i18nSvc.setLinkForDefinition(definition.id, null)
+  }
+
+  onSetPictureClicked(definition: Definition) {
+    this.modal.create({
+      nzContent: SetPictureModalComponent,
+      nzComponentParams: { definition },
+      nzOnOk: () => this.fetch()
+    })
+  }
+
+  onClearPictureClicked(definition: Definition) {
+    alert('FIXME: not yet implemented')
+  }
+
+  onDefinitionImageClicked(definition: Definition) {
+    if (!definition.pictureUrl) return
+
+    this.imageSvc.preview([
+      { src: definition.pictureUrl, alt: definition.defaultValue }
+    ])
   }
 
   async confirmDelete(definitionId: string) {

@@ -70,7 +70,7 @@
               <a *ngIf="translation.definition.link" [href]="translation.definition.link" target="_blank">
                 <i nz-icon nzType="link" nzTheme="outline"></i>
               </a>
-              <i nz-icon nzType="picture" nzTheme="outline" (click)="onTranslationImageClicked(translation)"></i>
+              <i *ngIf="translation.definition.pictureUrl" nz-icon nzType="picture" nzTheme="outline" (click)="onTranslationImageClicked(translation)"></i>
             </span>
           </p>
           <p class="m-0">{{ translation.defaultValue }}</p>
@@ -78,13 +78,15 @@
         <td>{{ translation.language.name }}</td>
         <td>
           <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
-            <input nz-input 
+            <input nz-input
+              (keyup.enter)="onSaveTranslationsClicked()"
               [(ngModel)]="translation.value"
               [name]="translation.slug+translation.language.code"
               (ngModelChange)="onTranslationChanged(translation)">
           </nz-input-group>
           <ng-template #suffixButton>
             <button nz-button
+              tabIndex="-1"
               class="validator-btn"
               [disabled]="!canValidate"
               [class.validator-btn-is-valid]="translation.isValid"

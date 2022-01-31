@@ -13,7 +13,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
   product!: Product
   _name = ""
 
-  dtStoreSubscription?: ZenObservable.Subscription
+  // dtStoreSubscription?: ZenObservable.Subscription
 
   constructor(
     private readonly router: Router,
@@ -26,14 +26,14 @@ export class GeneralComponent implements OnInit, OnDestroy {
     this.product = (await this.i18nSvc.getProductById(productId))!
     this._name = this.product.name
 
-    this.dtStoreSubscription = this.i18nSvc.observeProductById(productId).subscribe(data => {
-      this.product = data.element
-      this._name = this.product.name
-    })
+    // this.dtStoreSubscription = this.i18nSvc.observeProductById(productId).subscribe(data => {
+    //   this.product = data.element
+    //   this._name = this.product.name
+    // })
   }
 
   ngOnDestroy(): void {
-    this.dtStoreSubscription?.unsubscribe()
+    // this.dtStoreSubscription?.unsubscribe()
   }
 
   async onSaveClicked() {

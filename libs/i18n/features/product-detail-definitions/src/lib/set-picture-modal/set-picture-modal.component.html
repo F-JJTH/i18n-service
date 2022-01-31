@@ -1,0 +1,11 @@
+<div *nzModalTitle>{{ 'SET_PICTURE' | translate }}</div>
+<div nz-row>
+  <div nz-col nzSpan="24"></div>
+</div>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
+  <button nz-button
+    nzType="primary"
+    [nzLoading]="isLoading"
+    (click)="onSaveClicked()">{{ 'SAVE' | translate }}</button>
+</div>

@@ -20,7 +20,7 @@ export class TranslationController {
   constructor(private readonly translationService: TranslationService) {}
 
   @ApiOperation({summary: 'Update translations for a product'})
-  @Post()
+  @Patch()
   updateAll(@Body() updateTranslationDto: UpdateTranslationDto) {
     return this.translationService.updateAll(updateTranslationDto);
   }

@@ -25,5 +25,8 @@ export class Definition extends Timestamp {
   link: string;
   
   @Column({ nullable: true })
-  picture: string;
+  pictureUrl: string;
+
+  @Column({ nullable: true })
+  pictureKey: string;
 }

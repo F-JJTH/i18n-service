@@ -14,7 +14,7 @@ export class ImportDefinitionsModalComponent implements OnInit {
   placeholder = `[
   {"slug": "APP_TITLE", "defaultValue": "Title of application"},
   {"slug": "APP_SUBTITLE", "defaultValue": "Subitle of application"},
-  {"slug": "FIRSNAME", "defaultValue": "Firsname"},
+  {"slug": "FIRSTNAME", "defaultValue": "Firstname"},
   {"slug": "LASTNAME", "defaultValue": "Lastname"},
   ...
 ]`

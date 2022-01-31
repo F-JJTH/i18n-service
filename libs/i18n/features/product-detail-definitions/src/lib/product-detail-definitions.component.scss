@@ -5,6 +5,15 @@ nz-content {
   border-radius: 4px;
 }
 
+.clear-button {
+  position: absolute;
+  right: 0;
+
+  &:hover {
+    border: 1px solid;
+  }
+}
+
 .icon-tools {
   float: right;
   font-size: 12px;

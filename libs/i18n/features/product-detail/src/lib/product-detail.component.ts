@@ -31,15 +31,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     public readonly currentUser: CurrentUserService,
     private readonly i18nSvc: I18nService,
   ) {
-    this.dtStoreSubscriptions.push(
-      this.isTranslatorRequireAction$.pipe(
-        debounceTime(300),
-        map(async () => {
-          const languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
-          this.isTranslatorRequireAction = languages.some(l => l.isRequireTranslatorAction)
-        })
-      ).subscribe()
-    )
+    // this.dtStoreSubscriptions.push(
+    //   this.isTranslatorRequireAction$.pipe(
+    //     debounceTime(300),
+    //     map(async () => {
+    //       const languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
+    //       this.isTranslatorRequireAction = languages.some(l => l.isRequireTranslatorAction)
+    //     })
+    //   ).subscribe()
+    // )
   }
 
   async ngOnInit() {
@@ -50,24 +50,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       settings: await this.currentUser.isAdmin()
     }
 
-    this.dtStoreSubscriptions.push(
-      this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
-        this.product = data.element
-      })
-    )
+    // this.dtStoreSubscriptions.push(
+    //   this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
+    //     this.product = data.element
+    //   })
+    // )
 
-    this.dtStoreSubscriptions.push(
-      this.i18nSvc.observeLanguages().subscribe(async data => {
-        if ((data.element as any).productLanguagesId === this.product.id) {
-          this.isTranslatorRequireAction$.next(data.element)
-        }
-      })
-    )
+    // this.dtStoreSubscriptions.push(
+    //   this.i18nSvc.observeLanguages().subscribe(async data => {
+    //     if ((data.element as any).productLanguagesId === this.product.id) {
+    //       this.isTranslatorRequireAction$.next(data.element)
+    //     }
+    //   })
+    // )
 
-    this.isTranslatorRequireAction$.next(null)
+    // this.isTranslatorRequireAction$.next(null)
   }
 
   ngOnDestroy(): void {
-      this.dtStoreSubscriptions.forEach(sub => sub.unsubscribe())
+      // this.dtStoreSubscriptions.forEach(sub => sub.unsubscribe())
   }
 }

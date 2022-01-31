@@ -52,8 +52,10 @@
           <div class="editable-cell" [hidden]="editId === def.id">
             {{ def.slug }}
             <span class="icon-tools">
-              <i nz-icon nzType="link" nzTheme="outline"></i>
-              <i nz-icon nzType="picture" nzTheme="outline"></i>
+              <a *ngIf="def.link" [href]="def.link" target="_blank">
+                <i nz-icon nzType="link" nzTheme="outline"></i>
+              </a>
+              <i *ngIf="def.pictureUrl" nz-icon nzType="picture" nzTheme="outline" (click)="onDefinitionImageClicked(def)"></i>
             </span>
           </div>
           <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.slug" />
@@ -74,10 +76,28 @@
           <button *ngIf="editId === def.id" nz-button nzType="primary" (click)="stopEdit(def.slug, def.defaultValue)">{{ 'SAVE' | translate }}</button>
           <nz-dropdown-menu #menu1="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item (click)="onSetLinkClicked(def)">{{ 'SET_LINK' | translate }}</li>
-              <li nz-menu-item (click)="onClearLinkClicked(def)">{{ 'CLEAR_LINK' | translate }}</li>
-              <li nz-menu-item (click)="onSetPictureClicked(def)">{{ 'SET_PICTURE' | translate }}</li>
-              <li nz-menu-item (click)="onClearPictureClicked(def)">{{ 'CLEAR_PICTURE' | translate }}</li>
+              <li nz-menu-item (click)="onSetLinkClicked(def)">
+                {{ 'SET_LINK' | translate }}
+                <button *ngIf="def.link"
+                  nz-button
+                  nzType="text"
+                  nzDanger
+                  class="clear-button"
+                  (click)="onClearLinkClicked(def); $event.stopPropagation()">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </li>
+              <li nz-menu-item (click)="onSetPictureClicked(def)">
+                {{ 'SET_PICTURE' | translate }}
+                <button *ngIf="def.pictureUrl"
+                  nz-button
+                  nzType="text"
+                  nzDanger
+                  class="clear-button"
+                  (click)="onClearPictureClicked(def); $event.stopPropagation()">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </li>
             </ul>
           </nz-dropdown-menu>
           <!-- Pas sur les maquettes mais pourra être rajouté facilement -->

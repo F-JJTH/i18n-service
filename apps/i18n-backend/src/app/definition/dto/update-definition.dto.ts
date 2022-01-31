@@ -1,4 +1,9 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateDefinitionDto } from './create-definition.dto';
+import { StringField, StringFieldOptional } from "../../../decorators/field.decorators"
 
-export class UpdateDefinitionDto extends PartialType(CreateDefinitionDto) {}
+export class UpdateDefinitionDto {
+  @StringField()
+  slug: string
+
+  @StringField()
+  defaultValue: string
+}

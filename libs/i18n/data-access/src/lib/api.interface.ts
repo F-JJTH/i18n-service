@@ -8,8 +8,13 @@ export interface MemberAuthorization {
 
 export interface Member {
   id: string;
+  memberId: string;
   email: string;
-  authorizations: MemberAuthorization;
+  definitions: boolean;
+  settings: boolean;
+  deploy: boolean;
+  validator?: boolean;
+  translations?: string[];
 }
 
 export interface Product {
@@ -58,8 +63,9 @@ export interface Definition {
   defaultValue: string;
   product?: Product;
   translations?: Translation[];
-  link?: string;
-  picture?: string;
+  link: string | null;
+  pictureUrl: string | null;
+  pictureKey: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -83,6 +89,11 @@ export interface UpdateDefinitionRequest {
   defaultValue: string
 }
 export interface UpdateDefinitionResponse {}
+
+export interface UpdateLinkForDefinitionRequest {
+  link: string | null
+}
+export interface UpdateLinkForDefinitionResponse {}
 
 
 // Language

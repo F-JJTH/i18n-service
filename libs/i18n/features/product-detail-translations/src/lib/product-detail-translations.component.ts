@@ -100,13 +100,13 @@ export class ProductDetailTranslationsComponent implements OnInit {
   }
 
   onDownloadTranslationClicked(language: Language) {
-    alert('not yet implemented')
+    alert('FIXME: not yet implemented')
   }
 
   onTranslationImageClicked(translation: TranslationItem) {
-    console.warn('onTranslationImageClicked : not yet implemented')
+    if (!translation.definition.pictureUrl) return
     this.imageSvc.preview([
-      { src: "https://www.kizeo-forms.com/wp-content/uploads/2020/12/option-exports-formulaire-1.png", alt: translation.defaultValue }
+      { src: translation.definition.pictureUrl, alt: translation.defaultValue }
     ])
   }
 

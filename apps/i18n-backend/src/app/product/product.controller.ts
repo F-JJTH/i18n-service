@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -13,23 +15,31 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AddMemberDto } from './dto/add-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import { JwtAuthGuard } from '../jwt-auth.guard';
+import { IncomingMessage } from 'http';
+import { JwtService } from '@nestjs/jwt'
 
 @ApiTags('Products')
 @ApiBearerAuth()
 @Controller('product')
+//@UseGuards(JwtAuthGuard)
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService, private jwt: JwtService) {}
 
   @ApiOperation({summary: 'Create a product'})
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productService.create(createProductDto);
+  create(@Body() createProductDto: CreateProductDto, @Req() req: IncomingMessage) {
+    // FIXME: create a custom @Pipe: @JwtPayload()
+    const payload = req.headers.authorization ? this.jwt.decode(req.headers.authorization.replace('Bearer ', '')) : null
+    return this.productService.create(createProductDto, payload);
   }
 
   @ApiOperation({summary: 'Get all products'})
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Req() req: IncomingMessage) {
+    // FIXME: create a custom @Pipe: @JwtPayload()
+    const payload = req.headers.authorization ? this.jwt.decode(req.headers.authorization.replace('Bearer ', '')) : null
+    return this.productService.findAllForMember(payload);
   }
 
   @ApiOperation({summary: 'Get a product by ID'})
@@ -59,7 +69,7 @@ export class ProductController {
     @Param('id') id: string,
     @Body() addMemberDto: AddMemberDto
   ) {
-    this.productService.addMember(id, addMemberDto);
+    return this.productService.addMember(id, addMemberDto);
   }
 
   @ApiOperation({summary: 'Update member authorizations for product'})
@@ -69,7 +79,7 @@ export class ProductController {
     @Param('memberId') memberId: string,
     @Body() updateMemberDto: UpdateMemberDto
   ) {
-    this.productService.updateMember(id, memberId, updateMemberDto);
+    return this.productService.updateMember(id, memberId, updateMemberDto);
   }
 
   @ApiOperation({summary: 'Remove a member from product'})
@@ -78,7 +88,7 @@ export class ProductController {
     @Param('id') id: string,
     @Param('memberId') memberId: string
   ) {
-    this.productService.removeMember(id, memberId);
+    return this.productService.removeMember(id, memberId);
   }
 
   @ApiOperation({summary: 'Publish translations of a product for environment «preprod» or «prod»'})
@@ -87,25 +97,25 @@ export class ProductController {
     @Param('id') id: string,
     @Param('env') env: string
   ) {
-    this.productService.publishTranslations(id, env);
+    return this.productService.publishTranslations(id, env);
   }
 
   @ApiOperation({summary: 'List languages for product'})
   @Get(':id/language')
   getLanguage(@Param('id') id: string) {
-    this.productService.getLanguage(id);
+    return this.productService.getLanguage(id);
   }
 
   @ApiOperation({summary: 'List definitions for product'})
   @Get(':id/definition')
   getDefinition(@Param('id') id: string) {
-    this.productService.getDefinition(id);
+    return this.productService.getDefinition(id);
   }
 
   @ApiOperation({summary: 'List translations for product'})
   @Get(':id/translation')
   getTranslation(@Param('id') id: string) {
-    this.productService.getTranslation(id);
+    return this.productService.getTranslation(id);
   }
 
 }

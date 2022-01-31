@@ -13,7 +13,6 @@
       </button>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item *ngIf="!environment.production" (click)="clearLocalDB()">{{ 'CLEAR_DATASTORE' | translate }}</li>
           <li nz-menu-item (click)="logout()">{{ 'LOGOUT' | translate }}</li>
           <li nz-menu-divider></li>
           <li nz-menu-item nzDisabled class="text-center">{{ 'APP_VERSION' | translate: {version: environment.version} }}</li>

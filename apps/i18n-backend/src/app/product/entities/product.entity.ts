@@ -16,7 +16,7 @@ export class Product extends Timestamp {
   @Column()
   defaultLanguage: string;
 
-  @OneToMany(() => Language, language => language.product)
+  @OneToMany(() => Language, language => language.product, {eager: true})
   languages: Language[];
   
   @OneToMany(() => Definition, definition => definition.product)
@@ -28,12 +28,12 @@ export class Product extends Timestamp {
   @Column('text', { array: true, default: [] })
   members: string[];
 
-  @OneToMany(() => MemberAuthorization, memberAuthorization => memberAuthorization.product)
+  @OneToMany(() => MemberAuthorization, memberAuthorization => memberAuthorization.product, {eager: true})
   authorizations: MemberAuthorization[];
   
-  @Column()
+  @Column({nullable: true})
   publishedPreprodAt: string;
 
-  @Column()
+  @Column({nullable: true})
   publishedProdAt: string;
 }

@@ -10,6 +10,8 @@ import { TranslationModule } from './translation/translation.module';
 import { DefinitionModule } from './definition/definition.module';
 import { ProductModule } from './product/product.module';
 import { getConnectionOptions } from 'typeorm';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -23,40 +25,14 @@ import { getConnectionOptions } from 'typeorm';
         POSTGRES_DB: Joi.string().required(),
       })
     }),
-    /*TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const defaultConfig = {
-          type: 'postgres',
-          host: configService.get('POSTGRES_HOST'),
-          port: configService.get('POSTGRES_PORT'),
-          username: configService.get('POSTGRES_USER'),
-          password: configService.get('POSTGRES_PASSWORD'),
-          database: configService.get('POSTGRES_DB'),
-          entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
-          migrations: ["./migrations/*"], //FIXME: check me
-        }
-
-        const developmentConf: any = {}
-        if (!environment.production) {
-          developmentConf.entities = getMetadataArgsStorage().tables.map(tbl => tbl.target)
-          developmentConf.migrations = ["apps/i18n-backend/src/migrations/*"] //FIXME
-          developmentConf.cli = {
-            migrationsDir: "apps/i18n-backend/src/migrations"
-          }
-        }
-
-        const config = {...defaultConfig, ...developmentConf}
-
-        return config as TypeOrmModuleOptions
-      }
-    }),*/
     TypeOrmModule.forRootAsync({
       useFactory: async () =>
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
         }),
+    }),
+    JwtModule.register({
+      secret: 'noop'
     }),
     ProductModule,
     LanguageModule,
@@ -64,6 +40,6 @@ import { getConnectionOptions } from 'typeorm';
     DefinitionModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy],
 })
 export class AppModule {}

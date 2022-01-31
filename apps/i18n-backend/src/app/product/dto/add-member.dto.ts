@@ -1,7 +1,7 @@
 import { AddMemberRequest, MemberAuthorization } from "@kizeo/i18n/data-access"
 import { StringField, BooleanField } from "../../../decorators/field.decorators"
 import { ApiProperty } from "@nestjs/swagger"
-import { ValidateNested, IsObject } from 'class-validator'
+import { ValidateNested, IsObject, IsArray } from 'class-validator'
 
 export class MemberAuthorizationDto implements MemberAuthorization {
   @BooleanField()
@@ -16,7 +16,7 @@ export class MemberAuthorizationDto implements MemberAuthorization {
   @BooleanField()
   validator: boolean
 
-  @ApiProperty({type: [String]})
+  @StringField({array: true})
   translations: string[]
 }
 

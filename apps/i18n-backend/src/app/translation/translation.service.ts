@@ -1,37 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ProductService } from '../product/product.service';
 import { ImportTranslationDto } from './dto/import-translation.dto';
 import { UpdateIsValidTranslationDto } from './dto/update-is-valid-translation.dto';
 import { UpdateTranslationDto } from './dto/update-translation.dto';
+import { Translation } from './entities/translation.entity';
 
 @Injectable()
 export class TranslationService {
-  create(createTranslationDto) {
-    return 'This action adds a new translation';
-  }
+  constructor(
+    @InjectRepository(Translation)
+    private readonly translation: Repository<Translation>,
+    private readonly productSvc: ProductService,
+  ) {}
 
   findAll() {
-    return `This action returns all translation`;
+    return this.translation.find();
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} translation`;
+    return this.translation.findOne(id);
   }
 
-  updateIsValid(id: string, updateIsValidTranslationDto: UpdateIsValidTranslationDto) {
-    return `This action updates a #${id} translation`;
+  async updateIsValid(id: string, updateIsValidTranslationDto: UpdateIsValidTranslationDto) {
+    const translation = await this.translation.findOne(id)
+    if (!translation) {
+      throw new NotFoundException()
+    }
+
+    await this.translation.save({
+      ...translation,
+      isValid: updateIsValidTranslationDto.isValid
+    })
+    return this.translation.findOne(id);
   }
 
-  updateAll(updateTranslationDto: UpdateTranslationDto) {
+  async updateAll(updateTranslationDto: UpdateTranslationDto) {
+    if (!updateTranslationDto.translationItems.length) {
+      throw new BadRequestException('translationItems must be an array with at least 1 value')
+    }
+
     // Warning: we must validate updateTranslationDto.translationItems format
-    return `This action update translations`;
+    const hasInvalidItems = updateTranslationDto.translationItems.some(item => item.id === undefined || item.value === undefined)
+    if (hasInvalidItems) {
+      throw new BadRequestException('translationItems must be of type {id: string, value: string}[]')
+    }
+
+    const updatedTranslations = await Promise.all(
+      updateTranslationDto.translationItems.map(item => {
+        return this.translation.update(item.id, {
+          value: item.value,
+          isRequireTranslatorAction: item.value ? false : true
+        })
+      })
+    )
+
+    const translation = await this.translation.findOne(updateTranslationDto.translationItems[0].id, {relations: ['product']})
+    if (translation) {
+      this.productSvc.publishTranslations(translation.product.id, 'dev')
+    }
+
+    return updatedTranslations;
   }
 
   import(importTranslationDto: ImportTranslationDto) {
     // Warning: we must validate importTranslationDto.translations format
-    return `This action import translations`;
+    this.productSvc.publishTranslations(importTranslationDto.productId, 'dev')
+    return {message: 'FIXME: not yet implemented'};
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} translation`;
+  async remove(id: string) {
+    const translation = await this.translation.findOne(id);
+    return this.translation.remove(translation);
   }
 }

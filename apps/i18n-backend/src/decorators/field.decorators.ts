@@ -8,21 +8,27 @@ import {
   IsString,
   MaxLength,
   MinLength,
+  IsArray,
 } from 'class-validator';
 
 interface IStringFieldOptions {
   minLength?: number;
   maxLength?: number;
   swagger?: boolean;
+  array?: boolean;
 }
 
 export function StringField(
   options: Omit<ApiPropertyOptions, 'type'> & IStringFieldOptions = {},
 ): PropertyDecorator {
-  const decorators = [IsNotEmpty(), IsString()];
+  const decorators = [IsNotEmpty()];
 
   if (options?.swagger !== false) {
-    decorators.push(ApiProperty({ type: String, ...options }));
+    if (options?.array) {
+      decorators.push(ApiProperty({ type: [String], ...options }));
+    } else {
+      decorators.push(ApiProperty({ type: String, ...options }));
+    }
   }
 
   if (options?.minLength) {
@@ -31,6 +37,12 @@ export function StringField(
 
   if (options?.maxLength) {
     decorators.push(MaxLength(options.maxLength));
+  }
+
+  if (options?.array) {
+    decorators.push(IsArray());
+  } else {
+    decorators.push(IsString());
   }
 
   return applyDecorators(...decorators);

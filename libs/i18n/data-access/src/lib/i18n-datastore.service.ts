@@ -340,7 +340,6 @@ export class I18nDataStoreService {
     }))
 
     const promises = definitions.map(definition => {
-      //FIXME: batch
       return DataStore.save(new Translation({
         definition,
         language,

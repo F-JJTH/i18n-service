@@ -1,4 +1,4 @@
-<nz-table nzTemplateMode nzSize="middle">
+<nz-table nzTemplateMode nzSize="middle" *ngIf="product">
   <thead>
     <tr>
       <th>{{ 'MEMBER' | translate }}</th>
@@ -13,26 +13,26 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let member of members">
+    <tr *ngFor="let member of product.authorizations">
       <td>{{ member.email }}</td>
       <td nzAlign="center">
-        <i *ngIf="member.authorizations.definitions" nz-icon nzType="check-square" nzTheme="outline"></i>
+        <i *ngIf="member.definitions" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td nzAlign="center">
-        <ng-container *ngIf="member.authorizations.translations?.length === 0"></ng-container>
-        <ng-container *ngIf="member.authorizations.translations?.length !== 0">
-          <ng-container *ngIf="member.authorizations.translations?.includes('ALL'); else translationList">{{ 'ALL' | translate }}</ng-container>
-          <ng-template #translationList>{{ member.authorizations.translations?.join(', ') }}</ng-template>
+        <ng-container *ngIf="member.translations?.length === 0"></ng-container>
+        <ng-container *ngIf="member.translations?.length !== 0">
+          <ng-container *ngIf="member.translations?.includes('ALL'); else translationList">{{ 'ALL' | translate }}</ng-container>
+          <ng-template #translationList>{{ member.translations?.join(', ') }}</ng-template>
         </ng-container>
       </td>
       <td nzAlign="center">
-        <i *ngIf="member.authorizations.validator" nz-icon nzType="check-square" nzTheme="outline"></i>
+        <i *ngIf="member.validator" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td nzAlign="center">
-        <i *ngIf="member.authorizations.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>
+        <i *ngIf="member.deploy" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td nzAlign="center">
-        <i *ngIf="member.authorizations.settings" nz-icon nzType="check-square" nzTheme="outline"></i>
+        <i *ngIf="member.settings" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td>
         <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">{{ 'EDIT' | translate }}</button>

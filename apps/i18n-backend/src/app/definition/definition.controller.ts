@@ -12,6 +12,7 @@ import { CreateDefinitionDto } from './dto/create-definition.dto';
 import { UpdateDefinitionDto } from './dto/update-definition.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ImportDefinitionDto } from './dto/import-definition.dto';
+import { UpdateLinkTranslationDto } from './dto/update-link-definition.dto';
 
 @ApiTags('Definitions')
 @ApiBearerAuth()
@@ -38,6 +39,15 @@ export class DefinitionController {
     @Body() updateDefinitionDto: UpdateDefinitionDto
   ) {
     return this.definitionService.update(id, updateDefinitionDto);
+  }
+
+  @ApiOperation({summary: 'Update link for definition'})
+  @Post(':id/set-link')
+  updateIsValid(
+    @Param('id') id: string,
+    @Body() updateIsValidTranslationDto: UpdateLinkTranslationDto
+  ) {
+    return this.definitionService.updateLink(id, updateIsValidTranslationDto);
   }
 
   @ApiOperation({summary: 'Delete a definition'})
