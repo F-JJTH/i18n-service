@@ -31,9 +31,9 @@ export class Product extends Timestamp {
   @OneToMany(() => MemberAuthorization, memberAuthorization => memberAuthorization.product, {eager: true})
   authorizations: MemberAuthorization[];
   
-  @Column({nullable: true})
-  publishedPreprodAt: string;
+  @Column({ type: 'timestamptz', nullable: true })
+  publishedPreprodAt: Date;
 
-  @Column({nullable: true})
-  publishedProdAt: string;
+  @Column({ type: 'timestamptz', nullable: true })
+  publishedProdAt: Date;
 }

@@ -1,8 +1,9 @@
 import { StringField } from "../../../decorators/field.decorators"
 import { ApiProperty } from "@nestjs/swagger"
 import { ValidateNested, IsArray } from 'class-validator'
+import { ImportTranslationRequest } from "@kizeo/i18n/data-access"
 
-class TranslationsPropDto {
+export class TranslationsPropDto {
   @StringField()
   slug: string
 
@@ -10,7 +11,7 @@ class TranslationsPropDto {
   translation: string
 }
 
-export class ImportTranslationDto {
+export class ImportTranslationDto implements ImportTranslationRequest{
   @ApiProperty({type: [TranslationsPropDto]})
   @IsArray({each: true})
   @ValidateNested()

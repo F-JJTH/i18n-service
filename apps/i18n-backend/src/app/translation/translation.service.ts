@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Brackets } from 'typeorm';
+import { Definition } from '../definition/entities/definition.entity';
+import { Language } from '../language/entities/language.entity';
 import { ProductService } from '../product/product.service';
-import { ImportTranslationDto } from './dto/import-translation.dto';
+import { ImportTranslationDto, TranslationsPropDto } from './dto/import-translation.dto';
 import { UpdateIsValidTranslationDto } from './dto/update-is-valid-translation.dto';
 import { UpdateTranslationDto } from './dto/update-translation.dto';
 import { Translation } from './entities/translation.entity';
@@ -12,6 +14,8 @@ export class TranslationService {
   constructor(
     @InjectRepository(Translation)
     private readonly translation: Repository<Translation>,
+    @InjectRepository(Language)
+    private readonly language: Repository<Language>,
     private readonly productSvc: ProductService,
   ) {}
 
@@ -64,10 +68,53 @@ export class TranslationService {
     return updatedTranslations;
   }
 
-  import(importTranslationDto: ImportTranslationDto) {
+  async import(importTranslationDto: ImportTranslationDto) {
+    const definitions = await this.productSvc.getDefinition(importTranslationDto.productId)
     // Warning: we must validate importTranslationDto.translations format
+    const translationsBySlugMap = new Map<string, {definition: Definition, translationToImport: TranslationsPropDto}>()
+
+    definitions.forEach(definition => {
+      const translation = importTranslationDto.translations.find(t => t.slug === definition.slug)
+      if (translation) {
+        translationsBySlugMap.set(definition.slug, { definition, translationToImport: translation })
+      }
+    })
+
+    Promise.all(
+      Array.from(translationsBySlugMap.entries()).map(async translationBySlug => {
+        const translation = await this.translation.findOne({
+          where: {
+            product: importTranslationDto.productId,
+            language: importTranslationDto.languageId,
+            definition: translationBySlug[1].definition.id,
+          }
+        })
+
+        if (translation && !translation.value) {
+          await this.translation.update(translation.id, {
+            value: translationBySlug[1].translationToImport.translation,
+            isValid: false,
+            isRequireTranslatorAction: false,
+          })
+        }
+
+        return Promise.resolve()
+      })
+    )
+
+    const missingTranslationCount = await this.translation.count({
+      where: {
+        product: importTranslationDto.productId,
+        language: importTranslationDto.languageId,
+        value: null
+      }
+    })
+    await this.language.update(importTranslationDto.languageId, {
+      isRequireTranslatorAction: missingTranslationCount > 0 ? true : false
+    })
+
     this.productSvc.publishTranslations(importTranslationDto.productId, 'dev')
-    return {message: 'FIXME: not yet implemented'};
+    return {success: true};
   }
 
   async remove(id: string) {

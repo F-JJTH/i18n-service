@@ -2,6 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { I18nService, Product } from '@kizeo/i18n/data-access';
 
+interface FileListItem {
+  url: string
+  name: string
+}
+interface FileList {
+  preprod: FileListItem[]
+  prod: FileListItem[]
+}
+
 @Component({
   selector: 'kizeo-i18n-product-detail-deploy',
   templateUrl: './product-detail-deploy.component.html',
@@ -14,10 +23,14 @@ export class ProductDetailDeployComponent implements OnInit {
   hasIncompleteTranslations = false
   isLoadingPreprod = false
   isLoadingProd = false
+  fileList: FileList = {
+    preprod: [],
+    prod: [],
+  }
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly i18nSvc: I18nService
+    private readonly i18nSvc: I18nService,
   ) { }
 
   async ngOnInit() {
@@ -28,6 +41,13 @@ export class ProductDetailDeployComponent implements OnInit {
     await this.fetch()
     const languages = await this.i18nSvc.getLanguagesByProductId(this.productId)
     this.hasIncompleteTranslations = languages.some(l => l.isRequireTranslatorAction)
+
+    await this.fetchFileListForEnvironments()
+  }
+
+  async fetchFileListForEnvironments() {
+    // FIXME: implement me
+    // this.fileList = ...
   }
 
   async fetch() {

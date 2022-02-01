@@ -4,10 +4,11 @@ import { TranslationController } from './translation.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Translation } from './entities/translation.entity';
 import { ProductModule } from '../product/product.module';
+import { Language } from '../language/entities/language.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Translation]),
+    TypeOrmModule.forFeature([Translation, Language]),
     ProductModule,
   ],
   controllers: [TranslationController],

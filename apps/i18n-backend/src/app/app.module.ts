@@ -23,6 +23,11 @@ import { JwtStrategy } from './jwt.strategy';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
+        AWS_ACCESS_KEY_ID: Joi.string().required(),
+        AWS_SECRET_ACCESS_KEY: Joi.string().required(),
+        AWS_DEFAULT_REGION: Joi.string().required(),
+        AWS_BUCKET_NAME_PUBLISH: Joi.string().required(),
+        AWS_BUCKET_NAME_PRIVATE: Joi.string().required(),
       })
     }),
     TypeOrmModule.forRootAsync({

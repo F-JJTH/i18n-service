@@ -3,8 +3,9 @@ import { CreateProductDto, DefaultLanguageDto } from './create-product.dto';
 import { StringField } from "../../../decorators/field.decorators"
 import { ApiProperty } from "@nestjs/swagger"
 import { ValidateNested, IsObject, IsOptional } from 'class-validator'
+import { UpdateProductRequest } from '@kizeo/i18n/data-access';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {
+export class UpdateProductDto implements UpdateProductRequest {
   @StringField()
   name: string
 

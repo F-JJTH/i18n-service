@@ -7,6 +7,7 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzListModule } from 'ng-zorro-antd/list';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NzGridModule,
     NzAlertModule,
     NzButtonModule,
+    NzListModule,
     NzIconModule,
     TranslateModule,
   ],

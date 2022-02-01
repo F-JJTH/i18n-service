@@ -19,13 +19,13 @@ async function bootstrap() {
     },
   }));
 
-  const config = new DocumentBuilder()
+  const swaggerConfig = new DocumentBuilder()
     .setTitle('Backend for Kizeo i18n service')
     .setDescription('API specification for Kizeo i18n service')
     .setVersion('1.0')
     //.addBearerAuth()
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
 
   const port = process.env.PORT || 3333;

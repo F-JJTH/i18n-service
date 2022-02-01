@@ -9,9 +9,22 @@ import { Language } from '../language/entities/language.entity';
 import { Translation } from '../translation/entities/translation.entity';
 import { MemberAuthorization } from './entities/member-authorization.entity';
 import { Product } from './entities/product.entity';
+import {
+  S3Client,
+  ListBucketsCommand,
+  ListObjectsCommand,
+  PutObjectCommand,
+  DeleteObjectCommand,
+  CopyObjectCommand,
+} from '@aws-sdk/client-s3';
+import { ConfigService } from '@nestjs/config';
+import path = require('path');
 
 @Injectable()
 export class ProductService {
+  s3Client: S3Client
+  isPublishBucketAvailable = true
+
   constructor(
     @InjectRepository(Product)
     private readonly product: Repository<Product>,
@@ -21,7 +34,28 @@ export class ProductService {
     private readonly language: Repository<Language>,
     @InjectRepository(Translation)
     private readonly translation: Repository<Translation>,
-  ) {}
+    private readonly configSvc: ConfigService,
+  ) {
+    this.initS3()
+  }
+
+  async initS3() {
+    this.s3Client = new S3Client({
+      region: this.configSvc.get('AWS_DEFAULT_REGION')
+    })
+
+    try {
+      const bucketListResult = await this.s3Client.send( new ListBucketsCommand({}) )
+      const publishBucket = bucketListResult.Buckets.find(bucket => bucket.Name === this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'))
+      if (!publishBucket) {
+        this.isPublishBucketAvailable = false
+        console.warn(`${this.configSvc.get('AWS_BUCKET_NAME_PUBLISH')} does not exists`)
+      }
+    } catch(err) {
+      this.isPublishBucketAvailable = false
+      console.warn('Cannot list Buckets')
+    }
+  }
 
   async create(createProductDto: CreateProductDto, jwtPayload: any) {
     const createOptions = this.product.create({
@@ -192,6 +226,8 @@ export class ProductService {
       throw new NotFoundException('Unknown environment')
     }
 
+    await this.clearPublishedTranslations(product.id, env as 'dev' | 'preprod' | 'prod')
+
     if (env === 'dev' || env === 'preprod') {
       const languages = await this.language.find({
         where : { isDisabled: false, product: id },
@@ -200,26 +236,88 @@ export class ProductService {
 
       const promises = languages.map(language => {
         const fileContent = language.translations.reduce(
-          (prev, t) => {
-            return {...prev, [t.definition!.slug]: t.value}
-          }, {}
+          (prev, t) => ({...prev, [t.definition!.slug]: t.value}), {}
         )
-        const s3Key = `${product.id}/${env}/${language.code}.json`
-        console.log(s3Key, fileContent)
-        //FIXME: remove current files && write file content to S3 key 
+
+        if (!this.isPublishBucketAvailable) {
+          return Promise.reject(`${this.configSvc.get('AWS_BUCKET_NAME_PUBLISH')} does not exists`)
+        }
+
+        return this.s3Client.send(
+          new PutObjectCommand({
+            Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+            Key: `${product.id}/${env}/${language.code}.json`,
+            Body: JSON.stringify(fileContent),
+            ACL: 'public-read',
+            Metadata: { filename: `${language.code}.json` }
+          })
+        )
       })
       await Promise.all(promises)
 
       if (env === 'preprod') {
-        // FIXME: update publishedPreprodAt for product
+        await this.product.update(product.id, { publishedPreprodAt: new Date() })
       }
     }
 
     if (env === 'prod') {
-      // FIXME: remove current files && copy PREPROD files to PROD
-      // FIXME: update publishedProdAt for product
+      if (!this.isPublishBucketAvailable) {
+        return Promise.reject(`${this.configSvc.get('AWS_BUCKET_NAME_PUBLISH')} does not exists`)
+      }
+
+      const keys = await this.s3Client.send(
+        new ListObjectsCommand({
+          Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+          Prefix: `${id}/preprod/`,
+        })
+      )
+
+      if (keys.Contents) {
+        await Promise.all(
+          keys.Contents.map(async content => {
+            return this.s3Client.send(
+              new CopyObjectCommand({
+                Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+                ACL: 'public-read',
+                CopySource: `${this.configSvc.get('AWS_BUCKET_NAME_PUBLISH')}/${content.Key}`,
+                Key: `${id}/prod/${path.basename(content.Key)}`
+              })
+            )
+          })
+        )
+      }
+
+      await this.product.update(product.id, { publishedProdAt: new Date() })
     }
     return { success: true }
+  }
+
+  private async clearPublishedTranslations(id: string, env: 'dev' | 'preprod' | 'prod') {
+    if (!this.isPublishBucketAvailable) {
+      return Promise.reject(`${this.configSvc.get('AWS_BUCKET_NAME_PUBLISH')} does not exists`)
+    }
+
+    const keys = await this.s3Client.send(
+      new ListObjectsCommand({
+        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+        Prefix: `${id}/${env}/`
+      })
+    )
+
+    if (keys.Contents) {
+      await Promise.all(
+        keys.Contents.map(content => {
+          return this.s3Client.send(
+            new DeleteObjectCommand({
+              Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+              Key: content.Key
+            })
+          )
+        })
+      )
+    }
+
+    return true
   }
 
   async getLanguage(id: string) {

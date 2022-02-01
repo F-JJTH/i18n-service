@@ -1,20 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentUserService, I18nService, Member, Product } from '@kizeo/i18n/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddEditMemberModalComponent } from '../add-edit-member-modal/add-edit-member-modal.component';
-import { ZenObservable } from 'zen-observable-ts';
 
 @Component({
   selector: 'kizeo-members',
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.scss']
 })
-export class MembersComponent implements OnInit, OnDestroy {
+export class MembersComponent implements OnInit {
 
   product!: Product
 
-  // dtStoreSubscription?: ZenObservable.Subscription
+  productId!: string
 
   currentUserId = ""
 
@@ -26,18 +25,15 @@ export class MembersComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    const productId = this.route.parent?.parent?.snapshot.data['product'].id
-    this.product = await this.i18nSvc.getProductById(productId)
+    this.productId = this.route.parent?.parent?.snapshot.data['product'].id
 
-    // this.dtStoreSubscription = this.i18nSvc.observeProductById(this.product.id).subscribe(data => {
-    //   this.product = data.element
-    // })
+    await this.fetch()
 
     this.currentUserId = (await this.currentUser.getPayload()).sub
   }
 
-  ngOnDestroy(): void {
-    // this.dtStoreSubscription?.unsubscribe()
+  async fetch() {
+    this.product = await this.i18nSvc.getProductById(this.productId)
   }
 
   get members() {
@@ -49,7 +45,8 @@ export class MembersComponent implements OnInit, OnDestroy {
       nzContent: AddEditMemberModalComponent,
       nzComponentParams: {
         product: this.product,
-      }
+      },
+      nzOnOk: () => this.fetch(),
     })
   }
 
@@ -63,7 +60,8 @@ export class MembersComponent implements OnInit, OnDestroy {
       nzComponentParams: {
         product: this.product,
         member,
-      }
+      },
+      nzOnOk: () => this.fetch(),
     })
   }
 }

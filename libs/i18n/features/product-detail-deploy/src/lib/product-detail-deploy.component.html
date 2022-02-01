@@ -11,16 +11,42 @@
     <div nz-col>
       <p *ngIf="product?.publishedPreprodAt">Last staging deploy at: {{ product!.publishedPreprodAt | date:'short' }}</p>
       <button nz-button nzType="primary" (click)="onPublishPreprodClicked()" [nzLoading]="isLoadingPreprod">
-        Deploy translations for staging
+        {{ 'DEPLOY_TRANSLATIONS_FOR_PREPROD_BTN' | translate }}
         <i nz-icon nzType="rocket" nzTheme="outline"></i>
       </button>
+      <nz-list class="m-t-50" nzSize="small" [nzDataSource]="fileList.preprod">
+        <nz-list-header>{{ 'FILE_LIST_FOR_ENVIRONMENT_PREPROD' | translate }}</nz-list-header>
+        <nz-list-item *ngFor="let file of fileList.preprod">
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a [href]="file.url" target="_blank">
+                <i nz-icon nzType="download" nzTheme="outline"></i>
+              </a>
+            </nz-list-item-action>
+          </ul>
+          {{ file.name }}
+        </nz-list-item>
+      </nz-list>
     </div>
     <div nz-col>
       <p *ngIf="product?.publishedProdAt">Last production deploy at: {{ product!.publishedProdAt | date:'short' }}</p>
       <button nz-button nzType="primary" (click)="onPublishProdClicked()" [nzLoading]="isLoadingProd">
-        Deploy translations for production
+        {{ 'DEPLOY_TRANSLATIONS_FOR_PRODUCTION_BTN' | translate }}
         <i nz-icon nzType="rocket" nzTheme="outline"></i>
       </button>
+      <nz-list class="m-t-50" nzSize="small" [nzDataSource]="fileList.prod">
+        <nz-list-header>{{ 'FILE_LIST_FOR_ENVIRONMENT_PROD' | translate }}</nz-list-header>
+        <nz-list-item *ngFor="let file of fileList.prod">
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a [href]="file.url" target="_blank">
+                <i nz-icon nzType="download" nzTheme="outline"></i>
+              </a>
+            </nz-list-item-action>
+          </ul>
+          {{ file.name }}
+        </nz-list-item>
+      </nz-list>
     </div>
   </div>
 </nz-content>

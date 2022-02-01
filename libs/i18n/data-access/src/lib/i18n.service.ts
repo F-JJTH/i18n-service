@@ -38,41 +38,14 @@ export class I18nService {
     return firstValueFrom(this.http.delete<Product>(`/api/product/${id}`))
   }
 
-  // /product/:id/publish/:env GET Route✅
+  // /product/:id/publish/:env GET Route✅ Code✅
   async publishPreprodTranslationsForProduct(id: string) {
     return firstValueFrom(this.http.get(`/api/product/${id}/publish/preprod`))
-    // const languages = (await this.getLanguagesByProductId(id)).filter(l => !l.isDisabled)
-    // await this.deleteOldTranslationsForProduct(id, "preprod")
-    // await this.uploadTranslationsFilesForLanguages(languages, "preprod")
-
-    // const product = await this.getProductById(id)
-    // if (!product) { throw new Error(`Product ${id} not found`) }
-
-    // DataStore.save(Product.copyOf(product, updated => {
-    //   updated.publishedPreprodAt = new Date().toISOString()
-    // }))
-
-    // return Promise.resolve()
   }
 
-  // /product/:id/publish/:env GET Route✅
+  // /product/:id/publish/:env GET Route✅ Code✅
   async publishProdTranslationsForProduct(id: string) {
     return firstValueFrom(this.http.get(`/api/product/${id}/publish/prod`))
-    // await this.deleteOldTranslationsForProduct(id, "prod")
-
-    // const preprodFiles = await Storage.list(`${id}/preprod/`)
-    // preprodFiles.forEach(pf => {
-    //   Storage.copy({ key: pf.key! }, { key: pf.key!.replace("preprod", "prod") });
-    // })
-
-    // const product = await this.getProductById(id)
-    // if (!product) { throw new Error(`Product ${id} not found`) }
-
-    // DataStore.save(Product.copyOf(product, updated => {
-    //   updated.publishedProdAt = new Date().toISOString()
-    // }))
-
-    // return Promise.resolve()
   }
 
   // /product/:id/member POST Route✅ Code✅
@@ -207,54 +180,6 @@ export class I18nService {
 
 
 
-  // private async publishDevTranslationsForProduct(id: string) {
-  //   const languages = (await this.getLanguagesByProductId(id)).filter(l => !l.isDisabled)
-  //   await this.deleteOldTranslationsForProduct(id, "dev")
-  //   await this.uploadTranslationsFilesForLanguages(languages, "dev")
-  // }
-
-  // private getLanguageById(id: string) {
-  //   return DataStore.query(Language, id)
-  // }
-
-  // private async getTranslationsByLanguageId(languageId: string) {
-  //   return (await DataStore.query(Translation))
-  //     .filter(d => d.language?.id === languageId)
-  // }
-
-  // private async getDefinitionBySlug(slug: string) {
-  //   return (await DataStore.query(Definition)).filter(d => d.slug === slug)[0]
-  // }
-
-  // private async deleteOldTranslationsForProduct(id: string, env: 'dev' | 'preprod' | 'prod') {
-  //   const files = await Storage.list(`${id}/${env}/`)
-
-  //   const promises = files.map(pf => {
-  //     return Storage.remove(pf.key!);
-  //   })
-  //   return Promise.all(promises)
-  // }
-
-  // private async uploadTranslationsFilesForLanguages(languages: Language[], env: 'dev' | 'preprod') {
-  //   const promises = languages.map(async l => {
-  //     return new Promise(async (resolve, reject) => {
-  //       const translations = await this.getTranslationsByLanguageId(l.id)
-  //       const fileContent = translations.reduce((prev, t) => {
-  //         return {...prev, [t.definition!.slug]: t.value}
-  //       }, {})
-  //       try {
-  //         const result = await Storage.put(`${l.product!.id}/${env}/${l.code}.json`, fileContent)
-
-  //         resolve(result)
-  //       } catch (err) {
-  //         console.warn(err)
-  //         reject("cannot write to s3")
-  //       }
-  //     })
-  //   })
-
-  //   await Promise.all(promises)
-  // }
 
   async listUsers() {
     return this.adminQueries.listUsers()

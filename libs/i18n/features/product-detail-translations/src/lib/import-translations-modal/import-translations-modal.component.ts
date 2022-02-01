@@ -38,13 +38,26 @@ export class ImportTranslationsModalComponent implements OnInit {
     //   .map(d => d.slug)
   }
 
+  flattenObj(obj: any, parent: any = null, res: any = {}) {
+    for (const key of Object.keys(obj)) {
+      const propName = parent ? parent + '.' + key : key;
+      if (typeof obj[key] === 'object') {
+        this.flattenObj(obj[key], propName, res);
+      } else {
+        res[propName] = obj[key];
+      }
+    }
+    return res;
+  }
+
   onInputValueChanged() {
     let input = this.inputValue.trim()
     if (!input) return
 
     try {
-      const allValues = JSON.parse(input) as any[]
-      this.parsedValues = Object.entries(allValues).map(v => ({slug: v[0], translation: v[1]}))
+      const allValues = JSON.parse(input) as any
+      const allValuesFlat = this.flattenObj(allValues)
+      this.parsedValues = Object.entries(allValuesFlat).map(v => ({slug: v[0], translation: v[1] as string}))
     } catch(err) {
       console.warn(err)
     }
