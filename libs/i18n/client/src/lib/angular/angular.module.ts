@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TranslateModule, TranslateService, TranslateLoader } from '@ngx-translate/core'
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
-import { NzI18nModule, NzI18nService } from 'ng-zorro-antd/i18n';
 import { I18nTranslateLoader } from './loader.class';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -28,8 +27,8 @@ export class I18nClientConfig {
   }
 }
 
-export function createTranslateLoader(http: HttpClient, config: I18nClientConfig, nzI18n: NzI18nService) {
-  return new I18nTranslateLoader(http, `${config.url}/public/product/${config.appId}/${config.env}/translation/`, nzI18n);
+export function createTranslateLoader(http: HttpClient, config: I18nClientConfig) {
+  return new I18nTranslateLoader(http, `${config.url}/public/product/${config.appId}/${config.env}/translation/`);
 }
 
 function initializeAppFactory(http: HttpClient, translate: TranslateService, config: I18nClientConfig): () => Observable<any> {
@@ -60,12 +59,11 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NzI18nModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
-        deps: [HttpClient, I18nClientConfig, NzI18nService]
+        deps: [HttpClient, I18nClientConfig]
       },
     }),
     NzDropDownModule,

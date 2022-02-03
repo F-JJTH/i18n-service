@@ -10,9 +10,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { TranslateModule } from '@ngx-translate/core'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { JwtInterceptor } from './jwt.interceptor';
+import { NzI18nService } from 'ng-zorro-antd/i18n';
 
 export const shellRoutes: Route[] = [
   {
@@ -50,4 +51,17 @@ export const shellRoutes: Route[] = [
     ShellComponent
   ]
 })
-export class ShellModule {}
+export class ShellModule {
+  constructor(translate: TranslateService, nzI18n: NzI18nService) {
+    translate.onLangChange.subscribe(langChangeEvent => {
+      import(`ng-zorro-antd/i18n`).then(i18nModule => {
+        let nzLang = langChangeEvent.lang.replace('-', '_')
+        try {
+          nzI18n.setLocale((i18nModule as any)[nzLang])
+        } catch(err) {
+          console.warn(`Invalid locale provided to NzI18nService: ${nzLang}`, i18nModule)
+        }
+      })
+    })
+  }
+}

@@ -30,6 +30,10 @@
                 {
                   "replace": "apps/i18n-backend/src/environments/environment.ts",
                   "with": "apps/i18n-backend/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "apps/i18n-backend/ormconfig.json",
+                  "with": "apps/i18n-backend/ormconfig.prod.json"
                 }
               ]
             },

@@ -1,0 +1,10 @@
+{
+  "type": "postgres",
+  "host": "kizeo-lab-traduction-dev.cluster-ckoqwtwvquzb.eu-west-3.rds.amazonaws.com",
+  "port": 5432,
+  "username": "postgres",
+  "password": "E2LA74NJ7FNBGSU2WT5",
+  "database": "i18n_kizeo_com",
+  "entities": ["./**/*.entity.js"],
+  "migrations": ["./migrations/*"]
+}

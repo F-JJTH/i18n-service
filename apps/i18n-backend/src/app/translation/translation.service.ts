@@ -106,7 +106,7 @@ export class TranslationService {
       where: {
         product: importTranslationDto.productId,
         language: importTranslationDto.languageId,
-        value: null
+        isRequireTranslatorAction: true
       }
     })
     await this.language.update(importTranslationDto.languageId, {

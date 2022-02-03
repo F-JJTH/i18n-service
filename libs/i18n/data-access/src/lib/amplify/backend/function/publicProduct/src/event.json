@@ -1,7 +1,0 @@
-{
-  "httpMethod": "GET",
-  "path": "/public/product/6711a19d-c3de-4f47-98a7-3012c94a7c95/preprod/translation/fr-FR",
-  "queryStringParameters": {
-    "limit": "10"
-  }
-}

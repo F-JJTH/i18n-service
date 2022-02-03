@@ -1,15 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { firstValueFrom } from 'rxjs';
-import { AdminQueriesService, CurrentUserService, Definition, Language, MemberAuthorization, Product, Translation } from "..";
+import {
+  CreateProductRequest,
+  Definition,
+  Language,
+  MemberAuthorization,
+  Product,
+  Translation
+} from "./api.interface";
 
 export type ProductListItem = Product & {page: string}
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
   constructor(
-    private readonly adminQueries: AdminQueriesService,
-    private readonly currentUser: CurrentUserService,
     private readonly http: HttpClient,
   ) {}
 
@@ -29,8 +34,8 @@ export class I18nService {
   }
 
   // /product POST Route✅ Code✅
-  async createProduct(name: string, defaultLanguage: { code: string, label: string }) {
-    return firstValueFrom(this.http.post<Product>(`/api/product`, { name, defaultLanguage }))
+  async createProduct(createproductOptions: CreateProductRequest) {
+    return firstValueFrom(this.http.post<Product>(`/api/product`, createproductOptions))
   }
 
   // /product/:id DELETE Route✅ Code✅
@@ -110,42 +115,9 @@ export class I18nService {
     return firstValueFrom(this.http.patch<Translation>(`/api/translation`, {translationItems}))
   }
 
-  // /translation/import POST Route✅
+  // /translation/import POST Route✅ Code✅
   async importTranslations(translations: {slug: string, translation: string}[], productId: string, languageId: string) {
     return firstValueFrom(this.http.post<Translation[]>(`/api/translation/import`, {translations, productId, languageId}))
-    // const product = await this.getProductById(productId)
-    // const language = await this.getLanguageById(languageId)
-    // if (!product || !language) {
-    //   return
-    // }
-
-    // await Promise.all(translations.map(v => {
-    //   return new Promise<void | string>(async (resolve, reject) => {
-    //     const definition = await this.getDefinitionBySlug(v.slug)
-    //     if (!definition) { return resolve(`Unknown slug '${v.slug}'`) }
-
-    //     const translation = (await DataStore.query(Translation)).filter(t => t.definition!.id === definition.id && t.language!.id === languageId && t.product!.id === productId)[0]
-    //     if (!translation) { return resolve(`Unknown translation for slug '${v.slug}' and language '${languageId}'`) }
-
-    //     await DataStore.save(
-    //       Translation.copyOf(translation, updated => {
-    //         updated.value = v.translation,
-    //         updated.isRequireTranslatorAction = v.translation ? false : true
-    //       })
-    //     )
-    //     resolve()
-    //   })
-    // }))
-
-    // this.publishDevTranslationsForProduct(productId)
-
-    // const translationsRequiringTranslatorAction = (await DataStore.query(Translation))
-    //   .filter(t => t.language!.id === language.id && t.isRequireTranslatorAction === true)
-    // return DataStore.save(
-    //   Language.copyOf(language, updated => {
-    //     updated.isRequireTranslatorAction = translationsRequiringTranslatorAction.length > 0 ? true : false
-    //   })
-    // )
   }
 
 
@@ -178,10 +150,8 @@ export class I18nService {
   // FIXME: create /api/definition/:id/set-pitcture (upload file OR clear)
 
 
-
-
-
+  // /user Route✅ Code✅
   async listUsers() {
-    return this.adminQueries.listUsers()
+    return firstValueFrom(this.http.get<any>(`/api/user`))
   }
 }

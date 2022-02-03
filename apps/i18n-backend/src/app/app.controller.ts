@@ -20,7 +20,7 @@ export class AppController {
     @Param('env') env: string,
     @Param('code') code: string,
   ) {
-    return `Returns translations for product #${id} with environment ${env} and language ${code}`;
+    return this.appService.getTranslationsForClients(id, env, code)
   }
 
   @ApiOperation({summary: 'Get languages for clients'})
@@ -29,6 +29,12 @@ export class AppController {
     @Param('id') id: string,
     @Param('env') env: string,
   ) {
-    return `Returns languages available for product #${id} with environment ${env}`;
+    return this.appService.getLanguagesForClients(id, env)
+  }
+
+  @ApiOperation({summary: 'Get user list'})
+  @Get('/user')
+  listUsers() {
+    return this.appService.listUsers()
   }
 }

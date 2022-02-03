@@ -1,8 +1,6 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-
-process.env.APP_ROOT_PATH = "apps/i18n-backend" // Workaround for ormconfig.json file to be found
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {

@@ -22,7 +22,10 @@ export class CreateNewAppModalComponent {
       return
     }
 
-    await this.i18nSvc.createProduct(this.name, this.defaultLanguage)
+    await this.i18nSvc.createProduct({
+      name: this.name,
+      defaultLanguage: this.defaultLanguage
+    })
 
     this.modalRef.triggerOk()
   }
