@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
-import { DataStore } from 'aws-amplify';
 import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { ZenObservable } from 'zen-observable-ts';
 import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
 
 interface TranslationItem {
@@ -30,7 +28,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   product!: Product;
 
-  translations: TranslationItem[] = []
+  translations: Translation[] = []
 
   languages: Language[] = []
 
@@ -42,9 +40,13 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   isSaving = false
 
-  dtStoreSubscription?: ZenObservable.Subscription
-
   canValidate = false
+
+  searchDefaultValue = ''
+
+  searchTranslation = ''
+
+  filteredResults: TranslationItem[] = []
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -68,7 +70,30 @@ export class ProductDetailTranslationsComponent implements OnInit {
   }
 
   async fetch() {
-    this.translations = (await this.i18nSvc.getTranslationsByProductId(this.product.id))
+    this.translations = await this.i18nSvc.getTranslationsByProductId(this.product.id)
+      // .filter(t => (
+      //     (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language!.code) : true)
+      //   )
+      // )
+      // .map(t => {
+      //   return {
+      //     id: t.id,
+      //     slug: t.definition!.slug,
+      //     value: t.value || "",
+      //     language: t.language!,
+      //     translation: t,
+      //     isValid: t.isValid ?? false,
+      //     definition: t.definition!,
+      //     defaultValue: t.definition!.defaultValue,
+      //     isRequireTranslatorAction: t.isRequireTranslatorAction
+      //   }
+      // })
+      // .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
+      this.setFilteredResult()
+  }
+
+  setFilteredResult() {
+    this.filteredResults = this.translations
       .filter(t => (
           (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language!.code) : true)
         )
@@ -86,6 +111,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
           isRequireTranslatorAction: t.isRequireTranslatorAction
         }
       })
+      .filter(t => t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
+      .filter(t => t.value.toLowerCase().includes(this.searchTranslation.toLowerCase()))
       .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
   }
 

@@ -36,16 +36,25 @@
     </div>
   </header>
 
-  <nz-table #table [nzData]="translations" nzSize="middle" [nzPageSize]="25">
+  <nz-table #table [nzData]="filteredResults" nzSize="middle" [nzPageSize]="25">
     <thead>
       <tr>
-        <th>{{ 'DEFAULT_VALUE' | translate }}
-          <nz-badge
-            nzStandalone
-            [nzOverflowCount]="99999"
-            [nzCount]="translations.length"
-            [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
-          ></nz-badge>
+        <th>
+          <div class="is-flex">
+            {{ 'DEFAULT_VALUE' | translate }}
+            <nz-badge
+              nzStandalone
+              [nzOverflowCount]="99999"
+              [nzCount]="filteredResults.length"
+              [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
+            ></nz-badge>
+            <nz-input-group [nzSuffix]="suffixIconSearchDefaultvalue">
+              <input nz-input
+                [placeholder]="'SEARCH_BY_DEFAULT_VALUE' | translate"
+                [(ngModel)]="searchDefaultValue"
+                (ngModelChange)="setFilteredResult()">
+            </nz-input-group>
+          </div>
         </th>
         <th nzWidth="220px">
           <kizeo-select-language name="selectedLanguage"
@@ -58,7 +67,17 @@
           (ngModelChange)="onFilterTranslationChanged()"
           mode="multiple"></kizeo-select-language>
         </th>
-        <th>{{ 'TRANSLATION' | translate }}</th>
+        <th>
+          <div class="is-flex">
+            {{ 'TRANSLATION' | translate }}
+            <nz-input-group [nzSuffix]="suffixIconSearchTranslation">
+              <input nz-input
+                [placeholder]="'SEARCH_BY_TRANSLATION' | translate"
+                [(ngModel)]="searchTranslation"
+                (ngModelChange)="setFilteredResult()">
+            </nz-input-group>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -110,3 +129,23 @@
     </tbody>
   </nz-table>
 </nz-content>
+
+<ng-template #suffixIconSearchDefaultvalue>
+  <i nz-icon
+    *ngIf="searchDefaultValue"
+    class="ant-input-clear-icon m-r-4"
+    nzTheme="fill"
+    nzType="close-circle"
+    (click)="searchDefaultValue = ''; setFilteredResult()"></i>
+  <i nz-icon nzType="search"></i>
+</ng-template>
+
+<ng-template #suffixIconSearchTranslation>
+  <i nz-icon
+    *ngIf="searchTranslation"
+    class="ant-input-clear-icon m-r-4"
+    nzTheme="fill"
+    nzType="close-circle"
+    (click)="searchTranslation = ''; setFilteredResult()"></i>
+  <i nz-icon nzType="search"></i>
+</ng-template>

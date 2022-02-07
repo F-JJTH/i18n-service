@@ -34,6 +34,12 @@ header {
   margin-bottom: 8px;
 }
 
+.is-flex {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .validator-btn {
 
   i {
@@ -66,4 +72,8 @@ nz-content {
 
 .m-0 {
   margin: 0;
+}
+
+.m-r-4 {
+  margin-right: 4px;
 }
