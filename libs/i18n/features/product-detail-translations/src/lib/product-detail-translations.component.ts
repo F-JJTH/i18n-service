@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
 import { DataStore } from 'aws-amplify';
+import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ZenObservable } from 'zen-observable-ts';
@@ -51,6 +52,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
     private readonly imageSvc: NzImageService,
     private readonly modal: NzModalService,
     private readonly currentUser: CurrentUserService,
+    private readonly currentProduct: CurrentProductService,
   ) { }
 
   async ngOnInit() {
@@ -95,7 +97,10 @@ export class ProductDetailTranslationsComponent implements OnInit {
         productId: this.product.id,
         languageId: language.id,
       },
-      nzOnOk: () => this.fetch()
+      nzOnOk: () => {
+        this.fetch()
+        this.currentProduct.refresh(this.product.id)
+      }
     })
   }
 
@@ -131,10 +136,11 @@ export class ProductDetailTranslationsComponent implements OnInit {
       Array.from(this.modifiedTranslationItems.values())
     )
 
-    setTimeout(() => {
+    //setTimeout(() => {
       this.modifiedTranslationItems.clear()
       this.fetch()
       this.isSaving = false
-    }, 500)
+      this.currentProduct.refresh(this.product.id)
+    //}, 500)
   }
 }

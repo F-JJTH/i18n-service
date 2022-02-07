@@ -14,7 +14,7 @@
       </li>
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.translations">
         <a routerLink="translations">{{ 'TRANSLATIONS' | translate }}</a>
-        <nz-tag *ngIf="isTranslatorRequireAction" [nzColor]="'orange'">
+        <nz-tag *ngIf="(currentProduct.product$ | async)?.isRequireTranslatorAction" [nzColor]="'orange'">
           <i nz-icon nzType="warning" nzTheme="outline"></i>
         </nz-tag>
       </li>

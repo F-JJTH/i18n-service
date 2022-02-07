@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
+import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
@@ -36,6 +37,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     private readonly i18nSvc: I18nService,
     private readonly translate: TranslateService,
     private readonly imageSvc: NzImageService,
+    private readonly currentProduct: CurrentProductService,
   ) { }
 
   async ngOnInit() {
@@ -54,7 +56,10 @@ export class ProductDetailDefinitionsComponent implements OnInit {
       nzComponentParams: {
         productId: this.product.id
       },
-      nzOnOk: () => this.fetch()
+      nzOnOk: () => {
+        this.fetch()
+        this.currentProduct.refresh(this.product.id)
+      }
     })
   }
 
@@ -70,6 +75,8 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
     this.fetch()
     this.editId = null;
+
+    this.currentProduct.refresh(this.product.id)
   }
 
   endEdit() {
@@ -130,5 +137,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     this.defaultValue = ""
 
     this.slugInput.nativeElement.focus()
+
+    this.currentProduct.refresh(this.product.id)
   }
 }

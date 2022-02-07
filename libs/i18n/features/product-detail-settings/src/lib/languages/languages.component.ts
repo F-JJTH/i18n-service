@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { I18nService, Language, Product } from '@kizeo/i18n/data-access';
+import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from '../add-language-modal/add-language-modal.component';
 
@@ -18,6 +19,7 @@ export class LanguagesComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
     private readonly i18nSvc: I18nService,
+    private readonly currentProduct: CurrentProductService,
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,10 @@ export class LanguagesComponent implements OnInit {
         product: this.product,
         excludeLanguages: this.languages.map(language => language.code)
       },
-      nzOnOk: () => this.fetch()
+      nzOnOk: () => {
+        this.fetch()
+        this.currentProduct.refresh(this.product.id)
+      }
     })
   }
 

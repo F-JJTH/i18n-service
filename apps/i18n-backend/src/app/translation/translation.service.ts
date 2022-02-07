@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Brackets } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Definition } from '../definition/entities/definition.entity';
 import { Language } from '../language/entities/language.entity';
 import { ProductService } from '../product/product.service';
@@ -51,11 +51,11 @@ export class TranslationService {
       throw new BadRequestException('translationItems must be of type {id: string, value: string}[]')
     }
 
-    const updatedTranslations = await Promise.all(
+    await Promise.all(
       updateTranslationDto.translationItems.map(item => {
         return this.translation.update(item.id, {
           value: item.value,
-          isRequireTranslatorAction: item.value ? false : true
+          isRequireTranslatorAction: item.value ? false : true,
         })
       })
     )
@@ -65,7 +65,10 @@ export class TranslationService {
       this.productSvc.publishTranslations(translation.product.id, 'dev')
     }
 
-    return updatedTranslations;
+    await this.updateLanguageRequireTranslationAction(translation.product.id)
+
+    const updatedTranslationIds = updateTranslationDto.translationItems.map(t => t.id)
+    return updatedTranslationIds;
   }
 
   async import(importTranslationDto: ImportTranslationDto) {
@@ -102,16 +105,7 @@ export class TranslationService {
       })
     )
 
-    const missingTranslationCount = await this.translation.count({
-      where: {
-        product: importTranslationDto.productId,
-        language: importTranslationDto.languageId,
-        isRequireTranslatorAction: true
-      }
-    })
-    await this.language.update(importTranslationDto.languageId, {
-      isRequireTranslatorAction: missingTranslationCount > 0 ? true : false
-    })
+    await this.updateLanguageRequireTranslationAction(importTranslationDto.productId)
 
     this.productSvc.publishTranslations(importTranslationDto.productId, 'dev')
     return {success: true};
@@ -120,5 +114,18 @@ export class TranslationService {
   async remove(id: string) {
     const translation = await this.translation.findOne(id);
     return this.translation.remove(translation);
+  }
+
+  private async updateLanguageRequireTranslationAction(productId: string) {
+    const languages = await this.language.find({
+      where: { product: productId },
+      relations: ['translations']
+    })
+    await Promise.all(languages.map(language => {
+      const languageRequireTranslationAction = language.translations.some(t => t.isRequireTranslatorAction)
+      return this.language.update(language.id, {
+        isRequireTranslatorAction: languageRequireTranslationAction
+      })
+    }))
   }
 }
