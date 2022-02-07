@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { I18nService } from '@kizeo/i18n/data-access';
+import { flattenObject } from '@kizeo/i18n/util';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -11,13 +12,13 @@ export class ImportDefinitionsModalComponent implements OnInit {
 
   @Input() productId!: string
 
-  placeholder = `[
-  {"slug": "APP_TITLE", "defaultValue": "Title of application"},
-  {"slug": "APP_SUBTITLE", "defaultValue": "Subitle of application"},
-  {"slug": "FIRSTNAME", "defaultValue": "Firstname"},
-  {"slug": "LASTNAME", "defaultValue": "Lastname"},
-  ...
-]`
+  placeholder = `{
+    "APP_TITLE": "Title of application",
+    "APP_SUBTITLE": "Subitle of application",
+    "FIRSNAME": "Firsname",
+    "LASTNAME": "Lastname",
+    ...
+}`
 
   inputValue: string = ''
 
@@ -42,9 +43,11 @@ export class ImportDefinitionsModalComponent implements OnInit {
     if (!input) return
 
     try {
-      const allValues = JSON.parse(input) as {slug: string, defaultValue: string}[]
-      this.parsedValues = allValues.filter(v => !this.knownSlugs.includes(v.slug))
-      
+      const allValues = JSON.parse(input) as any
+      const allValuesFlat = flattenObject(allValues)
+      this.parsedValues = Object.entries(allValuesFlat)
+        .map(v => ({slug: v[0], defaultValue: v[1] as string}))
+        .filter(v => !this.knownSlugs.includes(v.slug))
     } catch(err) {
       console.warn(err)
     }

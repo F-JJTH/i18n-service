@@ -14,6 +14,7 @@ export type ProductListItem = Product & {page: string}
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
+  
   constructor(
     private readonly http: HttpClient,
   ) {}
@@ -111,7 +112,7 @@ export class I18nService {
   }
 
   // /translation PATCH Route✅ Code✅
-  async updateTranslations(translationItems: { id: string, value: string }[]) {
+  async updateTranslations(translationItems: { id: string, value: string | null }[]) {
     return firstValueFrom(this.http.patch<Translation>(`/api/translation`, {translationItems}))
   }
 
@@ -148,6 +149,11 @@ export class I18nService {
   }
 
   // FIXME: create /api/definition/:id/set-pitcture (upload file OR clear)
+  setPictureForDefinition(id: string, selectedFile: File) {
+    const formData = new FormData()
+    formData.append('file', selectedFile)
+    return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, formData))
+  }
 
 
   // /user Route✅ Code✅

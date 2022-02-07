@@ -17,6 +17,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { SetLinkModalComponent } from './set-link-modal/set-link-modal.component';
 import { SetPictureModalComponent } from './set-picture-modal/set-picture-modal.component';
 
@@ -45,6 +46,7 @@ import { SetPictureModalComponent } from './set-picture-modal/set-picture-modal.
     NzDropDownModule,
     NzPopoverModule,
     NzImageModule,
+    NzUploadModule,
     TranslateModule,
   ],
 })

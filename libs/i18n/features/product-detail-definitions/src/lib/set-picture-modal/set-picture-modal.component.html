@@ -1,11 +1,17 @@
 <div *nzModalTitle>{{ 'SET_PICTURE' | translate }}</div>
-<div nz-row>
-  <div nz-col nzSpan="24"></div>
+<div class="container">
+    <input type="file" name="file" id="file" #inputFile (change)="onValueChanged($event)">
+    <img [src]="preview">
+    <br>
+    <button nz-button (click)="inputFile.click()" nzType="primary">
+      {{ 'SELECT_A_FILE' | translate }}
+    </button>
 </div>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
   <button nz-button
     nzType="primary"
     [nzLoading]="isLoading"
+    [disabled]="!selectedFile"
     (click)="onSaveClicked()">{{ 'SAVE' | translate }}</button>
 </div>

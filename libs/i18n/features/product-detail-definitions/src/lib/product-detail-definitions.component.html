@@ -49,21 +49,16 @@
     <tbody>
       <tr *ngFor="let def of table.data">
         <td>
-          <div class="editable-cell" [hidden]="editId === def.id">
-            {{ def.slug }}
-            <span class="icon-tools">
-              <a *ngIf="def.link" [href]="def.link" target="_blank">
-                <i nz-icon nzType="link" nzTheme="outline"></i>
-              </a>
-              <i *ngIf="def.pictureUrl" nz-icon nzType="picture" nzTheme="outline" (click)="onDefinitionImageClicked(def)"></i>
-            </span>
-          </div>
-          <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.slug" />
+          {{ def.slug }}
+          <span class="icon-tools">
+            <a *ngIf="def.link" [href]="def.link" target="_blank">
+              <i nz-icon nzType="link" nzTheme="outline"></i>
+            </a>
+            <i *ngIf="def.pictureUrl" nz-icon nzType="picture" nzTheme="outline" (click)="onDefinitionImageClicked(def)"></i>
+          </span>
         </td>
         <td>
-          <div class="editable-cell" [hidden]="editId === def.id">
-            {{ def.defaultValue }}
-          </div>
+          <ng-container *ngIf="editId !== def.id">{{ def.defaultValue }}</ng-container>
           <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.defaultValue" />
         </td>
         <td>
@@ -74,10 +69,10 @@
             </button>
           </nz-button-group>
           <button *ngIf="editId === def.id" nz-button nzType="primary" (click)="stopEdit(def.slug, def.defaultValue)">{{ 'SAVE' | translate }}</button>
-          <nz-dropdown-menu #menu1="nzDropdownMenu">
+          <nz-dropdown-menu #menu1="nzDropdownMenu" >
             <ul nz-menu>
               <li nz-menu-item (click)="onSetLinkClicked(def)">
-                {{ 'SET_LINK' | translate }}
+                <span>{{ 'SET_LINK' | translate }}</span>
                 <button *ngIf="def.link"
                   nz-button
                   nzType="text"
@@ -88,7 +83,7 @@
                 </button>
               </li>
               <li nz-menu-item (click)="onSetPictureClicked(def)">
-                {{ 'SET_PICTURE' | translate }}
+                <span>{{ 'SET_PICTURE' | translate }}</span>
                 <button *ngIf="def.pictureUrl"
                   nz-button
                   nzType="text"

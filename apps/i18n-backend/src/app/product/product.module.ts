@@ -7,11 +7,13 @@ import { Product } from './entities/product.entity';
 import { MemberAuthorization } from './entities/member-authorization.entity';
 import { Language } from '../language/entities/language.entity';
 import { Translation } from '../translation/entities/translation.entity';
+import { S3Module } from '../s3/s3.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Product, MemberAuthorization, Language, Translation]),
     JwtModule.register({}),
+    S3Module,
   ],
   controllers: [ProductController],
   providers: [ProductService],

@@ -1,6 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Definition, I18nService } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+
+const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 
 @Component({
   selector: 'kizeo-set-picture-modal',
@@ -12,6 +21,10 @@ export class SetPictureModalComponent implements OnInit {
   @Input() definition!: Definition
 
   isLoading = false
+
+  selectedFile?: File
+
+  preview: any
 
   constructor(
     private readonly modalRef: NzModalRef,
@@ -26,9 +39,15 @@ export class SetPictureModalComponent implements OnInit {
 
   async onSaveClicked() {
     this.isLoading = true
-    alert('FIXME: not yet implemented')
-    // await this.i18nSvc.setLinkForDefinition(this.definition.id, this.link)
-    //this.isLoading = false
+    await this.i18nSvc.setPictureForDefinition(this.definition.id, this.selectedFile!)
+    // this.isLoading = false
     this.modalRef.triggerOk()
+  }
+  
+  async onValueChanged(fileChangedEvent: any) {
+    this.selectedFile = fileChangedEvent.target.files[0]
+    if (this.selectedFile) {
+      this.preview = await getBase64(this.selectedFile)
+    }
   }
 }

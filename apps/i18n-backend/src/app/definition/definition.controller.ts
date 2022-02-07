@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { DefinitionService } from './definition.service';
 import { CreateDefinitionDto } from './dto/create-definition.dto';
@@ -13,6 +15,8 @@ import { UpdateDefinitionDto } from './dto/update-definition.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { ImportDefinitionDto } from './dto/import-definition.dto';
 import { UpdateLinkTranslationDto } from './dto/update-link-definition.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadedFileInput } from '../../interfaces/uploaded-file-input.interface';
 
 @ApiTags('Definitions')
 @ApiBearerAuth()
@@ -54,5 +58,16 @@ export class DefinitionController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.definitionService.remove(id);
+  }
+
+  @ApiOperation({summary: 'Update picture for definition'})
+  @Post(':id/set-picture')
+  @UseInterceptors(FileInterceptor('file'))
+  setPicture(
+    @Param('id') id: string,
+    @UploadedFile() file: UploadedFileInput
+  ) {
+    console.log(file)
+    return this.definitionService.setPicture(id, file);
   }
 }

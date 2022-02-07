@@ -14,7 +14,7 @@ interface TranslationItem {
   language: Language;
   translation: Translation;
   definition: Definition;
-  value: string;
+  value: string  | null;
   isValid: boolean;
   defaultValue: string;
   isRequireTranslatorAction: boolean | undefined;

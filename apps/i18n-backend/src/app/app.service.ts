@@ -38,7 +38,7 @@ export class AppService {
 
     const object = await this.s3Client.send(
       new GetObjectCommand({
-        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
         Key: `${productId}/${env}/${languageCode}.json`
       })
     )
@@ -63,7 +63,7 @@ export class AppService {
 
     const { Contents } = await this.s3Client.send(
       new ListObjectsCommand({
-        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLISH'),
+        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
         Prefix: `${productId}/${env}/`
       })
     )

@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException,BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ConfigService } from '@nestjs/config';
 import { Repository, Connection, In } from 'typeorm';
 import { Language } from '../language/entities/language.entity';
 import { Product } from '../product/entities/product.entity';
@@ -11,16 +10,11 @@ import { ImportDefinitionDto } from './dto/import-definition.dto';
 import { UpdateDefinitionDto } from './dto/update-definition.dto';
 import { ProductService } from '../product/product.service';
 import { UpdateLinkTranslationDto } from './dto/update-link-definition.dto';
-import {
-  S3Client,
-  ListBucketsCommand,
-} from '@aws-sdk/client-s3';
+import { S3Service } from '../s3/s3.service';
+import { UploadedFileInput } from '../../interfaces/uploaded-file-input.interface';
 
 @Injectable()
 export class DefinitionService {
-  s3Client: S3Client
-  isPrivateBucketAvailable = true
-
   constructor(
     @InjectRepository(Product)
     private readonly product: Repository<Product>,
@@ -32,28 +26,8 @@ export class DefinitionService {
     private readonly definition: Repository<Definition>,
     private readonly connection: Connection,
     private readonly productSvc: ProductService,
-    private readonly configSvc: ConfigService,
-  ) {
-    this.initS3()
-  }
-
-  async initS3() {
-    this.s3Client = new S3Client({
-      region: this.configSvc.get('AWS_DEFAULT_REGION')
-    })
-
-    try {
-      const bucketListResult = await this.s3Client.send( new ListBucketsCommand({}) )
-      const privateBucket = bucketListResult.Buckets.find(bucket => bucket.Name === this.configSvc.get('AWS_BUCKET_NAME_PRIVATE'))
-      if (!privateBucket) {
-        this.isPrivateBucketAvailable = false
-        console.warn(`${this.configSvc.get('AWS_BUCKET_NAME_PRIVATE')} does not exists`)
-      }
-    } catch(err) {
-      this.isPrivateBucketAvailable = false
-      console.warn('Cannot list Buckets')
-    }
-  }
+    private readonly s3Svc: S3Service,
+  ) { }
 
   async create(createDefinitionDto: CreateDefinitionDto) {
     const product = await this.product.findOne(createDefinitionDto.productId, {relations: ['languages']})
@@ -229,5 +203,20 @@ export class DefinitionService {
     this.productSvc.publishTranslations(product.id, 'dev')
 
     return this.definition.find({ where: { product: product.id } })
+  }
+
+  async setPicture(id: string, file: UploadedFileInput) {
+    await this.s3Svc.deletePictureForDefinition(id)
+
+    const { Key, Url } = await this.s3Svc.putPictureForDefinition(id, file)
+
+    return this.definition.update(id, {
+      pictureKey: Key,
+      pictureUrl: Url,
+    })
+  }
+
+  async deletePitcure(id: string) {
+    await this.s3Svc.deletePictureForDefinition(id)
   }
 }

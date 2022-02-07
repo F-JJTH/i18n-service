@@ -6,11 +6,17 @@ nz-content {
 }
 
 .clear-button {
-  position: absolute;
-  right: 0;
-
   &:hover {
     border: 1px solid;
+  }
+}
+
+li.ant-dropdown-menu-item {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin-left: 8px;
   }
 }
 
