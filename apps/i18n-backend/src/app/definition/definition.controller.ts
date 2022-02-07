@@ -17,6 +17,7 @@ import { ImportDefinitionDto } from './dto/import-definition.dto';
 import { UpdateLinkTranslationDto } from './dto/update-link-definition.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadedFileInput } from '../../interfaces/uploaded-file-input.interface';
+import { ApiFileUpload } from '../../decorators/api.decorators';
 
 @ApiTags('Definitions')
 @ApiBearerAuth()
@@ -60,14 +61,14 @@ export class DefinitionController {
     return this.definitionService.remove(id);
   }
 
-  @ApiOperation({summary: 'Update picture for definition'})
+  @ApiOperation({summary: 'Set/delete picture for definition', description: 'If «file» is missing, the picture is deleted'})
+  @ApiFileUpload({name: 'file'})
   @Post(':id/set-picture')
   @UseInterceptors(FileInterceptor('file'))
   setPicture(
     @Param('id') id: string,
     @UploadedFile() file: UploadedFileInput
   ) {
-    console.log(file)
     return this.definitionService.setPicture(id, file);
   }
 }

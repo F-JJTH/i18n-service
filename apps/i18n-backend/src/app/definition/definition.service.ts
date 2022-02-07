@@ -208,6 +208,13 @@ export class DefinitionService {
   async setPicture(id: string, file: UploadedFileInput) {
     await this.s3Svc.deletePictureForDefinition(id)
 
+    if (!file) {
+      return this.definition.update(id, {
+        pictureKey: null,
+        pictureUrl: null,
+      })
+    }
+
     const { Key, Url } = await this.s3Svc.putPictureForDefinition(id, file)
 
     return this.definition.update(id, {

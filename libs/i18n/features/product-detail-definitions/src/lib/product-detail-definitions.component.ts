@@ -105,8 +105,10 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     })
   }
 
-  onClearPictureClicked(definition: Definition) {
-    alert('FIXME: not yet implemented')
+  async onClearPictureClicked(definition: Definition) {
+    definition.pictureKey = null
+    definition.pictureUrl = null
+    await this.i18nSvc.setPictureForDefinition(definition.id, null)
   }
 
   onDefinitionImageClicked(definition: Definition) {

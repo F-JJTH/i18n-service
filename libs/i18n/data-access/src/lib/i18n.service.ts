@@ -148,11 +148,15 @@ export class I18nService {
     return firstValueFrom(this.http.post<Definition>(`/api/definition/${id}/set-link`, {link}))
   }
 
-  // FIXME: create /api/definition/:id/set-pitcture (upload file OR clear)
-  setPictureForDefinition(id: string, selectedFile: File) {
-    const formData = new FormData()
-    formData.append('file', selectedFile)
-    return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, formData))
+  // /api/definition/:id/set-picture Route✅ Code✅
+  setPictureForDefinition(id: string, selectedFile: File | null) {
+    if (selectedFile) {
+      const formData = new FormData()
+      formData.append('file', selectedFile)
+      return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, formData))
+    } else {
+      return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, null))
+    }
   }
 
 
