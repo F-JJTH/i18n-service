@@ -54,6 +54,12 @@ export class I18nService {
     return firstValueFrom(this.http.get(`/api/product/${id}/publish/prod`))
   }
 
+  // /product/:id/dl-translation/:env/:languageCode Route✅ Code✅
+  async downloadTranslationFileForProduct(id: string, env: string, languageCode: string) {
+    const result = await firstValueFrom(this.http.get<{link: string}>(`/api/product/${id}/dl-translation/${env}/${languageCode}`))
+    window.open(result.link)
+  }
+
   // /product/:id/member POST Route✅ Code✅
   async addMemberToProduct(memberId: string, memberEmail: string, authorizations: MemberAuthorization, productId: string) {
     return firstValueFrom(this.http.post<Product>(`/api/product/${productId}/member`, {memberId, memberEmail, authorizations}))
@@ -120,6 +126,7 @@ export class I18nService {
   async importTranslations(translations: {slug: string, translation: string}[], productId: string, languageId: string) {
     return firstValueFrom(this.http.post<Translation[]>(`/api/translation/import`, {translations, productId, languageId}))
   }
+
 
 
 

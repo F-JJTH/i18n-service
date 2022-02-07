@@ -5,7 +5,7 @@
       <button nz-button nzType="text" [routerLink]="['/']">
         <i nz-icon nzType="left-circle" nzTheme="outline"></i> {{ 'BACK' | translate }}
       </button>
-      <h1>{{ product?.name }}</h1>
+      <h1>{{ (currentProduct.product$ | async)?.name }}</h1>
       <nz-skeleton-element nzType="image"></nz-skeleton-element>
     </header>
     <ul nz-menu nzMode="inline" class="sider-menu">

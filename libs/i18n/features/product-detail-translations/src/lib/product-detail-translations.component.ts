@@ -132,7 +132,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
   }
 
   onDownloadTranslationClicked(language: Language) {
-    alert('FIXME: not yet implemented')
+    this.i18nSvc.downloadTranslationFileForProduct(this.product.id, 'dev', language.code)
   }
 
   onTranslationImageClicked(translation: TranslationItem) {

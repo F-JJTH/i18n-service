@@ -100,6 +100,18 @@ export class ProductController {
     return this.productService.publishTranslations(id, env);
   }
 
+  @ApiOperation({summary: 'Get the download link for translations file of a product for the given environment and language'})
+  @Get(':id/dl-translation/:env/:languageCode')
+  getDownloadLinkForTranslation(
+    @Param('id') id: string,
+    @Param('env') env: string,
+    @Param('languageCode') languageCode: string
+  ) {
+    return {
+      link: this.productService.getDownloadLinkForTranslation(id, env, languageCode)
+    }
+  }
+
   @ApiOperation({summary: 'List languages for product'})
   @Get(':id/language')
   getLanguage(@Param('id') id: string) {

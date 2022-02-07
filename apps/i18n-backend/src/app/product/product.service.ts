@@ -292,4 +292,7 @@ export class ProductService {
     })
   }
 
+  getDownloadLinkForTranslation(id: string, env: string, languageCode: string) {
+    return `https://${this.s3Svc.Bucket}.s3.${this.s3Svc.Region}.amazonaws.com/${id}/${env}/${languageCode}.json`
+  }
 }
