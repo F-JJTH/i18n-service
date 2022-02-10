@@ -5,4 +5,5 @@ export interface IEnvironment {
   version: string
   apiUrl: string
   i18n: I18nClientConfig
+  sentryDsn?: string
 }
