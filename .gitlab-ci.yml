@@ -16,14 +16,11 @@ install dependencies:
     - ls -la
     - npm install
     - ls -la
-  artifacts:
-    untracked: false
-    expire_in: 30 days
-    paths:
-      - node_modules  
 
 build i18n-web:
   stage: build
+  cache:
+    key: 'i18n-dependencies-cache'
   needs:
     - install dependencies
   script:
@@ -39,6 +36,8 @@ build i18n-web:
 
 build i18n-backend:
   stage: build
+  cache:
+    key: 'i18n-dependencies-cache'
   needs:
     - install dependencies
   script:
@@ -64,6 +63,8 @@ deploy i18n-web:
 
 deploy i18n-backend:
   stage: deploy
+  cache:
+    key: 'i18n-dependencies-cache'
   needs:
     - build i18n-backend
   script:
