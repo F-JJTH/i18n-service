@@ -1,3 +1,5 @@
+image: node:16-alpine
+
 stages:
   - install dependencies
   - build
@@ -5,7 +7,6 @@ stages:
 
 install dependencies:
   stage: install dependencies
-  image: node
   cache:
     key: 'i18n-dependencies-cache'
     policy: 'pull-push'
@@ -23,12 +24,10 @@ install dependencies:
 
 build i18n-web:
   stage: build
-  image: node
   needs:
     - install dependencies
   script:
     - ls -la
-    - ls -la dist/apps/i18n-web
     - npx nx build i18n-web --c production
     - ls -la
     - ls -la dist/apps/i18n-web
@@ -40,12 +39,10 @@ build i18n-web:
 
 build i18n-backend:
   stage: build
-  image: node
   needs:
     - install dependencies
   script:
     - ls -la
-    - ls -la dist/apps/i18n-backend
     - npx nx build i18n-backend --c production
     - cp package.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod.json dist/apps/i18n-backend
