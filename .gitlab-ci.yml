@@ -44,7 +44,7 @@ build i18n-backend:
     - ls -la
     - npx nx build i18n-backend --c production
     - cp package.json dist/apps/i18n-backend
-    - cp apps/i18n-backend/ormconfig.prod.json dist/apps/i18n-backend
+    - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env dist/apps/i18n-backend
     - ls -la
     - ls -la dist/apps/i18n-backend
