@@ -14,6 +14,9 @@ import { Product } from './product/entities/product.entity';
 import { SentryInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 import { environment } from '../environments/environment';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
+import { HealthController } from './health.controller';
+import { S3Module } from './s3/s3.module';
 
 @Module({
   imports: [
@@ -48,21 +51,23 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         enabled: environment.production,
         dsn: configSvc.get('SENTRY_DSN'),
         environment: environment.name,
-      })
+      }),
     }),
     ProductModule,
     LanguageModule,
     TranslationModule,
     DefinitionModule,
+    TerminusModule,
+    S3Module,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthController],
   providers: [
     AppService,
     JwtStrategy,
     {
       provide: APP_INTERCEPTOR,
       useValue: new SentryInterceptor(),
-    }
+    },
   ],
 })
 export class AppModule {}
