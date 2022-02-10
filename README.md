@@ -30,9 +30,9 @@ Run `npm run migration:run` to run migration to your local database.
 
 ## Build for Production
 
-Run `nx build i18n-web --c production` to build i18n-web in production. Results is found in `dist/apps/i18n-web`
+Run `nx build i18n-web --c production` to build i18n-web in production. Result is found in `dist/apps/i18n-web`
 
-Run `nx build i18n-backend --c production` to build i18n-web in production. Results is found in `dist/apps/i18n-backend`
+Run `nx build i18n-backend --c production` to build i18n-web in production. Result is found in `dist/apps/i18n-backend`
 
 ## Deploy i18n-backend
 
