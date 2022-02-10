@@ -18,24 +18,15 @@ stages:
 
 install dependencies:
   stage: install dependencies
-  # cache:
-  #   key: 'i18n-dependencies-cache'
-  #   policy: 'pull-push'
-  #   paths:
-  #     - node_modules/
   script:
-    - ls -la
     - npm install
-    - ls -la
 
 build i18n-web:
   stage: build
   needs:
     - install dependencies
   script:
-    - ls -la
     - npx nx build i18n-web --c production
-    - ls -la
     - ls -la dist/apps/i18n-web
   artifacts:
     untracked: false
@@ -48,12 +39,10 @@ build i18n-backend:
   needs:
     - install dependencies
   script:
-    - ls -la
     - npx nx build i18n-backend --c production
     - cp package.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env dist/apps/i18n-backend
-    - ls -la
     - ls -la dist/apps/i18n-backend
   artifacts:
     untracked: false
@@ -66,11 +55,11 @@ deploy i18n-web:
   needs:
     - build i18n-web
   script:
-    - ls -la
+    - ls -la dist/apps/i18n-web
 
 deploy i18n-backend:
   stage: deploy
   needs:
     - build i18n-backend
   script:
-    - ls -la
+    - ls -la dist/apps/i18n-backend
