@@ -6,7 +6,7 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { environment } from '../environments/environment';
 import { I18nClientAngularModule } from '@kizeo/i18n/client';
-import * as Sentry from "@sentry/angular";
+import { SentryErrorHandler } from "@sentry/angular";
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +25,7 @@ import * as Sentry from "@sentry/angular";
     { provide: 'ENVIRONMENT', useValue: environment},
     {
       provide: ErrorHandler,
-      useValue: environment.production ? Sentry.createErrorHandler() : ErrorHandler,
+      useClass: environment.production ? SentryErrorHandler : ErrorHandler,
     }
   ],
   bootstrap: [AppComponent],

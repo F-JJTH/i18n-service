@@ -58,6 +58,7 @@ deploy i18n-web:
   script:
     - ls -la
     - ls -la dist/apps/i18n-web
+    - echo "Upload dist/apps/i18n-web to web storage"
 
 deploy i18n-backend:
   stage: deploy
@@ -66,3 +67,5 @@ deploy i18n-backend:
   script:
     - ls -la
     - ls -la dist/apps/i18n-backend
+    - echo "Run migrations (cd dist/apps/i18n-backend && npx run migration:run:prod)"
+    - echo "Upload dist/apps/i18n-backend to node executor"
