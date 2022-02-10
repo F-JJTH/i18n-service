@@ -67,5 +67,5 @@ deploy i18n-backend:
   script:
     - ls -la
     - ls -la dist/apps/i18n-backend
-    - echo "Run migrations (cd dist/apps/i18n-backend && npx run migration:run:prod)"
-    - echo "Upload dist/apps/i18n-backend to node executor"
+    - echo "Run migrations (cd dist/apps/i18n-backend && npm run migration:run:prod)"
+    - echo "Upload dist/apps/i18n-backend to node executor && node main.js"
