@@ -4,5 +4,6 @@
   "port": 5432,
   "username": "postgres",
   "password": "E2LA74NJ7FNBGSU2WT5",
-  "database": "i18n_kizeo_com"
+  "database": "i18n_kizeo_com",
+  "migrations": ["./migrations/*"]
 }

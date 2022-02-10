@@ -1,0 +1,73 @@
+stages:
+  - install dependencies
+  - build
+  - deploy
+
+install dependencies:
+  stage: install dependencies
+  image: node
+  cache:
+    key: 'i18n-dependencies-cache'
+    policy: 'pull-push'
+    paths:
+      - node_modules/
+  script:
+    - ls -la
+    - npm install
+    - ls -la
+  artifacts:
+    untracked: false
+    expire_in: 30 days
+    paths:
+      - node_modules  
+
+build i18n-web:
+  stage: build
+  image: node
+  needs:
+    - install dependencies
+  script:
+    - ls -la
+    - ls -la dist/apps/i18n-web
+    - npx nx build i18n-web --c production
+    - ls -la
+    - ls -la dist/apps/i18n-web
+  artifacts:
+    untracked: false
+    expire_in: 3 days
+    paths:
+      - dist/apps/i18n-web
+
+build i18n-backend:
+  stage: build
+  image: node
+  needs:
+    - install dependencies
+  script:
+    - ls -la
+    - ls -la dist/apps/i18n-backend
+    - npx nx build i18n-backend --c production
+    - cp package.json dist/apps/i18n-backend
+    - cp apps/i18n-backend/ormconfig.prod.json dist/apps/i18n-backend
+    - cp apps/i18n-backend/.env dist/apps/i18n-backend
+    - ls -la
+    - ls -la dist/apps/i18n-backend
+  artifacts:
+    untracked: false
+    expire_in: 3 days
+    paths:
+      - dist/apps/i18n-backend
+
+deploy i18n-web:
+  stage: deploy
+  needs:
+    - build i18n-web
+  script:
+    - ls -la
+
+deploy i18n-backend:
+  stage: deploy
+  needs:
+    - build i18n-backend
+  script:
+    - ls -la

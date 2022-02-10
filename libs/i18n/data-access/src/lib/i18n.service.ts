@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
+import { IEnvironment } from "@kizeo/i18n/util";
 import { firstValueFrom } from 'rxjs';
 import {
   CreateProductRequest,
@@ -14,80 +15,85 @@ export type ProductListItem = Product & {page: string}
 
 @Injectable({providedIn: 'root'})
 export class I18nService {
+
+  apiUrl = ''
   
   constructor(
     private readonly http: HttpClient,
-  ) {}
+    @Inject('ENVIRONMENT') private readonly environment: IEnvironment,
+  ) {
+    this.apiUrl = this.environment.apiUrl
+  }
 
   // /product GET Route✅ Code✅
   async getProducts() {
-    return firstValueFrom(this.http.get<Product[]>(`/api/product`))
+    return firstValueFrom(this.http.get<Product[]>(`${this.apiUrl}/api/product`))
   }
 
   // /product/:id GET Route✅ Code✅
   getProductById(id: string) {
-    return firstValueFrom(this.http.get<Product>(`/api/product/${id}`))
+    return firstValueFrom(this.http.get<Product>(`${this.apiUrl}/api/product/${id}`))
   }
 
   // /product/:id PATCH Route✅ Code✅
   async updateProductName(name: string, id: string) {
-    return firstValueFrom(this.http.patch<Product>(`/api/product/${id}`, {name}))
+    return firstValueFrom(this.http.patch<Product>(`${this.apiUrl}/api/product/${id}`, {name}))
   }
 
   // /product POST Route✅ Code✅
   async createProduct(createproductOptions: CreateProductRequest) {
-    return firstValueFrom(this.http.post<Product>(`/api/product`, createproductOptions))
+    return firstValueFrom(this.http.post<Product>(`${this.apiUrl}/api/product`, createproductOptions))
   }
 
   // /product/:id DELETE Route✅ Code✅
   async deleteProduct(id: string) {
-    return firstValueFrom(this.http.delete<Product>(`/api/product/${id}`))
+    return firstValueFrom(this.http.delete<Product>(`${this.apiUrl}/api/product/${id}`))
   }
 
   // /product/:id/publish/:env GET Route✅ Code✅
   async publishPreprodTranslationsForProduct(id: string) {
-    return firstValueFrom(this.http.get(`/api/product/${id}/publish/preprod`))
+    return firstValueFrom(this.http.get(`${this.apiUrl}/api/product/${id}/publish/preprod`))
   }
 
   // /product/:id/publish/:env GET Route✅ Code✅
   async publishProdTranslationsForProduct(id: string) {
-    return firstValueFrom(this.http.get(`/api/product/${id}/publish/prod`))
+    return firstValueFrom(this.http.get(`${this.apiUrl}/api/product/${id}/publish/prod`))
   }
 
   // /product/:id/dl-translation/:env/:languageCode Route✅ Code✅
   async downloadTranslationFileForProduct(id: string, env: string, languageCode: string) {
-    const result = await firstValueFrom(this.http.get<{link: string}>(`/api/product/${id}/dl-translation/${env}/${languageCode}`))
+    const result = await firstValueFrom(this.http.get<{link: string}>(`${this.apiUrl}/api/product/${id}/dl-translation/${env}/${languageCode}`))
     window.open(result.link)
   }
 
   // /product/:id/member POST Route✅ Code✅
   async addMemberToProduct(memberId: string, memberEmail: string, authorizations: MemberAuthorization, productId: string) {
-    return firstValueFrom(this.http.post<Product>(`/api/product/${productId}/member`, {memberId, memberEmail, authorizations}))
+    return firstValueFrom(this.http.post<Product>(`${this.apiUrl}/api/product/${productId}/member`, {memberId, memberEmail, authorizations}))
   }
 
   // /product/:id/member PATCH Route✅ Code✅
   async updateMemberForProduct(memberId: string, authorizations: MemberAuthorization, productId: string) {
-    return firstValueFrom(this.http.patch<Product>(`/api/product/${productId}/member/${memberId}`, {authorizations}))
+    return firstValueFrom(this.http.patch<Product>(`${this.apiUrl}/api/product/${productId}/member/${memberId}`, {authorizations}))
   }
 
   // /product/:id/member DELETE Route✅ Code✅
   async deleteMemberFromProduct(memberId: string, productId: string) {
-    return firstValueFrom(this.http.delete<Product>(`/api/product/${productId}/member/${memberId}`))
+    return firstValueFrom(this.http.delete<Product>(`${this.apiUrl}/api/product/${productId}/member/${memberId}`))
   }
 
   // /product/:id/language GET Route✅ Code✅
   async getLanguagesByProductId(productId: string) {
-    return firstValueFrom(this.http.get<Language[]>(`/api/product/${productId}/language`))
+    return firstValueFrom(this.http.get<Language[]>(`${this.apiUrl}/api/product/${productId}/language`))
   }
 
   // /product/:id/definition GET Route✅ Code✅
   async getDefinitionsByProductId(productId: string) {
-    return firstValueFrom(this.http.get<Definition[]>(`/api/product/${productId}/definition`))
+    return firstValueFrom(this.http.get<Definition[]>(`${this.apiUrl}/api/product/${productId}/definition`))
   }
 
   // /product/:id/translation GET Route✅ Code✅
   async getTranslationsByProductId(productId: string) {
-    return firstValueFrom(this.http.get<Translation[]>(`/api/product/${productId}/translation`))
+    return firstValueFrom(this.http.get<Translation[]>(`${this.apiUrl}/api/product/${productId}/translation`))
   }
 
 
@@ -96,17 +102,17 @@ export class I18nService {
 
   // /language POST Route✅ Code✅
   async addLanguage(languageCode: string, languageLabel: string, productId: string) {
-    return firstValueFrom(this.http.post<Language>(`/api/language`, {languageCode, languageLabel, productId}))
+    return firstValueFrom(this.http.post<Language>(`${this.apiUrl}/api/language`, {languageCode, languageLabel, productId}))
   }
 
   // /language/:id/is-disabled Route✅ Code✅
   async setIsDisabledForLanguage(id: string, isDisabled: boolean) {
-    return firstValueFrom(this.http.post<Language>(`/api/language/${id}/is-disabled`, {isDisabled}))
+    return firstValueFrom(this.http.post<Language>(`${this.apiUrl}/api/language/${id}/is-disabled`, {isDisabled}))
   }
 
   // /language/:id DELETE Route✅
   async deleteLanguage(id: string) {
-    return firstValueFrom(this.http.delete<Language>(`/api/language/${id}`))
+    return firstValueFrom(this.http.delete<Language>(`${this.apiUrl}/api/language/${id}`))
   }
 
 
@@ -114,17 +120,17 @@ export class I18nService {
 
   // /translation/:id/is-valid POST Route✅ Code✅
   async setIsValidForTranslation(id: string, isValid: boolean) {
-    return firstValueFrom(this.http.post<Translation>(`/api/translation/${id}/is-valid`, {isValid}))
+    return firstValueFrom(this.http.post<Translation>(`${this.apiUrl}/api/translation/${id}/is-valid`, {isValid}))
   }
 
   // /translation PATCH Route✅ Code✅
   async updateTranslations(translationItems: { id: string, value: string | null }[]) {
-    return firstValueFrom(this.http.patch<Translation>(`/api/translation`, {translationItems}))
+    return firstValueFrom(this.http.patch<Translation>(`${this.apiUrl}/api/translation`, {translationItems}))
   }
 
   // /translation/import POST Route✅ Code✅
   async importTranslations(translations: {slug: string, translation: string}[], productId: string, languageId: string) {
-    return firstValueFrom(this.http.post<Translation[]>(`/api/translation/import`, {translations, productId, languageId}))
+    return firstValueFrom(this.http.post<Translation[]>(`${this.apiUrl}/api/translation/import`, {translations, productId, languageId}))
   }
 
 
@@ -132,27 +138,27 @@ export class I18nService {
 
   // /definition POST Route✅ Code✅
   async addDefinition(slug: string, defaultValue: string, productId: string) {
-    return firstValueFrom(this.http.post<Definition>(`/api/definition`, {slug, defaultValue, productId}))
+    return firstValueFrom(this.http.post<Definition>(`${this.apiUrl}/api/definition`, {slug, defaultValue, productId}))
   }
 
   // /definition/:id PATCH Route✅ Code✅
   async updateDefinition(id: string, slug: string, defaultValue: string) {
-    return firstValueFrom(this.http.patch<Definition>(`/api/definition/${id}`, {slug, defaultValue}))
+    return firstValueFrom(this.http.patch<Definition>(`${this.apiUrl}/api/definition/${id}`, {slug, defaultValue}))
   }
 
   // /definition/import POST Route✅ Code✅
   async importDefinitions(definitions: {slug: string, defaultValue: string}[], productId: string) {
-    return firstValueFrom(this.http.post<Definition[]>(`/api/definition/import`, {definitions, productId}))
+    return firstValueFrom(this.http.post<Definition[]>(`${this.apiUrl}/api/definition/import`, {definitions, productId}))
   }
 
   // /definition/:id DELETE Route✅
   async deleteDefinition(id: string) {
-    return firstValueFrom(this.http.delete<Definition>(`/api/definition/${id}`))
+    return firstValueFrom(this.http.delete<Definition>(`${this.apiUrl}/api/definition/${id}`))
   }
 
   // /definition/:id/set-link Route✅ Code✅
   async setLinkForDefinition(id: string, link: string | null) {
-    return firstValueFrom(this.http.post<Definition>(`/api/definition/${id}/set-link`, {link}))
+    return firstValueFrom(this.http.post<Definition>(`${this.apiUrl}/api/definition/${id}/set-link`, {link}))
   }
 
   // /api/definition/:id/set-picture Route✅ Code✅
@@ -160,15 +166,15 @@ export class I18nService {
     if (selectedFile) {
       const formData = new FormData()
       formData.append('file', selectedFile)
-      return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, formData))
+      return firstValueFrom(this.http.post(`${this.apiUrl}/api/definition/${id}/set-picture`, formData))
     } else {
-      return firstValueFrom(this.http.post(`/api/definition/${id}/set-picture`, null))
+      return firstValueFrom(this.http.post(`${this.apiUrl}/api/definition/${id}/set-picture`, null))
     }
   }
 
 
   // /user Route✅ Code✅
   async listUsers() {
-    return firstValueFrom(this.http.get<any>(`/api/user`))
+    return firstValueFrom(this.http.get<any>(`${this.apiUrl}/api/user`))
   }
 }
