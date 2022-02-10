@@ -40,6 +40,7 @@ build i18n-backend:
     - install dependencies
   script:
     - npx nx build i18n-backend --c production
+    - mv node_modules dist/apps/i18n-backend
     - cp package.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env dist/apps/i18n-backend
@@ -55,6 +56,7 @@ deploy i18n-web:
   needs:
     - build i18n-web
   script:
+    - ls -la
     - ls -la dist/apps/i18n-web
 
 deploy i18n-backend:
@@ -62,4 +64,5 @@ deploy i18n-backend:
   needs:
     - build i18n-backend
   script:
+    - ls -la
     - ls -la dist/apps/i18n-backend
