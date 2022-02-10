@@ -1,5 +1,12 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# project configuration
+
+environment.local.ts
+.env
+ormconfig.local-cli.json
+ormconfig.local.json
+
 # compiled output
 /dist
 /tmp
@@ -41,21 +48,10 @@ Thumbs.db
 .angular
 
 #amplify-do-not-edit-begin
-**/amplify/\#current-cloud-backend
-**/amplify/.config/local-*
-**/amplify/logs
-**/amplify/mock-data
-**/amplify/backend/amplify-meta.json
-**/amplify/backend/.temp
 build/
 dist/
 node_modules/
 awsconfiguration.json
-amplifyconfiguration.json
-amplifyconfiguration.dart
-amplify-build-config.json
-amplify-gradle-config.json
-amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end

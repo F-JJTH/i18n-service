@@ -43,7 +43,7 @@ build i18n-backend:
     - mv node_modules dist/apps/i18n-backend
     - cp package.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
-    - cp apps/i18n-backend/.env dist/apps/i18n-backend
+    - cp apps/i18n-backend/.env.prod dist/apps/i18n-backend
     - ls -la dist/apps/i18n-backend
   artifacts:
     untracked: false

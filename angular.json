@@ -422,11 +422,11 @@
             "production": {
               "browserTarget": "i18n-web:build:production"
             },
-            "development": {
-              "browserTarget": "i18n-web:build:development"
+            "local": {
+              "browserTarget": "i18n-web:build:local"
             }
           },
-          "defaultConfiguration": "development",
+          "defaultConfiguration": "local",
           "options": {
             "proxyConfig": "apps/i18n-web/proxy.conf.json"
           }
@@ -466,7 +466,7 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/i18n-web-e2e/cypress.json",
-            "devServerTarget": "i18n-web:serve:development"
+            "devServerTarget": "i18n-web:serve:local"
           },
           "configurations": {
             "production": {
@@ -530,7 +530,7 @@
               ],
               "outputHashing": "all"
             },
-            "development": {
+            "local": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -547,11 +547,11 @@
             "production": {
               "browserTarget": "tour-web:build:production"
             },
-            "development": {
-              "browserTarget": "tour-web:build:development"
+            "local": {
+              "browserTarget": "tour-web:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -588,7 +588,7 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/tour-web-e2e/cypress.json",
-            "devServerTarget": "tour-web:serve:development"
+            "devServerTarget": "tour-web:serve:local"
           },
           "configurations": {
             "production": {
