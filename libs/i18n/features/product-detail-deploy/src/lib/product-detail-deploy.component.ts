@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { I18nService, Product } from '@kizeo/i18n/data-access';
+import { PublishEnvironment } from '@kizeo/i18n/util';
 
 interface FileListItem {
-  url: string
-  name: string
+  Filename: string
+  Key: string
+  LanguageCode: string
 }
 interface FileList {
   preprod: FileListItem[]
@@ -41,17 +43,19 @@ export class ProductDetailDeployComponent implements OnInit {
     await this.fetch()
     const languages = await this.i18nSvc.getLanguagesByProductId(this.productId)
     this.hasIncompleteTranslations = languages.some(l => l.isRequireTranslatorAction)
-
-    await this.fetchFileListForEnvironments()
   }
 
-  async fetchFileListForEnvironments() {
-    // FIXME: implement me
-    // this.fileList = ...
+  onDownloadTranslationClicked(env: PublishEnvironment, languageCode: string) {
+    if (!this.productId) return
+    this.i18nSvc.downloadTranslationFileForProduct(this.productId, env, languageCode)
   }
 
   async fetch() {
     this.product = await this.i18nSvc.getProductById(this.productId!)
+    this.fileList = {
+      preprod: await this.i18nSvc.listPublishedTranslationsForProduct(this.productId!, 'preprod'),
+      prod: await this.i18nSvc.listPublishedTranslationsForProduct(this.productId!, 'prod')
+    }
   }
 
   async onPublishPreprodClicked() {

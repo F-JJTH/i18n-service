@@ -45,17 +45,21 @@ export class S3Service {
     }
   }
 
-  async deletePictureForDefinition(id: string) {
-    const existingKeys = await this.s3Client.send(
+  private async listObjects(Prefix?: string) {
+    return this.s3Client.send(
       new ListObjectsCommand({
-        Bucket: this.Bucket,
-        Prefix: `definition/${id}`
+        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
+        Prefix
       })
     )
+  }
 
-    if (existingKeys.Contents) {
+  async deletePictureForDefinition(id: string) {
+    const { Contents } = await this.listObjects(`definition/${id}`)
+
+    if (Contents && Contents.length) {
       await Promise.all(
-        existingKeys.Contents.map(c => {
+        Contents.map(c => {
           return this.s3Client.send(
             new DeleteObjectCommand({
               Bucket: this.Bucket,
@@ -85,17 +89,24 @@ export class S3Service {
     return {Key, Url}
   }
 
-  async clearPublishedTranslations(id: string, env: PublishEnvironment) {
-    const keys = await this.s3Client.send(
-      new ListObjectsCommand({
-        Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
-        Prefix: `${id}/${env}/`
+  uploadTranslation(id: string, env: PublishEnvironment, languageCode: string, fileContent: object) {
+    return this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: this.Bucket,
+        Key: `${id}/${env}/${languageCode}.json`,
+        Body: JSON.stringify(fileContent),
+        ACL: 'public-read',
+        Metadata: { filename: `${languageCode}.json` }
       })
     )
+  }
 
-    if (keys.Contents) {
+  async clearPublishedTranslations(id: string, env: PublishEnvironment) {
+    const { Contents } = await this.listObjects(`${id}/${env}/`)
+
+    if (Contents && Contents.length) {
       await Promise.all(
-        keys.Contents.map(content => {
+        Contents.map(content => {
           return this.s3Client.send(
             new DeleteObjectCommand({
               Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
@@ -116,5 +127,10 @@ export class S3Service {
       new GetObjectCommand({Bucket: this.Bucket, Key}),
       {expiresIn: 12 * 3600}
     )
+  }
+
+  async listPublishedTranslations(id: string, env: PublishEnvironment): Promise<any[]> {
+    const { Contents } = await this.listObjects(`${id}/${env}/`)
+    return Contents || []
   }
 }

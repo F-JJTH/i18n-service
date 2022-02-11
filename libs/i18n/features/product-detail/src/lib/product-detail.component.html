@@ -1,6 +1,6 @@
 
 <nz-layout>
-  <nz-sider nzWidth="250px" nzTheme="light">
+  <nz-sider nzWidth="200px" nzTheme="light">
     <header>
       <button nz-button nzType="text" [routerLink]="['/']">
         <i nz-icon nzType="left-circle" nzTheme="outline"></i> {{ 'BACK' | translate }}
@@ -8,7 +8,7 @@
       <h1>{{ (currentProduct.product$ | async)?.name }}</h1>
       <nz-skeleton-element nzType="image"></nz-skeleton-element>
     </header>
-    <ul nz-menu nzMode="inline" class="sider-menu">
+    <ul nz-menu nzMode="inline" class="sider-menu" nzTheme="light">
       <li nz-menu-item nzMatchRouter *ngIf="canAccess.definitions">
         <a routerLink="definitions">{{ 'DEFINITIONS' | translate }}</a>
       </li>

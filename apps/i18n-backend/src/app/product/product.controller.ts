@@ -95,13 +95,22 @@ export class ProductController {
     return this.productService.removeMember(id, memberId);
   }
 
-  @ApiOperation({summary: 'Publish translations of a product for environment «preprod» or «prod»'})
+  @ApiOperation({summary: 'Publish translations of a product for environment «dev», «preprod» or «prod»'})
   @Get(':id/publish/:env')
   publishTranslations(
     @Param('id') id: string,
     @Param('env') env: PublishEnvironment
   ) {
     return this.productService.publishTranslations(id, env);
+  }
+
+  @ApiOperation({summary: 'Get a list of published translations of a product for environment «dev», «preprod» or «prod»'})
+  @Get(':id/list-published/:env')
+  listPublishedTranslations(
+    @Param('id') id: string,
+    @Param('env') env: PublishEnvironment
+  ) {
+    return this.productService.listPublishedTranslations(id, env);
   }
 
   @ApiOperation({summary: 'Get the download link for translations file of a product for the given environment and language'})

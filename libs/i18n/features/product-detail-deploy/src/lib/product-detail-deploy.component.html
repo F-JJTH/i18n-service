@@ -19,12 +19,12 @@
         <nz-list-item *ngFor="let file of fileList.preprod">
           <ul nz-list-item-actions>
             <nz-list-item-action>
-              <a [href]="file.url" target="_blank">
+              <button nz-button (click)="onDownloadTranslationClicked('preprod', file.LanguageCode)" nzType="link">
                 <i nz-icon nzType="download" nzTheme="outline"></i>
-              </a>
+              </button>
             </nz-list-item-action>
           </ul>
-          {{ file.name }}
+          {{ file.LanguageCode }}
         </nz-list-item>
       </nz-list>
     </div>
@@ -39,12 +39,12 @@
         <nz-list-item *ngFor="let file of fileList.prod">
           <ul nz-list-item-actions>
             <nz-list-item-action>
-              <a [href]="file.url" target="_blank">
+              <button nz-button (click)="onDownloadTranslationClicked('prod', file.LanguageCode)" nzType="link">
                 <i nz-icon nzType="download" nzTheme="outline"></i>
-              </a>
+              </button>
             </nz-list-item-action>
           </ul>
-          {{ file.name }}
+          {{ file.LanguageCode }}
         </nz-list-item>
       </nz-list>
     </div>

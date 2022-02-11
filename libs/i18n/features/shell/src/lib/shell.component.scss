@@ -5,14 +5,17 @@
 }
 
 nz-header {
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   padding: 0 8px;
+  background: #fff;
+  box-shadow: 0 0 4px silver;
 
   .left {
     display: flex;
     gap: 18px;
-    color: white;
+    color: rgba(0, 0, 0, 0.85);
 
     .logo {
       font-size: 42px;
@@ -25,7 +28,7 @@ nz-header {
 
   .right {
     display: flex;
-    color: white;
+    color: rgba(0, 0, 0, 0.85);
     align-items: center;
     gap: 12px;
   }

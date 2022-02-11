@@ -9,12 +9,7 @@ import { Language } from '../language/entities/language.entity';
 import { Translation } from '../translation/entities/translation.entity';
 import { MemberAuthorization } from './entities/member-authorization.entity';
 import { Product } from './entities/product.entity';
-import {
-  S3Client,
-  ListObjectsCommand,
-  PutObjectCommand,
-  CopyObjectCommand,
-} from '@aws-sdk/client-s3';
+import { CopyObjectCommand } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 import path = require('path');
 import { S3Service } from '../s3/s3.service';
@@ -22,8 +17,6 @@ import { PublishEnvironment } from '@kizeo/i18n/util';
 
 @Injectable()
 export class ProductService {
-  s3Client: S3Client
-
   constructor(
     @InjectRepository(Product)
     private readonly product: Repository<Product>,
@@ -35,9 +28,7 @@ export class ProductService {
     private readonly translation: Repository<Translation>,
     private readonly configSvc: ConfigService,
     private readonly s3Svc: S3Service,
-  ) {
-    this.s3Client = this.s3Svc.getS3Client()
-  }
+  ) {}
 
   async create(createProductDto: CreateProductDto, jwtPayload: any) {
     const createOptions = this.product.create({
@@ -208,7 +199,7 @@ export class ProductService {
       throw new NotFoundException('Unknown environment')
     }
 
-    await this.s3Svc.clearPublishedTranslations(product.id, env as PublishEnvironment)
+    await this.s3Svc.clearPublishedTranslations(product.id, env)
 
     if (env === 'dev' || env === 'preprod') {
       const languages = await this.language.find({
@@ -218,18 +209,10 @@ export class ProductService {
 
       const promises = languages.map(language => {
         const fileContent = language.translations.reduce(
-          (prev, t) => ({...prev, [t.definition!.slug]: t.value}), {}
+          (prev, t) => ({...prev, [t.definition.slug]: t.value}), {}
         )
 
-        return this.s3Client.send(
-          new PutObjectCommand({
-            Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
-            Key: `${product.id}/${env}/${language.code}.json`,
-            Body: JSON.stringify(fileContent),
-            ACL: 'public-read',
-            Metadata: { filename: `${language.code}.json` }
-          })
-        )
+        return this.s3Svc.uploadTranslation(product.id, env, language.code, fileContent)
       })
       await Promise.all(promises)
 
@@ -239,21 +222,16 @@ export class ProductService {
     }
 
     if (env === 'prod') {
-      const keys = await this.s3Client.send(
-        new ListObjectsCommand({
-          Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
-          Prefix: `${id}/preprod/`,
-        })
-      )
+      const list = await this.s3Svc.listPublishedTranslations(id, 'preprod')
 
-      if (keys.Contents) {
+      if (list && list.length) {
         await Promise.all(
-          keys.Contents.map(async content => {
-            return this.s3Client.send(
+          list.map(async content => {
+            return this.s3Svc.s3Client.send(
               new CopyObjectCommand({
-                Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
+                Bucket: this.s3Svc.Bucket,
                 ACL: 'public-read',
-                CopySource: `${this.configSvc.get('AWS_BUCKET_NAME_PUBLIC')}/${content.Key}`,
+                CopySource: `${this.s3Svc.Bucket}/${content.Key}`,
                 Key: `${id}/prod/${path.basename(content.Key)}`
               })
             )
@@ -295,5 +273,14 @@ export class ProductService {
 
   async getDownloadLinkForTranslation(id: string, env: PublishEnvironment, languageCode: string) {
     return this.s3Svc.getSignedURLForTranslation(id, env, languageCode)
+  }
+
+  async listPublishedTranslations(id: string, env: PublishEnvironment) {
+    const result = await this.s3Svc.listPublishedTranslations(id, env)
+    return result.map(item => ({
+      Key: item.Key,
+      Filename: path.basename(item.Key),
+      LanguageCode: path.basename(item.Key).replace('.json', '')
+    }))
   }
 }

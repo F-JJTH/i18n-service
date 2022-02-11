@@ -60,6 +60,11 @@ export class I18nService {
     return firstValueFrom(this.http.get(`${this.apiUrl}/api/product/${id}/publish/prod`))
   }
 
+  // /product/:id/list-published/:env GET Route✅ Code✅
+  async listPublishedTranslationsForProduct<T>(id: string, env: PublishEnvironment): Promise<T> {
+    return firstValueFrom(this.http.get<T>(`${this.apiUrl}/api/product/${id}/list-published/${env}`))
+  }
+
   // /product/:id/dl-translation/:env/:languageCode Route✅ Code✅
   async downloadTranslationFileForProduct(id: string, env: PublishEnvironment, languageCode: string) {
     const result = await firstValueFrom(this.http.get<{link: string}>(`${this.apiUrl}/api/product/${id}/dl-translation/${env}/${languageCode}`))
