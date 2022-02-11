@@ -1,6 +1,6 @@
 image: node:16-alpine
 
-# Manage node_modules cache between jobs
+# Manage npm cache between jobs
 cache:
   key:
     files:
@@ -8,64 +8,33 @@ cache:
   paths:
     - .npm/
 
-before_script:
-  - npm ci --cache .npm --prefer-offline
-
 stages:
-  - install dependencies
   - build
   - deploy
 
-install dependencies:
-  stage: install dependencies
-  script:
-    - npm install
-
-build i18n-web:
+build:
   stage: build
-  needs:
-    - install dependencies
+  before_script:
+    - npm ci --cache .npm --prefer-offline
   script:
     - npx nx build i18n-web --c production
-    - ls -la dist/apps/i18n-web
-  artifacts:
-    untracked: false
-    expire_in: 3 days
-    paths:
-      - dist/apps/i18n-web
-
-build i18n-backend:
-  stage: build
-  needs:
-    - install dependencies
-  script:
     - npx nx build i18n-backend --c production
     - mv node_modules dist/apps/i18n-backend
     - cp package.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env.prod dist/apps/i18n-backend
-    - ls -la dist/apps/i18n-backend
   artifacts:
     untracked: false
     expire_in: 3 days
     paths:
+      - dist/apps/i18n-web
       - dist/apps/i18n-backend
 
-deploy i18n-web:
+deploy:
   stage: deploy
   needs:
-    - build i18n-web
+    - build
   script:
-    - ls -la
-    - ls -la dist/apps/i18n-web
-    - echo "Upload dist/apps/i18n-web to web storage"
-
-deploy i18n-backend:
-  stage: deploy
-  needs:
-    - build i18n-backend
-  script:
-    - ls -la
-    - ls -la dist/apps/i18n-backend
-    - echo "Run migrations (cd dist/apps/i18n-backend && npm run migration:run:prod)"
+    - echo "cd dist/apps/i18n-backend && npm run migration:run:prod"
     - echo "Upload dist/apps/i18n-backend to node executor && node main.js"
+    - echo "Upload dist/apps/i18n-web to web storage"
