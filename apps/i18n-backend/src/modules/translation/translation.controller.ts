@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { TranslationService } from './translation.service';
 import { ImportTranslationDto } from './dto/import-translation.dto';
@@ -34,7 +35,7 @@ export class TranslationController {
   @ApiOperation({summary: 'Update valid flag for a translation'})
   @Post(':id/is-valid')
   updateIsValid(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateIsValidTranslationDto: UpdateIsValidTranslationDto
   ) {
     return this.translationService.updateIsValid(id, updateIsValidTranslationDto);

@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { DiskHealthIndicator, HealthCheck, HealthCheckService, MemoryHealthIndicator, TypeOrmHealthIndicator } from '@nestjs/terminus';
-import { S3HealthIndicator } from './s3/s3-health-indicator.service';
+import { S3HealthIndicator } from '../s3/s3-health-indicator.service';
+
 
 @Controller('health')
 export class HealthController {

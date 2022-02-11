@@ -87,12 +87,4 @@ export class LanguageService {
     this.productSvc.publishTranslations(language.product.id, 'dev')
     return this.language.findOne(id);
   }
-
-  // FIXME: Is it really something we want ? disable language can make the job (avoid remove translations)
-  async remove(id: string) {
-    const language = await this.language.findOne(id, { relations: ['product']});
-    // FIXME: remove translations before removing the language
-    this.productSvc.publishTranslations(language.product.id, 'dev')
-    return this.language.remove(language);
-  }
 }

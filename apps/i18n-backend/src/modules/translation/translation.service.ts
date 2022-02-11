@@ -111,11 +111,6 @@ export class TranslationService {
     return {success: true};
   }
 
-  async remove(id: string) {
-    const translation = await this.translation.findOne(id);
-    return this.translation.remove(translation);
-  }
-
   private async updateLanguageRequireTranslationAction(productId: string) {
     const languages = await this.language.find({
       where: { product: productId },

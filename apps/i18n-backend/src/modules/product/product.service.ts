@@ -39,7 +39,7 @@ export class ProductService {
 
     await this.addMember(product.id, {
       memberId: jwtPayload?.sub || 'missing-jwt',
-      memberEmail: jwtPayload.email || 'missing-jwt@example.com',
+      memberEmail: jwtPayload?.email || 'missing-jwt@example.com',
       authorizations: {
         definitions: true,
         deploy: true,
@@ -192,11 +192,11 @@ export class ProductService {
   async publishTranslations(id: string, env: PublishEnvironment) {
     const product = await this.product.findOne(id)
     if (!product) {
-      throw new NotFoundException('Unknown product ID')
+      throw new NotFoundException('Unknown product #', id)
     }
 
     if (!['dev', 'preprod', 'prod'].includes(env)) {
-      throw new NotFoundException('Unknown environment')
+      throw new NotFoundException('Unknown environment', env)
     }
 
     await this.s3Svc.clearPublishedTranslations(product.id, env)

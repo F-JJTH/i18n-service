@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { LanguageService } from './language.service';
 import { CreateLanguageDto } from './dto/create-language.dto';
@@ -24,18 +25,12 @@ export class LanguageController {
     return this.languageService.create(createLanguageDto);
   }
 
-  @ApiOperation({summary: 'Disable a language for a product'})
+  @ApiOperation({summary: 'Disable/enable a language for a product'})
   @Post(':id/is-disabled')
   updatedIsDisabled(
-    @Param('id') id: string,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() updateLanguageDto: UpdateIsDisabledLanguageDto
   ) {
     return this.languageService.updatedIsDisabled(id, updateLanguageDto);
-  }
-
-  @ApiOperation({summary: 'Delete a language for a product'})
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.languageService.remove(id);
   }
 }

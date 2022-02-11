@@ -35,15 +35,15 @@
         <i *ngIf="member.settings" nz-icon nzType="check-square" nzTheme="outline"></i>
       </td>
       <td>
-        <button nz-button nzType="primary" (click)="onEditMemberClicked(member)">{{ 'EDIT' | translate }}</button>
+        <button nz-button (click)="onEditMemberClicked(member)">{{ 'EDIT' | translate }}</button>
         <button
           [disabled]="currentUserId === member.id"
           nz-button nzDanger nzType="primary"
           nz-popconfirm
           [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_MEMBER' | translate"
           nzPopconfirmPlacement="bottom"
-          nzCancelText="'CANCEL' | translate"
-          nzOkText="'DELETE' | translate"
+          [nzCancelText]="'CANCEL' | translate"
+          [nzOkText]="'DELETE' | translate"
           nzOkType="danger"
           (nzOnConfirm)="confirmDelete(member)">{{ 'DELETE' | translate }}</button>
       </td>

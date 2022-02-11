@@ -136,7 +136,6 @@ export class DefinitionService {
     return this.definition.findOne(id);
   }
 
-  // FIXME: Feature not available in UX/UI, do we want it ?
   async remove(id: string) {
     const definition = await this.definition.findOne(id, {relations: ['product']});
 

@@ -31,11 +31,6 @@ export class LanguagesComponent implements OnInit {
     this.languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
   }
 
-  async confirmDelete(language: Language) {
-    await this.i18nSvc.deleteLanguage(language.id)
-    this.fetch()
-  }
-
   onAddNewLanguageClicked() {
     this.modal.create({
       nzContent: AddLanguageModalComponent,
