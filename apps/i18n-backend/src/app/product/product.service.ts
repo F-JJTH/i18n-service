@@ -18,6 +18,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import path = require('path');
 import { S3Service } from '../s3/s3.service';
+import { PublishEnvironment } from '@kizeo/i18n/util';
 
 @Injectable()
 export class ProductService {
@@ -197,7 +198,7 @@ export class ProductService {
     return this.findOne(id);
   }
 
-  async publishTranslations(id: string, env: string) {
+  async publishTranslations(id: string, env: PublishEnvironment) {
     const product = await this.product.findOne(id)
     if (!product) {
       throw new NotFoundException('Unknown product ID')
@@ -207,7 +208,7 @@ export class ProductService {
       throw new NotFoundException('Unknown environment')
     }
 
-    await this.s3Svc.clearPublishedTranslations(product.id, env as 'dev' | 'preprod' | 'prod')
+    await this.s3Svc.clearPublishedTranslations(product.id, env as PublishEnvironment)
 
     if (env === 'dev' || env === 'preprod') {
       const languages = await this.language.find({
@@ -292,7 +293,7 @@ export class ProductService {
     })
   }
 
-  getDownloadLinkForTranslation(id: string, env: string, languageCode: string) {
-    return `https://${this.s3Svc.Bucket}.s3.${this.s3Svc.Region}.amazonaws.com/${id}/${env}/${languageCode}.json`
+  async getDownloadLinkForTranslation(id: string, env: PublishEnvironment, languageCode: string) {
+    return this.s3Svc.getSignedURLForTranslation(id, env, languageCode)
   }
 }

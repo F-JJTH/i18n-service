@@ -1,4 +1,13 @@
-import { DeleteObjectCommand, ListBucketsCommand, ListObjectsCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import {
+  DeleteObjectCommand,
+  GetObjectCommand,
+  ListBucketsCommand,
+  ListObjectsCommand,
+  PutObjectCommand,
+  S3Client
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { PublishEnvironment } from '@kizeo/i18n/util';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UploadedFileInput } from '../../interfaces/uploaded-file-input.interface';
@@ -76,7 +85,7 @@ export class S3Service {
     return {Key, Url}
   }
 
-  async clearPublishedTranslations(id: string, env: 'dev' | 'preprod' | 'prod') {
+  async clearPublishedTranslations(id: string, env: PublishEnvironment) {
     const keys = await this.s3Client.send(
       new ListObjectsCommand({
         Bucket: this.configSvc.get('AWS_BUCKET_NAME_PUBLIC'),
@@ -98,5 +107,14 @@ export class S3Service {
     }
 
     return true
+  }
+
+  async getSignedURLForTranslation(id: string, env: PublishEnvironment, languageCode: string) {
+    const Key = `${id}/${env}/${languageCode}.json`
+    return getSignedUrl(
+      this.s3Client,
+      new GetObjectCommand({Bucket: this.Bucket, Key}),
+      {expiresIn: 12 * 3600}
+    )
   }
 }

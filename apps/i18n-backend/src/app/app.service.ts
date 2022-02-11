@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import path = require('path');
 import { Repository } from 'typeorm';
 import { Product } from './product/entities/product.entity';
+import { PublishEnvironment } from '@kizeo/i18n/util';
 
 @Injectable()
 export class AppService {
@@ -30,7 +31,7 @@ export class AppService {
     return { message: 'Welcome to i18n-backend!' };
   }
 
-  async getTranslationsForClients(productId: string, env: string, languageCode: string) {
+  async getTranslationsForClients(productId: string, env: PublishEnvironment, languageCode: string) {
     const product = await this.product.findOne(productId)
     if (!product) {
       throw new NotFoundException('Unknow product #', productId)
@@ -55,7 +56,7 @@ export class AppService {
     return streamToString(object.Body);
   }
 
-  async getLanguagesForClients(productId: string, env: string) {
+  async getLanguagesForClients(productId: string, env: PublishEnvironment) {
     const product = await this.product.findOne(productId)
     if (!product) {
       throw new NotFoundException('Unknow product #', productId)

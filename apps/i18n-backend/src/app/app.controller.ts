@@ -1,6 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
+import { PublishEnvironment } from '@kizeo/i18n/util';
 
 @ApiTags('Global')
 @Controller()
@@ -17,7 +18,7 @@ export class AppController {
   @Get('/public/product/:id/:env/translation/:code')
   getTranslations(
     @Param('id') id: string,
-    @Param('env') env: string,
+    @Param('env') env: PublishEnvironment,
     @Param('code') code: string,
   ) {
     return this.appService.getTranslationsForClients(id, env, code)
@@ -27,7 +28,7 @@ export class AppController {
   @Get('/public/product/:id/:env/languages')
   getLanguages(
     @Param('id') id: string,
-    @Param('env') env: string,
+    @Param('env') env: PublishEnvironment,
   ) {
     return this.appService.getLanguagesForClients(id, env)
   }

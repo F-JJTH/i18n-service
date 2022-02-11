@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { IEnvironment } from "@kizeo/i18n/util";
+import { IEnvironment, PublishEnvironment } from "@kizeo/i18n/util";
 import { firstValueFrom } from 'rxjs';
 import {
   CreateProductRequest,
@@ -61,7 +61,7 @@ export class I18nService {
   }
 
   // /product/:id/dl-translation/:env/:languageCode Route✅ Code✅
-  async downloadTranslationFileForProduct(id: string, env: string, languageCode: string) {
+  async downloadTranslationFileForProduct(id: string, env: PublishEnvironment, languageCode: string) {
     const result = await firstValueFrom(this.http.get<{link: string}>(`${this.apiUrl}/api/product/${id}/dl-translation/${env}/${languageCode}`))
     window.open(result.link)
   }

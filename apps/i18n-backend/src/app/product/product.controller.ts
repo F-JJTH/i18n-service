@@ -18,13 +18,17 @@ import { UpdateMemberDto } from './dto/update-member.dto';
 import { JwtAuthGuard } from '../jwt-auth.guard';
 import { IncomingMessage } from 'http';
 import { JwtService } from '@nestjs/jwt'
+import { PublishEnvironment } from '@kizeo/i18n/util';
 
 @ApiTags('Products')
 @ApiBearerAuth()
 @Controller('product')
 //@UseGuards(JwtAuthGuard)
 export class ProductController {
-  constructor(private readonly productService: ProductService, private jwt: JwtService) {}
+  constructor(
+    private readonly productService: ProductService,
+    private jwt: JwtService
+  ) {}
 
   @ApiOperation({summary: 'Create a product'})
   @Post()
@@ -95,20 +99,20 @@ export class ProductController {
   @Get(':id/publish/:env')
   publishTranslations(
     @Param('id') id: string,
-    @Param('env') env: string
+    @Param('env') env: PublishEnvironment
   ) {
     return this.productService.publishTranslations(id, env);
   }
 
   @ApiOperation({summary: 'Get the download link for translations file of a product for the given environment and language'})
   @Get(':id/dl-translation/:env/:languageCode')
-  getDownloadLinkForTranslation(
+  async getDownloadLinkForTranslation(
     @Param('id') id: string,
-    @Param('env') env: string,
+    @Param('env') env: PublishEnvironment,
     @Param('languageCode') languageCode: string
   ) {
     return {
-      link: this.productService.getDownloadLinkForTranslation(id, env, languageCode)
+      link: await this.productService.getDownloadLinkForTranslation(id, env, languageCode)
     }
   }
 
