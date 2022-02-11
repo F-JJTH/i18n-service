@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { I18nService, Language, Product } from '@kizeo/i18n/data-access';
-import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
+import { CurrentProductService, I18nService, Language, Product } from '@kizeo/i18n/data-access';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { AddLanguageModalComponent } from '../add-language-modal/add-language-modal.component';
 

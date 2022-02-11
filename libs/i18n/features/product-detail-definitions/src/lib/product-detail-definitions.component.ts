@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Definition, I18nService, Product } from '@kizeo/i18n/data-access';
+import { CurrentProductService, Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
-import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';

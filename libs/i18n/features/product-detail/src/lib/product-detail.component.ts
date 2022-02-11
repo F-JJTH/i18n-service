@@ -1,9 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CurrentUserService, I18nService, Product } from '@kizeo/i18n/data-access';
-import { ZenObservable } from 'zen-observable-ts';
-import { debounceTime, map, Subject } from 'rxjs';
-import { CurrentProductService } from './current-product.service';
+import { CurrentProductService, CurrentUserService, Product } from '@kizeo/i18n/data-access';
 
 @Component({
   selector: 'kizeo-i18n-product-detail',
@@ -24,7 +21,6 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     public readonly currentUser: CurrentUserService,
     private readonly route: ActivatedRoute,
-    private readonly i18nSvc: I18nService,
     public readonly currentProduct: CurrentProductService,
   ) { }
 

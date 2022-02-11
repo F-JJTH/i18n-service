@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { I18nService, Product } from '@kizeo/i18n/data-access';
-import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
+import { CurrentProductService, I18nService, Product } from '@kizeo/i18n/data-access';
 
 @Component({
   selector: 'kizeo-general',
@@ -12,8 +11,6 @@ export class GeneralComponent implements OnInit {
 
   product!: Product
   _name = ""
-
-  // dtStoreSubscription?: ZenObservable.Subscription
 
   constructor(
     private readonly router: Router,

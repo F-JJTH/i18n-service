@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
+import { CurrentProductService, CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
-import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
@@ -71,25 +70,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   async fetch() {
     this.translations = await this.i18nSvc.getTranslationsByProductId(this.product.id)
-      // .filter(t => (
-      //     (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language!.code) : true)
-      //   )
-      // )
-      // .map(t => {
-      //   return {
-      //     id: t.id,
-      //     slug: t.definition!.slug,
-      //     value: t.value || "",
-      //     language: t.language!,
-      //     translation: t,
-      //     isValid: t.isValid ?? false,
-      //     definition: t.definition!,
-      //     defaultValue: t.definition!.defaultValue,
-      //     isRequireTranslatorAction: t.isRequireTranslatorAction
-      //   }
-      // })
-      // .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
-      this.setFilteredResult()
+    this.setFilteredResult()
   }
 
   setFilteredResult() {
@@ -143,7 +124,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
   }
 
   async onFilterTranslationChanged() {
-    this.fetch()
+    this.setFilteredResult()
   }
 
   onTranslationChanged(translation: TranslationItem) {
@@ -163,11 +144,9 @@ export class ProductDetailTranslationsComponent implements OnInit {
       Array.from(this.modifiedTranslationItems.values())
     )
 
-    //setTimeout(() => {
-      this.modifiedTranslationItems.clear()
-      this.fetch()
-      this.isSaving = false
-      this.currentProduct.refresh(this.product.id)
-    //}, 500)
+    this.modifiedTranslationItems.clear()
+    this.fetch()
+    this.isSaving = false
+    this.currentProduct.refresh(this.product.id)
   }
 }

@@ -14,7 +14,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { JwtInterceptor } from './jwt.interceptor';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
-import { CurrentProductService } from 'libs/i18n/features/product-detail/src/lib/current-product.service';
 
 export const shellRoutes: Route[] = [
   {
@@ -47,7 +46,6 @@ export const shellRoutes: Route[] = [
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    CurrentProductService,
   ],
   exports: [
     ShellComponent

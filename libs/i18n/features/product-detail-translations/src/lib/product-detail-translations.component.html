@@ -40,7 +40,7 @@
     <thead>
       <tr>
         <th>
-          <div class="is-flex">
+          <div>
             {{ 'DEFAULT_VALUE' | translate }}
             <nz-badge
               nzStandalone
@@ -48,7 +48,7 @@
               [nzCount]="filteredResults.length"
               [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
             ></nz-badge>
-            <nz-input-group [nzSuffix]="suffixIconSearchDefaultvalue">
+            <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchDefaultvalue">
               <input nz-input
                 [placeholder]="'SEARCH_BY_DEFAULT_VALUE' | translate"
                 [(ngModel)]="searchDefaultValue"
@@ -57,20 +57,21 @@
           </div>
         </th>
         <th nzWidth="220px">
-          <kizeo-select-language name="selectedLanguage"
-          nz-tooltip
-          [nzTooltipTitle]="'SAVE_YOUR_MODIFICATIONS_BEFORE_MODIFY_LIST' | translate"
-          [nzTooltipTrigger]="!!modifiedTranslationItems.size ? 'hover' : null"
-          [disabled]="!!modifiedTranslationItems.size"
-          [(ngModel)]="selectedLanguages"
-          [excludeLanguages]="languageCodesToExclude"
-          (ngModelChange)="onFilterTranslationChanged()"
-          mode="multiple"></kizeo-select-language>
+          {{ 'LANGUAGE' | translate }}
+          <kizeo-select-language class="m-t-5" name="selectedLanguage"
+            nz-tooltip
+            [nzTooltipTitle]="'SAVE_YOUR_MODIFICATIONS_BEFORE_MODIFY_LIST' | translate"
+            [nzTooltipTrigger]="!!modifiedTranslationItems.size ? 'hover' : null"
+            [disabled]="!!modifiedTranslationItems.size"
+            [(ngModel)]="selectedLanguages"
+            [excludeLanguages]="languageCodesToExclude"
+            (ngModelChange)="onFilterTranslationChanged()"
+            mode="multiple"></kizeo-select-language>
         </th>
         <th>
-          <div class="is-flex">
+          <div>
             {{ 'TRANSLATION' | translate }}
-            <nz-input-group [nzSuffix]="suffixIconSearchTranslation">
+            <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchTranslation">
               <input nz-input
                 [placeholder]="'SEARCH_BY_TRANSLATION' | translate"
                 [(ngModel)]="searchTranslation"
@@ -100,12 +101,14 @@
             <input nz-input
               (keyup.enter)="onSaveTranslationsClicked()"
               [(ngModel)]="translation.value"
+              [placeholder]="'TO_BE_TRANSLATED' | translate"
               [name]="translation.slug+translation.language.code"
               (ngModelChange)="onTranslationChanged(translation)">
           </nz-input-group>
           <ng-template #suffixButton>
             <button nz-button
               tabIndex="-1"
+              nz-tooltip [nzTooltipTitle]="'VALIDATE_TOOLTIP_BTN' | translate"
               class="validator-btn"
               [disabled]="!canValidate"
               [class.validator-btn-is-valid]="translation.isValid"

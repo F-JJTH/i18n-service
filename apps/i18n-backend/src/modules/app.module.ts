@@ -14,9 +14,9 @@ import { Product } from './product/entities/product.entity';
 import { SentryInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 import { environment } from '../environments/environment';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { S3Module } from './s3/s3.module';
 import { HealthModule } from './health/health.module';
 import { PublicModule } from './public/public.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -59,6 +59,7 @@ import { PublicModule } from './public/public.module';
     DefinitionModule,
     HealthModule,
     PublicModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [

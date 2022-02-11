@@ -7,5 +7,5 @@ export enum SelectLanguageCodes {
   FR = 'fr-FR',
   EN = 'en-GB',
   ES = 'es-ES',
-  DE = 'de-DE'
+  DE = 'de-DE',
 }

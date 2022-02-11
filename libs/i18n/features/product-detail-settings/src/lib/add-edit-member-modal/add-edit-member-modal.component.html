@@ -1,10 +1,10 @@
-<div *nzModalTitle>Créer/modifier un membre</div>
+<div *nzModalTitle>{{ (member ? 'EDIT_MEMBER' : 'ADD_NEW_MEMBER') | translate }}</div>
 <div>
   <form nz-form>
     <nz-form-item *ngIf="!member">
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member" nzRequired>Select a member</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="member" nzRequired>{{ 'SELECT_A_MEMBER' | translate}}</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <nz-select [(ngModel)]="selectedMember" name="member" nzPlaceHolder="Select a member">
+        <nz-select [(ngModel)]="selectedMember" name="member" [nzPlaceHolder]="'SELECT_A_MEMBER' | translate">
           <nz-option
             *ngFor="let item of memberOptions"
             [nzLabel]="item.email"
@@ -19,38 +19,38 @@
       <nz-form-control [nzSm]="14" [nzXs]="24">{{ member.email }}</nz-form-control>
     </nz-form-item>
 
-    <nz-divider nzText="Authorizations"></nz-divider>
+    <nz-divider [nzText]="'AUTHORIZATIONS' | translate"></nz-divider>
 
     <nz-form-item>
       <nz-form-control>
-        <label nz-checkbox [(ngModel)]="manageDefinitions" name="manageDefinitions">Manage definitions</label>
+        <label nz-checkbox [(ngModel)]="manageDefinitions" name="manageDefinitions">{{ 'MANAGE_DEFINITIONS' | translate }}</label>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
-        <label nz-checkbox [(ngModel)]="manageSettings" name="manageSettings">Manage settings</label>
+        <label nz-checkbox [(ngModel)]="manageSettings" name="manageSettings">{{ 'MANAGE_SETTINGS' | translate }}</label>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
-        <label nz-checkbox [(ngModel)]="manageDeploy" name="manageDeploy">Manage deploy</label>
+        <label nz-checkbox [(ngModel)]="manageDeploy" name="manageDeploy">{{ 'MANAGE_DEPLOY' | translate }}</label>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
-        <label nz-checkbox [(ngModel)]="manageValidations" name="manageValidations">Manage validations</label>
+        <label nz-checkbox [(ngModel)]="manageValidations" name="manageValidations">{{ 'MANAGE_VALIDATIONS' | translate }}</label>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
         <nz-radio-group [(ngModel)]="manageTranslations" name="manageTranslations">
-          <label nz-radio nzValue="none">Do not manage translations</label>
-          <label nz-radio nzValue="all">Manage all translations</label>
-          <label nz-radio nzValue="specific">Manage specific translations
+          <label nz-radio nzValue="none">{{ 'DO_NOT_MANAGE_TRANSLATIONS' | translate }}</label>
+          <label nz-radio nzValue="all">{{ 'MANAGE_ALL_TRANSLATIONS' | translate }}</label>
+          <label nz-radio nzValue="specific">{{ 'MANAGE_SPECIFIC_TRANSLATIONS' | translate }}
             <kizeo-select-language *ngIf="manageTranslations === 'specific'"
               name="language"
               [(ngModel)]="languages"
@@ -68,6 +68,6 @@
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
   <button nz-button nzType="primary" (click)="onCreateOrEditClicked()" [disabled]="!isValidForm()">
     <i nz-icon nzType="save" nzTheme="outline"></i>
-    Créer/Modifier
+    {{ (member ? 'EDIT' : 'ADD') | translate }}
   </button>
 </div>
