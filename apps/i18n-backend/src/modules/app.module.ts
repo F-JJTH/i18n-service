@@ -36,6 +36,11 @@ import { TaskModule } from './task/task.module';
         // ormconfig.json content is replaced by ormconfig.prod.json on production build (angular.json -> fileReplacements)
         const typeormConfig = require('./../../ormconfig.json');
         return Object.assign(typeormConfig, {
+          host: process.env.TYPEORM_HOST || typeormConfig.host,
+          port: process.env.TYPEORM_PORT || typeormConfig.port,
+          username: process.env.TYPEORM_USERNAME || typeormConfig.username,
+          password: process.env.TYPEORM_PASSWORD || typeormConfig.password,
+          database: process.env.TYPEORM_DATABASE || typeormConfig.database,
           autoLoadEntities: true,
         });
       },
