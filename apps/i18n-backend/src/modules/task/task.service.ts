@@ -5,12 +5,6 @@ import { Repository, Between, Raw } from 'typeorm';
 import { Definition } from '../definition/entities/definition.entity';
 import { Translation } from '../translation/entities/translation.entity';
 import { subMinutes } from 'date-fns';
-import { SESClient, SendRawEmailCommand } from '@aws-sdk/client-ses';
-import { ConfigService } from '@nestjs/config';
-import { createTransport } from 'nodemailer';
-import { HbsTransporter } from 'nodemailer-express-handlebars';
-import * as hbs from 'nodemailer-express-handlebars';
-import path = require('path');
 import { MailService } from './mail.service';
 
 enum Task {

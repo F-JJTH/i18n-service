@@ -69,7 +69,7 @@ import { join } from 'path';
     DefinitionModule,
     HealthModule,
     PublicModule,
-    TaskModule,
+    //TaskModule,
   ],
   controllers: [AppController],
   providers: [
