@@ -14,9 +14,11 @@ import { Product } from './product/entities/product.entity';
 import { SentryInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 import { environment } from '../environments/environment';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { HealthModule } from './health/health.module';
 import { PublicModule } from './public/public.module';
 import { TaskModule } from './task/task.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -30,6 +32,9 @@ import { TaskModule } from './task/task.module';
         AWS_BUCKET_NAME_PUBLIC: Joi.string().required(),
         SENTRY_DSN: Joi.string(),
       }),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, 'public')
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {

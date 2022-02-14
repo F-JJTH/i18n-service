@@ -31,7 +31,6 @@ export class TaskService {
     private readonly translation: Repository<Translation>,
     @InjectRepository(Definition)
     private readonly definition: Repository<Definition>,
-    private readonly configSvc: ConfigService,
     private readonly mailSvc: MailService,
   ) { }
 

@@ -19,15 +19,14 @@ build:
   script:
     - npx nx build i18n-web --c production
     - npx nx build i18n-backend --c production
-    #- mv node_modules dist/apps/i18n-backend
     - cp package*.json dist/apps/i18n-backend
     - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env.prod dist/apps/i18n-backend/.env
+    - mkdir -p dist/apps/i18n-backend/public && cp -r dist/apps/i18n-web/* dist/apps/i18n-backend/public
   artifacts:
     untracked: false
     expire_in: 3 days
     paths:
-      - dist/apps/i18n-web
       - dist/apps/i18n-backend
 
 deploy:
