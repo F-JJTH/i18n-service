@@ -5,6 +5,7 @@ import { Definition } from '../definition/entities/definition.entity';
 import { Language } from '../language/entities/language.entity';
 import { Product } from '../product/entities/product.entity';
 import { Translation } from '../translation/entities/translation.entity';
+import { MailService } from './mail.service';
 import { TaskService } from './task.service';
 
 @Module({
@@ -12,6 +13,6 @@ import { TaskService } from './task.service';
     ScheduleModule.forRoot(),
     TypeOrmModule.forFeature([Product, Language, Translation, Definition])
   ],
-  providers: [TaskService],
+  providers: [TaskService, MailService],
 })
 export class TaskModule {}

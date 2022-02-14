@@ -4,10 +4,22 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between, Raw } from 'typeorm';
 import { Definition } from '../definition/entities/definition.entity';
 import { Translation } from '../translation/entities/translation.entity';
-import { subMinutes } from 'date-fns'
+import { subMinutes } from 'date-fns';
+import { SESClient, SendRawEmailCommand } from '@aws-sdk/client-ses';
+import { ConfigService } from '@nestjs/config';
+import { createTransport } from 'nodemailer';
+import { HbsTransporter } from 'nodemailer-express-handlebars';
+import * as hbs from 'nodemailer-express-handlebars';
+import path = require('path');
+import { MailService } from './mail.service';
 
 enum Task {
   EmailNotification = 'email-notification'
+}
+
+enum EmailTemplate {
+  Validator = 'validator',
+  Translator = 'translator'
 }
 
 @Injectable()
@@ -19,7 +31,9 @@ export class TaskService {
     private readonly translation: Repository<Translation>,
     @InjectRepository(Definition)
     private readonly definition: Repository<Definition>,
-  ) {}
+    private readonly configSvc: ConfigService,
+    private readonly mailSvc: MailService,
+  ) { }
 
   @Cron('45 * * * * *', { name: Task.EmailNotification })
   async handleEmailNotificationCron() {
@@ -45,7 +59,8 @@ export class TaskService {
       }
     }, {})
     for(let productId in translatorsPerProductId) {
-      this.logger.debug('Send email to translators ' + translatorsPerProductId[productId].join(', ') + 'saying they must translate new words for product #' + productId)
+      this.logger.debug('Send email to translators ' + translatorsPerProductId[productId].join(', ') + ' saying they must translate new words for product #' + productId)
+      this.sendMail(productId, translatorsPerProductId[productId], EmailTemplate.Translator)
     }
   }
 
@@ -66,7 +81,25 @@ export class TaskService {
       }
     }, {})
     for(let productId in validatorsPerProductIds) {
-      this.logger.debug('Send email to validators ' + validatorsPerProductIds[productId].join(', ') + 'saying they must validate translations for product #' + productId)
+      this.logger.debug('Send email to validators ' + validatorsPerProductIds[productId].join(', ') + ' saying they must validate translations for product #' + productId)
+      this.sendMail(productId, validatorsPerProductIds[productId], EmailTemplate.Validator)
+    }
+  }
+
+  private async sendMail(productId: string, emails: string[], type: EmailTemplate) {
+    try {
+      await this.mailSvc.sendMail({
+        from: 'i18n-notification@kizeo.com',
+        to: 'delhamaide@kizeo.com',
+        bcc: emails,
+        subject: '👀 Hola',
+        template: type,
+        context: {
+            name: 'Name'
+        }
+      })
+    } catch(err) {
+      throw err
     }
   }
 }

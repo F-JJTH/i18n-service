@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth } from 'aws-amplify';
-import { Product } from '..';
+import { Product } from './api.interface';
 
 export interface UserPayload {
   "cognito:groups"?: string[]
@@ -16,7 +16,13 @@ export class CurrentUserService {
   accessToken: string = ''
 
   constructor() {
-    Auth.currentSession().then(session => {
+    this.setCurrentSession()
+  }
+
+  setCurrentSession() {
+    if (this.idToken) return Promise.resolve()
+
+    return Auth.currentSession().then(session => {
       this.idToken = session.getIdToken().getJwtToken()
       this.accessToken = session.getAccessToken().getJwtToken()
     })

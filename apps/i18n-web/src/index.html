@@ -2,12 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>I18nWeb</title>
+    <title>Kizeo i18n</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      .loader {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      @keyframes rotateSpin {
+        100% { transform: rotate(360deg); }
+      }
+      .spin {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        animation: rotateSpin 1.2s infinite linear;
+      }
+      .spin-dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        background-color: #1890ff;
+        display: block;
+        position: absolute;
+      }
+      .spin-dot-tr {
+        right: 0;
+      }
+      .spin-dot-bl {
+        bottom: 0;
+      }
+      .spin-dot-br {
+        bottom: 0;
+        right: 0;
+      }
+    </style>
   </head>
   <body>
-    <kizeo-i18n-root></kizeo-i18n-root>
+    <kizeo-i18n-root>
+      <div class="loader">
+        <div class="spin">
+          <i class="spin-dot spin-dot-tl"></i>
+          <i class="spin-dot spin-dot-tr"></i>
+          <i class="spin-dot spin-dot-bl"></i>
+          <i class="spin-dot spin-dot-br"></i>
+        </div>
+      </div>
+    </kizeo-i18n-root>
   </body>
 </html>

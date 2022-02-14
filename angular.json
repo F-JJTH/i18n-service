@@ -15,6 +15,7 @@
             "tsConfig": "apps/i18n-backend/tsconfig.app.json",
             "assets": [
               "apps/i18n-backend/src/assets",
+              "apps/i18n-backend/src/views",
               "apps/i18n-backend/src/migrations"
             ]
           },

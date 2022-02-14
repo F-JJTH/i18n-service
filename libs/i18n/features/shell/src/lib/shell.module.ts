@@ -14,16 +14,17 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { JwtInterceptor } from './jwt.interceptor';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 export const shellRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('@kizeo/i18n/features/product-list').then(m => m.ProductListModule)
+    loadChildren: () => import('@kizeo/i18n/features/product-list').then(m => m.ProductListModule),
   },
   {
     path: ':productId',
-    loadChildren: () => import('@kizeo/i18n/features/product-detail').then(m => m.ProductDetailModule)
+    loadChildren: () => import('@kizeo/i18n/features/product-detail').then(m => m.ProductDetailModule),
   },
 ];
 
@@ -38,6 +39,7 @@ export const shellRoutes: Route[] = [
     NzLayoutModule,
     NzIconModule,
     NzDropDownModule,
+    NzSpinModule,
     TranslateModule,
     I18nClientAngularModule,
   ],

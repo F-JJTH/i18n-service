@@ -1,4 +1,6 @@
-<nz-layout>
+<nz-spin *ngIf="!hasCurrentSession" [nzTip]="'LOADING' | translate" [nzSpinning]="true"></nz-spin>
+
+<nz-layout *ngIf="hasCurrentSession">
   <nz-header>
     <div class="left">
       <div class="logo"><i nz-icon nzType="translation" nzTheme="outline"></i></div>
@@ -20,5 +22,6 @@
       </nz-dropdown-menu>
     </div>
   </nz-header>
+
   <router-outlet></router-outlet>
 </nz-layout>
