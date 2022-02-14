@@ -1,6 +1,6 @@
 {
-  "name": "kizeo",
-  "version": "1.0.0",
+  "name": "kizeo-i18n",
+  "version": "1.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
