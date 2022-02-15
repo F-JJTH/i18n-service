@@ -21,7 +21,7 @@ async function bootstrap() {
     .setTitle('Backend for Kizeo i18n service')
     .setDescription('API specification for Kizeo i18n service')
     .setVersion('1.0')
-    //.addBearerAuth()
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);

@@ -9,7 +9,6 @@ import { LanguageModule } from './language/language.module';
 import { TranslationModule } from './translation/translation.module';
 import { DefinitionModule } from './definition/definition.module';
 import { ProductModule } from './product/product.module';
-import { JwtStrategy } from './jwt.strategy';
 import { Product } from './product/entities/product.entity';
 import { SentryInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 import { environment } from '../environments/environment';
@@ -19,12 +18,14 @@ import { HealthModule } from './health/health.module';
 import { PublicModule } from './public/public.module';
 import { TaskModule } from './task/task.module';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
+        AWS_COGNITO_CLIENT_ID: Joi.string().required(),
         AWS_COGNITO_USER_POOL_ID: Joi.string().required(),
         AWS_ACCESS_KEY_ID: Joi.string().required(),
         AWS_SECRET_ACCESS_KEY: Joi.string().required(),
@@ -52,9 +53,6 @@ import { join } from 'path';
       },
     }),
     TypeOrmModule.forFeature([Product]),
-    JwtModule.register({
-      secret: 'noop',
-    }),
     SentryModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -71,11 +69,11 @@ import { join } from 'path';
     HealthModule,
     PublicModule,
     //TaskModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    JwtStrategy,
     {
       provide: APP_INTERCEPTOR,
       useValue: new SentryInterceptor(),

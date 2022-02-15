@@ -7,16 +7,19 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { TranslationService } from './translation.service';
 import { ImportTranslationDto } from './dto/import-translation.dto';
 import { UpdateIsValidTranslationDto } from './dto/update-is-valid-translation.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UpdateTranslationDto } from './dto/update-translation.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Translations')
 @ApiBearerAuth()
 @Controller('translation')
+@UseGuards(JwtAuthGuard)
 export class TranslationController {
   constructor(private readonly translationService: TranslationService) {}
 

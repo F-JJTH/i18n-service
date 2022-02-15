@@ -17,15 +17,15 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AddMemberDto } from './dto/add-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
-import { JwtAuthGuard } from '../jwt-auth.guard';
-import { IncomingMessage } from 'http';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtService } from '@nestjs/jwt'
 import { PublishEnvironment } from '@kizeo/i18n/util';
+import { User } from '../../decorators/user.decorator';
 
 @ApiTags('Products')
 @ApiBearerAuth()
 @Controller('product')
-//@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
@@ -34,16 +34,14 @@ export class ProductController {
 
   @ApiOperation({summary: 'Create a product'})
   @Post()
-  create(@Body() createProductDto: CreateProductDto, @Headers('authorization') authorization: string) {
-    const payload = authorization ? this.jwt.decode(authorization.replace('Bearer ', '')) : null
-    return this.productService.create(createProductDto, payload);
+  create(@Body() createProductDto: CreateProductDto, @User() user) {
+    return this.productService.create(createProductDto, user);
   }
 
   @ApiOperation({summary: 'Get all products'})
   @Get()
-  findAll(@Headers('authorization') authorization: string) {
-    const payload = authorization ? this.jwt.decode(authorization.replace('Bearer ', '')) : null
-    return this.productService.findAllForMember(payload);
+  findAll(@User() user) {
+    return this.productService.findAllForMember(user);
   }
 
   @ApiOperation({summary: 'Get a product by ID'})

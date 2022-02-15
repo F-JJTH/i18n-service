@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   UploadedFile,
   ParseUUIDPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { DefinitionService } from './definition.service';
 import { CreateDefinitionDto } from './dto/create-definition.dto';
@@ -19,10 +20,12 @@ import { UpdateLinkTranslationDto } from './dto/update-link-definition.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadedFileInput } from '../../interfaces/uploaded-file-input.interface';
 import { ApiFileUpload } from '../../decorators/api.decorators';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @ApiTags('Definitions')
 @ApiBearerAuth()
 @Controller('definition')
+@UseGuards(JwtAuthGuard)
 export class DefinitionController {
   constructor(private readonly definitionService: DefinitionService) {}
 
