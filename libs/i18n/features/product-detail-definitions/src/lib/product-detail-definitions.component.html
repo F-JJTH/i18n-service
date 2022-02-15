@@ -31,7 +31,7 @@
     </div>
   </header>
 
-  <nz-table #table [nzData]="definitions" nzSize="middle" [nzPageSize]="25">
+  <nz-table #table [nzData]="filteredResults" nzSize="middle" [nzPageSize]="25">
     <thead>
       <tr>
         <th>{{ 'SLUG' | translate }}
@@ -41,8 +41,22 @@
             [nzCount]="definitions.length"
             [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
           ></nz-badge>
+          <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchSlug">
+            <input nz-input
+              [placeholder]="'SEARCH_BY_SLUG' | translate"
+              [(ngModel)]="searchSlug"
+              (ngModelChange)="setFilteredResult()">
+          </nz-input-group>
         </th>
-        <th>{{ 'DEFAULT_VALUE' | translate }}</th>
+        <th>
+          {{ 'DEFAULT_VALUE' | translate }}
+          <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchDefaultValue">
+            <input nz-input
+              [placeholder]="'SEARCH_BY_DEFAULT_VALUE' | translate"
+              [(ngModel)]="searchDefaultValue"
+              (ngModelChange)="setFilteredResult()">
+          </nz-input-group>
+        </th>
         <th nzWidth="100px"></th>
       </tr>
     </thead>
@@ -100,3 +114,23 @@
       </tbody>
     </nz-table>
   </nz-content>
+
+  <ng-template #suffixIconSearchSlug>
+    <i nz-icon
+      *ngIf="searchSlug"
+      class="ant-input-clear-icon m-r-4"
+      nzTheme="fill"
+      nzType="close-circle"
+      (click)="searchSlug = ''; setFilteredResult()"></i>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <ng-template #suffixIconSearchDefaultValue>
+    <i nz-icon
+      *ngIf="searchDefaultValue"
+      class="ant-input-clear-icon m-r-4"
+      nzTheme="fill"
+      nzType="close-circle"
+      (click)="searchDefaultValue = ''; setFilteredResult()"></i>
+    <i nz-icon nzType="search"></i>
+  </ng-template>

@@ -28,6 +28,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   isEditLinkVisible = false;
 
+  searchSlug = ''
+
+  searchDefaultValue = ''
+
+  filteredResults: Definition[] = []
+
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
   constructor(
@@ -46,6 +52,7 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   async fetch() {
     this.definitions = await this.i18nSvc.getDefinitionsByProductId(this.product.id)
+    this.setFilteredResult()
   }
 
   onImportDefinitionsClicked() {
@@ -60,6 +67,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
         this.currentProduct.refresh(this.product.id)
       }
     })
+  }
+
+  setFilteredResult() {
+    this.filteredResults = this.definitions
+      .filter(d => d.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
+      .filter(d => d.slug.toLowerCase().includes(this.searchSlug.toLowerCase()))
   }
 
   startEdit(id: string): void {
