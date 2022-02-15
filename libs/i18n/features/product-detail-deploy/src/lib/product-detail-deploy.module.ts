@@ -9,6 +9,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { TranslateModule } from '@ngx-translate/core';
+import { LocaleDateModule } from '@kizeo/ui';
 
 @NgModule({
   declarations: [ProductDetailDeployComponent],
@@ -24,6 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
     NzListModule,
     NzIconModule,
     TranslateModule,
+    LocaleDateModule,
   ],
 })
 export class ProductDetailDeployModule {}

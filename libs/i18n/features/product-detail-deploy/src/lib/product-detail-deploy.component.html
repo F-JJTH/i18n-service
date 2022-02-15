@@ -9,7 +9,7 @@
   </div>
   <div nz-row nzJustify="space-around" class="m-t-80 m-b-80">
     <div nz-col>
-      <p *ngIf="product?.publishedPreprodAt">{{ 'LAST_PREPROD_DEPLOY_AT' | translate }}: {{ product!.publishedPreprodAt | date:'short' }}</p>
+      <p *ngIf="product?.publishedPreprodAt">{{ 'LAST_PREPROD_DEPLOY_AT' | translate }}: {{ product!.publishedPreprodAt | localeDate:'short' }}</p>
       <button nz-button nzType="primary" (click)="onPublishPreprodClicked()" [nzLoading]="isLoadingPreprod">
         {{ 'DEPLOY_TRANSLATIONS_FOR_PREPROD_BTN' | translate }}
         <i nz-icon nzType="rocket" nzTheme="outline"></i>
@@ -29,7 +29,7 @@
       </nz-list>
     </div>
     <div nz-col>
-      <p *ngIf="product?.publishedProdAt">{{ 'LAST_PROD_DEPLOY_AT' | translate }}: {{ product!.publishedProdAt | date:'short' }}</p>
+      <p *ngIf="product?.publishedProdAt">{{ 'LAST_PROD_DEPLOY_AT' | translate }}: {{ product!.publishedProdAt | localeDate:'short' }}</p>
       <button nz-button nzType="primary" (click)="onPublishProdClicked()" [nzLoading]="isLoadingProd">
         {{ 'DEPLOY_TRANSLATIONS_FOR_PROD_BTN' | translate }}
         <i nz-icon nzType="rocket" nzTheme="outline"></i>

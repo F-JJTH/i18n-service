@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Route, PreloadAllModules } from '@angular/router';
 import { ShellComponent } from './shell.component';
@@ -15,6 +15,7 @@ import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { JwtInterceptor } from './jwt.interceptor';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { LocaleDate } from '@kizeo/ui';
 
 export const shellRoutes: Route[] = [
   {
@@ -48,13 +49,14 @@ export const shellRoutes: Route[] = [
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: 'DATE_FNS_LOCALE', useClass: LocaleDate },
   ],
   exports: [
     ShellComponent
   ]
 })
 export class ShellModule {
-  constructor(translate: TranslateService, nzI18n: NzI18nService) {
+  constructor(translate: TranslateService, nzI18n: NzI18nService, @Inject('DATE_FNS_LOCALE') localeDateFns: LocaleDate) {
     translate.onLangChange.subscribe(langChangeEvent => {
       import(`ng-zorro-antd/i18n`).then(i18nModule => {
         let nzLang = langChangeEvent.lang.replace('-', '_')
@@ -63,6 +65,11 @@ export class ShellModule {
         } catch(err) {
           console.warn(`Invalid locale provided to NzI18nService: ${nzLang}`, i18nModule)
         }
+      })
+
+      import(`date-fns/locale`).then(locales => {
+        const locale =  (locales as any)[langChangeEvent.lang.substring(0, 2)]
+        localeDateFns.setLocale(locale)
       })
     })
   }
