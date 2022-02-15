@@ -1,1 +1,1 @@
-export const I18N_API_URL = 'http://localhost:3333/api'
+export const I18N_API_URL = 'http://kizeo-i18n-dev.eu-west-3.elasticbeanstalk.com/api'

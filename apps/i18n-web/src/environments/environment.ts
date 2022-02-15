@@ -3,10 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 import { IEnvironment } from "@kizeo/i18n/util";
+const packageJson = require("../../../../package.json");
 
 export const environment: IEnvironment = {
   production: false,
-  version: '1.0.0-dev',
+  version: `${packageJson.version}-dev`,
   apiUrl: '',
   i18n: {
     appId: '9b11cc7b-a9e9-464f-bf9d-36e2fe3262c4',
