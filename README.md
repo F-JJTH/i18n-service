@@ -38,8 +38,9 @@ Run `nx build i18n-backend --c production` to build i18n-web in production. Resu
 
 Deployment of i18n-backend require additionnal files at the root of build directory (`dist/apps/i18n-backend`)
  - `.env` (copied from `apps/i18n-backend/.env.prod`)
- - `ormconfig.prod-cli.json` (copied from `apps/i18n-backend/ormconfig.prod-cli.json`)
- - `package.json` (copied from `package.json`)
+ - `decorate-angular-cli.js` (copied from `decorate-angular-cli.js`)
+ - `package.json` & `package-lock.json` (copied from `package.json` & `package-lock.json`)
  - `node_modules` (generated from `npm install`)
+ - `mkdir -p public && cp -r dist/apps/i18n-web/* public`
 
 To run migrations on Production database, run `npm run migration:run:prod` from the root of build directory (require additionnal files)

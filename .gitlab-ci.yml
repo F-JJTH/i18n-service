@@ -12,7 +12,7 @@ stages:
   - build
   - deploy
 
-build:
+build and bundle:
   stage: build
   before_script:
     - npm ci --cache .npm --prefer-offline
@@ -21,7 +21,6 @@ build:
     - npx nx build i18n-backend --c production
     - cp decorate-angular-cli.js dist/apps/i18n-backend
     - cp package*.json dist/apps/i18n-backend
-    - cp apps/i18n-backend/ormconfig.prod-cli.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env.prod dist/apps/i18n-backend/.env
     - mkdir -p dist/apps/i18n-backend/public && cp -r dist/apps/i18n-web/* dist/apps/i18n-backend/public
   artifacts:
@@ -31,10 +30,23 @@ build:
       - dist/apps/i18n-backend
 
 deploy:
+  variables:
+    AWS_ACCESS_KEY_ID: $DEV_AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY: $DEV_AWS_SECRET_ACCESS_KEY
+    AWS_DEFAULT_REGION: eu-west-3
+  image: coxauto/aws-ebcli
   stage: deploy
   needs:
-    - build
+    - build and bundle
+  before_script:
+    - apk --update add zip
   script:
-    - echo "cd dist/apps/i18n-backend && npm run migration:run:prod"
-    - echo "Upload dist/apps/i18n-backend to node executor && node main.js"
-    - echo "Upload dist/apps/i18n-web to web storage"
+    - mkdir -p data && cp -r dist/apps/i18n-backend/. data/
+    - cp -r .platform data/
+    - cd data && zip -r ../data.zip .platform .env * && cd ..
+    - eb deploy Kizeoi18n-dev --staged --timeout 25 --verbose --label $CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  artifacts:
+    untracked: false
+    expire_in: 3 days
+    paths:
+      - data.zip

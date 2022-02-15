@@ -38,9 +38,10 @@ import { join } from 'path';
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async () => {
-        // ormconfig.json content is replaced by ormconfig.prod.json on production build (angular.json -> fileReplacements)
-        const typeormConfig = require('./../../ormconfig.json');
+        // ormconfig.json content is replaced by ormconfig.local.json (angular.json -> fileReplacements)
+        const typeormConfig = environment.production ? {} : require('./../../ormconfig.json');
         return Object.assign(typeormConfig, {
+          type: process.env.TYPEORM_CONNECTION || typeormConfig.type,
           host: process.env.TYPEORM_HOST || typeormConfig.host,
           port: process.env.TYPEORM_PORT || typeormConfig.port,
           username: process.env.TYPEORM_USERNAME || typeormConfig.username,
