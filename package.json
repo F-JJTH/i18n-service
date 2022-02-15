@@ -1,18 +1,21 @@
 {
   "name": "kizeo-i18n",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
+  "engines": {
+    "node" : "14.17.0"
+  },
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
-    "start": "npm run migration:run:prod && node main",
+    "start": "node main",
     "start:dev": "nx serve",
     "build": "nx build",
     "test": "nx test",
     "migration:create": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -f apps/i18n-backend/ormconfig.local-cli -n",
     "migration:generate": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -f apps/i18n-backend/ormconfig.local-cli -n",
     "migration:run": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -f apps/i18n-backend/ormconfig.local-cli",
-    "migration:run:prod": "ts-node --transpile-only ./node_modules/typeorm/cli.js -f ormconfig.prod-cli migration:run"
+    "migration:run:prod": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
   },
   "private": true,
   "dependencies": {
