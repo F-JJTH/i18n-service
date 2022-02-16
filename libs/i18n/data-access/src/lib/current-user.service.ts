@@ -28,6 +28,10 @@ export class CurrentUserService {
     })
   }
 
+  getCurrentSession() {
+    return Auth.currentSession()
+  }
+
   async isAdmin() {
     return (await this.getPayload())['cognito:groups']?.includes('Admin') || false
   }
