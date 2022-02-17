@@ -34,6 +34,8 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   filteredResults: Definition[] = []
 
+  isLoading = false
+
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
   constructor(
@@ -51,8 +53,10 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   }
 
   async fetch() {
+    this.isLoading = true
     this.definitions = await this.i18nSvc.getDefinitionsByProductId(this.product.id)
     this.setFilteredResult()
+    this.isLoading = false
   }
 
   onImportDefinitionsClicked() {

@@ -36,7 +36,7 @@
     </div>
   </header>
 
-  <nz-table #table [nzData]="filteredResults" nzSize="middle" [nzPageSize]="25">
+  <nz-table #table [nzData]="filteredResults" nzSize="small" [nzPageSize]="15" [nzLoading]="isLoading">
     <thead>
       <tr>
         <th>

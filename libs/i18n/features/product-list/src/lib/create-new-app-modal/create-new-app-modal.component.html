@@ -2,7 +2,7 @@
 <div>
   <form nz-form>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>{{ 'NAME' | translate }}</nz-form-label>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="name" nzRequired>{{ 'NAME' | translate }}</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <input
           nz-input
@@ -14,12 +14,16 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="defaultLanguage" nzRequired>{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="defaultLanguage" nzRequired>{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <kizeo-select-language name="defaultLanguage" [(ngModel)]="defaultLanguage"></kizeo-select-language>
       </nz-form-control>
     </nz-form-item>
   </form>
+  <span nz-typography nzType="secondary">
+    <i nz-icon nzType="info-circle" nzTheme="twotone"></i> 
+    {{ 'YOU_CAN_ADD_LANGUAGES_LATER_IN_SETTINGS_LANGUAGE_TAB' | translate }}
+  </span>
 </div>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>

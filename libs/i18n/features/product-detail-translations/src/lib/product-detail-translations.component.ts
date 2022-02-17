@@ -47,6 +47,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   filteredResults: TranslationItem[] = []
 
+  isLoading = false
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
@@ -69,8 +71,10 @@ export class ProductDetailTranslationsComponent implements OnInit {
   }
 
   async fetch() {
+    this.isLoading = true
     this.translations = await this.i18nSvc.getTranslationsByProductId(this.product.id)
     this.setFilteredResult()
+    this.isLoading = false
   }
 
   setFilteredResult() {

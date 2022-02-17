@@ -13,9 +13,11 @@ import { NzInputModule } from "ng-zorro-antd/input";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NzSkeletonModule } from "ng-zorro-antd/skeleton";
 import { NzResultModule } from "ng-zorro-antd/result";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
 import { SelectLanguageModule } from '@kizeo/ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @NgModule({
   declarations: [ProductListComponent, CreateNewAppModalComponent],
@@ -35,6 +37,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzSpinModule,
     NzSkeletonModule,
     NzResultModule,
+    NzTypographyModule,
+    NzIconModule,
     SelectLanguageModule,
     TranslateModule,
   ],
