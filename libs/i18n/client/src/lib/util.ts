@@ -1,1 +1,1 @@
-export const I18N_API_URL = 'http://kizeo-i18n-dev.eu-west-3.elasticbeanstalk.com/api'
+export const I18N_S3_URL = 'https://i18n-backend-clement-publish.s3.eu-west-3.amazonaws.com'

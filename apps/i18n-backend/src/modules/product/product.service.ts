@@ -216,6 +216,9 @@ export class ProductService {
       })
       await Promise.all(promises)
 
+      const availableLanguagesFileContent = languages.sort(l => l.isDefault ? -1 : 1).map(l => l.code)
+      await this.s3Svc.uploadAvailableLanguageList(product.id, env, availableLanguagesFileContent)
+
       if (env === 'preprod') {
         await this.product.update(product.id, { publishedPreprodAt: new Date() })
       }

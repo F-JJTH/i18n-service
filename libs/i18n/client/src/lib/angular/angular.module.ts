@@ -11,7 +11,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { TranslationOutline } from '@ant-design/icons-angular/icons';
 import { AngularLanguageSelectorComponent } from './language-selector.component';
-import { I18N_API_URL } from '../util';
+import { I18N_S3_URL } from '../util';
 
 const icons: IconDefinition[] = [TranslationOutline];
 
@@ -23,12 +23,12 @@ export class I18nClientConfig {
   constructor(config: I18nClientConfig) {
     this.appId = config.appId
     this.env = config.env || 'prod'
-    this.url = config.url || I18N_API_URL
+    this.url = config.url || I18N_S3_URL
   }
 }
 
 export function createTranslateLoader(http: HttpClient, config: I18nClientConfig) {
-  return new I18nTranslateLoader(http, `${config.url}/public/product/${config.appId}/${config.env}/translation/`);
+  return new I18nTranslateLoader(http, `${config.url}/${config.appId}/${config.env}`);
 }
 
 function initializeAppFactory(http: HttpClient, translate: TranslateService, config: I18nClientConfig): () => Observable<any> {
@@ -36,7 +36,7 @@ function initializeAppFactory(http: HttpClient, translate: TranslateService, con
     translate.onLangChange.subscribe(e => {
       localStorage.setItem(`i18n-client-${config.appId}`, e.lang)
     })
-    return http.get<string[]>(`${config.url}/public/product/${config.appId}/${config.env}/languages`)
+    return http.get<string[]>(`${config.url}/${config.appId}/${config.env}/languages.json`)
     .pipe(
       catchError((err, caught) => of([])),
       tap(languages => {

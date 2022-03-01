@@ -9,10 +9,12 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return from(this.currentUser.getCurrentSession()).pipe(
       mergeMap(session => {
-        const jwt = session.getIdToken().getJwtToken()
-        req = req.clone({
-          setHeaders: { Authorization: `Bearer ${jwt}` }
-        });
+        if (!req.url.includes('.s3.')) {
+          const jwt = session.getIdToken().getJwtToken()
+          req = req.clone({
+            setHeaders: { Authorization: `Bearer ${jwt}` }
+          });
+        }
         return next.handle(req)
       })
     )

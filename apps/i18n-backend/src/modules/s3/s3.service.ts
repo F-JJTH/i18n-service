@@ -101,6 +101,18 @@ export class S3Service {
     )
   }
 
+  uploadAvailableLanguageList(id: string, env: PublishEnvironment, fileContent: object) {
+    return this.s3Client.send(
+      new PutObjectCommand({
+        Bucket: this.Bucket,
+        Key: `${id}/${env}/languages.json`,
+        Body: JSON.stringify(fileContent),
+        ACL: 'public-read',
+        Metadata: { filename: `languages.json` }
+      })
+    )
+  }
+
   async clearPublishedTranslations(id: string, env: PublishEnvironment) {
     const { Contents } = await this.listObjects(`${id}/${env}/`)
 
