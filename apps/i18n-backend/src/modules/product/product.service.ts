@@ -235,7 +235,9 @@ export class ProductService {
                 Bucket: this.s3Svc.Bucket,
                 ACL: 'public-read',
                 CopySource: `${this.s3Svc.Bucket}/${content.Key}`,
-                Key: `${id}/prod/${path.basename(content.Key)}`
+                Key: `${id}/prod/${path.basename(content.Key)}`,
+                CacheControl: 'max-age=43200',
+                ContentType: 'application/json',
               })
             )
           })

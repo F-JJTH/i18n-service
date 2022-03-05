@@ -96,6 +96,8 @@ export class S3Service {
         Key: `${id}/${env}/${languageCode}.json`,
         Body: JSON.stringify(fileContent),
         ACL: 'public-read',
+        CacheControl: 'no-cache',
+        ContentType: 'application/json',
         Metadata: { filename: `${languageCode}.json` }
       })
     )
@@ -108,6 +110,8 @@ export class S3Service {
         Key: `${id}/${env}/languages.json`,
         Body: JSON.stringify(fileContent),
         ACL: 'public-read',
+        CacheControl: 'no-cache',
+        ContentType: 'application/json',
         Metadata: { filename: `languages.json` }
       })
     )
