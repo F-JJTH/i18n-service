@@ -48,4 +48,9 @@ export class LanguagesComponent implements OnInit {
     const result = await this.i18nSvc.setIsDisabledForLanguage(language.id, !language.isDisabled)
     this.fetch()
   }
+
+  async onDeleteLanguageClicked(language: Language) {
+    await this.i18nSvc.deleteLanguage(language.id)
+    this.fetch()
+  }
 }

@@ -21,7 +21,17 @@
           (ngModelChange)="onDisabledSwitchToggled(language)">
         </nz-switch>
       </td>
-      <td></td>
+      <td>
+        <button nz-button nzType="default" nzDanger
+          *ngIf="!language.isDefault"
+          nz-popconfirm
+          [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_LANGUAGE' | translate"
+          nzPopconfirmPlacement="bottom"
+          [nzCancelText]="'CANCEL' | translate"
+          [nzOkText]="'DELETE' | translate"
+          nzOkType="danger"
+          (nzOnConfirm)="onDeleteLanguageClicked(language)">{{ 'DELETE_LANGUAGE' | translate }}</button>
+      </td>
     </tr>
   </tbody>
 </nz-table>

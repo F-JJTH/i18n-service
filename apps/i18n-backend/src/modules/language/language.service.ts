@@ -25,26 +25,26 @@ export class LanguageService {
   ) {}
 
   async create(createLanguageDto: CreateLanguageDto) {
-    const product = await this.product.findOne(createLanguageDto.productId, {relations: ['definitions']})
+    const product = await this.product.findOne(createLanguageDto.productId)
     if (!product) {
       throw new NotFoundException()
     }
+
+    const definitions = await this.definition.find({
+      where: {
+        product: product.id
+      }
+    })
 
     const createOptions = this.language.create({
       code: createLanguageDto.languageCode,
       name: createLanguageDto.languageLabel,
       isDefault: false,
       isDisabled: false,
-      isRequireTranslatorAction: product.definitions.length ? true : false,
+      isRequireTranslatorAction: definitions.length ? true : false,
       product,
     })
     const language = await this.language.save(createOptions)
-
-    const definitions = await this.definition.find({
-      where: {
-        product: createLanguageDto.productId
-      }
-    })
     
     const createTranslationOptions = definitions.map(definition => {
       return this.translation.create({
@@ -86,5 +86,20 @@ export class LanguageService {
 
     this.productSvc.publishTranslations(language.product.id, 'dev')
     return this.language.findOne(id);
+  }
+
+  async delete(id: string) {
+    const language = await this.language.findOne(id);
+    if (language) {
+      const translations = await this.translation.find({
+        where: {
+          language: language.id
+        }
+      })
+      await this.translation.remove(translations)
+      await this.language.remove(language)
+    }
+
+    return {success: true}
   }
 }

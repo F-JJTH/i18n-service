@@ -11,5 +11,5 @@
 </div>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>
-  <button nz-button nzType="primary" (click)="onCreateClicked()" [disabled]="!language">{{ 'CREATE' | translate }}</button>
+  <button nz-button nzType="primary" (click)="onCreateClicked()" [disabled]="!language || isLoading">{{ 'CREATE' | translate }}</button>
 </div>

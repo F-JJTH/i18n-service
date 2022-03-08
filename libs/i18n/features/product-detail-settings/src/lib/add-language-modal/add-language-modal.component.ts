@@ -15,6 +15,8 @@ export class AddLanguageModalComponent {
 
   @Input() excludeLanguages: string[] = []
 
+  isLoading = false
+
   constructor(
     private readonly modalRef: NzModalRef,
     private readonly i18nSvc: I18nService,
@@ -25,6 +27,7 @@ export class AddLanguageModalComponent {
       return
     }
 
+    this.isLoading = true
     await this.i18nSvc.addLanguage(this.language.code, this.language.label, this.product.id)
 
     this.modalRef.triggerOk()

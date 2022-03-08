@@ -115,6 +115,10 @@ export class I18nService {
     return firstValueFrom(this.http.post<Language>(`${this.apiUrl}/api/language/${id}/is-disabled`, {isDisabled}))
   }
 
+  // /language DELETE Route✅ Code✅
+  async deleteLanguage(languageId: string) {
+    return firstValueFrom(this.http.delete<boolean>(`${this.apiUrl}/api/language/${languageId}`))
+  }
 
 
   // /translation/:id/is-valid POST Route✅ Code✅

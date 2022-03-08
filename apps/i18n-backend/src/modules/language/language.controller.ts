@@ -36,4 +36,12 @@ export class LanguageController {
   ) {
     return this.languageService.updatedIsDisabled(id, updateLanguageDto);
   }
+
+  @ApiOperation({summary: 'Remove a language for a product'})
+  @Delete(':id')
+  delete(
+    @Param('id', ParseUUIDPipe) id: string
+  ) {
+    return this.languageService.delete(id);
+  }
 }
