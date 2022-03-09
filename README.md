@@ -22,9 +22,9 @@ Run `nx serve i18n-backend`
 
 ## Migration
 
-Run `npm run migration:generate` to generate a migration.
+Run `npm run migration:generate -- -n your_migration_name` to generate a migration.
 
-Run `npm run migration:create` to create a migration.
+Run `npm run migration:create -- -n your_migration_name` to create a migration.
 
 Run `npm run migration:run` to run migration to your local database.
 
@@ -43,4 +43,4 @@ Deployment of i18n-backend require additionnal files at the root of build direct
  - `node_modules` (generated from `npm install`)
  - `mkdir -p public && cp -r dist/apps/i18n-web/* public`
 
-To run migrations on Production database, run `npm run migration:run:prod` from the root of build directory (require additionnal files)
+To run migrations on Production database, run `npm run migration:run:prod` from the root of build directory (require additionnal files described above)
