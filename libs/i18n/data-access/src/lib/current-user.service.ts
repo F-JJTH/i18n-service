@@ -39,9 +39,9 @@ export class CurrentUserService {
   async getAuthorizationsForProduct(product: Product) {
     return {
       definitions: await this.canAccessDefinitionsForProduct(product),
+      translations: await this.canAccessTranslationsForProduct(product),
       deploy: await this.canAccessDeployForProduct(product),
       settings: await this.canAccessSettingsForProduct(product),
-      translations: await this.canAccessTranslationsForProduct(product),
     }
   }
 

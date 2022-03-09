@@ -27,9 +27,6 @@ export class ProductDetailComponent implements OnInit {
   async ngOnInit() {
     this.product = this.route.snapshot.data['product']
 
-    this.canAccess = {
-      ...(await this.currentUser.getAuthorizationsForProduct(this.product)),
-      settings: await this.currentUser.isAdmin()
-    }
+    this.canAccess = await this.currentUser.getAuthorizationsForProduct(this.product)
   }
 }

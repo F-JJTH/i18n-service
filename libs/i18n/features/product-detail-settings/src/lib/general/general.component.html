@@ -30,6 +30,7 @@
 <nz-divider></nz-divider>
 
 <button nz-button nzDanger nzType="primary"
+  *ngIf="canDelete"
   nzBlock
   nz-popconfirm
   [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_PRODUCT' | translate"
