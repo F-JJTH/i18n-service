@@ -17,10 +17,10 @@
     "typeorm:migration:create": "npm run typeorm migration:create -- -f apps/i18n-backend/ormconfig.local-cli",
     "typeorm:migration:run": "npm run typeorm migration:run -- -f apps/i18n-backend/ormconfig.local-cli",
     "typeorm:migration:run:prod": "npm run typeorm migration:run",
-    "migration:create": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -f apps/i18n-backend/ormconfig.local-cli -n",
-    "migration:generate": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -f apps/i18n-backend/ormconfig.local-cli -n",
-    "migration:run": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -f apps/i18n-backend/ormconfig.local-cli",
-    "migration:run:prod": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
+    "deprecated:migration:create": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -f apps/i18n-backend/ormconfig.local-cli -n",
+    "deprecated:migration:generate": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -f apps/i18n-backend/ormconfig.local-cli -n",
+    "deprecated:migration:run": "ts-node --project tsconfig.base.json -O '{\"module\": \"commonjs\", \"experimentalDecorators\": true}' -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -f apps/i18n-backend/ormconfig.local-cli",
+    "deprecated:migration:run:prod": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
   },
   "private": true,
   "dependencies": {
