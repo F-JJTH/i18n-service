@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-npm run migration:run:prod
+npm run typeorm:migration:run:prod
