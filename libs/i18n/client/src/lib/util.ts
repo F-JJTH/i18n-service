@@ -1,1 +1,1 @@
-export const I18N_S3_URL = 'https://i18n-backend-clement-publish.s3.eu-west-3.amazonaws.com'
+export const I18N_S3_URL = 'https://client.translate.kizeo.dev'

@@ -9,7 +9,7 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return from(this.currentUser.getCurrentSession()).pipe(
       mergeMap(session => {
-        if (!req.url.includes('.s3.')) {
+        if (!req.url.includes('client.translate.kizeo.dev')) {
           const jwt = session.getIdToken().getJwtToken()
           req = req.clone({
             setHeaders: { Authorization: `Bearer ${jwt}` }
