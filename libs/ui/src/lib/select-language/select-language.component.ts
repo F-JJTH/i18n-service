@@ -16,6 +16,7 @@ export class SelectLanguageComponent implements OnInit, ControlValueAccessor {
     { label: 'English', code: SelectLanguageCodes.EN },
     { label: 'Spanish', code: SelectLanguageCodes.ES },
     { label: 'Deutsch', code: SelectLanguageCodes.DE },
+    { label: 'Italy',   code: SelectLanguageCodes.IT },
   ]
 
   _value: SelectLanguageOption | null = null

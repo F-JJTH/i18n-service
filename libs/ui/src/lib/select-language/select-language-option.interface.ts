@@ -8,4 +8,5 @@ export enum SelectLanguageCodes {
   EN = 'en-GB',
   ES = 'es-ES',
   DE = 'de-DE',
+  IT = 'it-IT',
 }

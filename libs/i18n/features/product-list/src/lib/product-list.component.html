@@ -22,7 +22,7 @@
   <nz-result *ngIf="!products.length && !isLoading"
     [nzIcon]="'smile-twotone'"
     nzStatus="404"
-    [nzTitle]="'There is no product yet!'">
+    [nzTitle]="'THERE_IS_NO_PRODUCT_YET' | translate">
     <div nz-result-extra>
       <button *ngIf="canCreateApplication"
         nz-button
