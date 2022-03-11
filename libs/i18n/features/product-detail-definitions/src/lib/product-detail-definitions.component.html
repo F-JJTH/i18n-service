@@ -107,13 +107,23 @@
                   <i nz-icon nzType="delete" nzTheme="outline"></i>
                 </button>
               </li>
+              <li nz-menu-item nzDanger *ngIf="currentUserIsAdmin"
+                nz-popconfirm
+                [nzPopconfirmTitle]="'SURE_TO_DELETE_THIS_DEFINITION' | translate"
+                nzPopconfirmPlacement="bottom"
+                [nzCancelText]="'CANCEL' | translate"
+                [nzOkText]="'DELETE' | translate"
+                nzOkType="danger"
+                (nzOnConfirm)="onDeleteDefinitionClicked(def)">
+                <span>{{ 'DELETE_DEFINITION' | translate }}</span>
+              </li>
             </ul>
           </nz-dropdown-menu>
-          </td>
-        </tr>
-      </tbody>
+        </td>
+      </tr>
+    </tbody>
     </nz-table>
-  </nz-content>
+</nz-content>
 
   <ng-template #suffixIconSearchSlug>
     <i nz-icon

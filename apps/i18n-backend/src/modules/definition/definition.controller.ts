@@ -59,6 +59,14 @@ export class DefinitionController {
     return this.definitionService.updateLink(id, updateIsValidTranslationDto);
   }
 
+  @ApiOperation({summary: 'Delete a definition'})
+  @Delete(':id')
+  delete(
+    @Param('id', ParseUUIDPipe) id: string
+  ) {
+    return this.definitionService.delete(id);
+  }
+
   @ApiOperation({summary: 'Set/delete picture for definition', description: 'If «file» is missing, the picture is deleted'})
   @ApiFileUpload({name: 'file'})
   @Post(':id/set-picture')

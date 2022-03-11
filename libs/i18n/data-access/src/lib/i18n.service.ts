@@ -101,6 +101,9 @@ export class I18nService {
     return firstValueFrom(this.http.get<Translation[]>(`${this.apiUrl}/api/product/${productId}/translation`))
   }
 
+  async listAvailableTranslationsForProduct(productId: string) {
+    return firstValueFrom(this.http.get<string[]>(`${this.apiUrl}/api/product/${productId}/list-available-translations`))
+  }
 
 
 

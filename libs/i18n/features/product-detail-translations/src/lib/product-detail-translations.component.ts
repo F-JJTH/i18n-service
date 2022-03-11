@@ -49,6 +49,10 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   isLoading = false
 
+  availableTranslations: string[] = []
+
+  currentUserIsAdmin = false
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
@@ -63,8 +67,21 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
     this.languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
 
+    this.availableTranslations = await this.i18nSvc.listAvailableTranslationsForProduct(this.product.id)
+
     const languageCodesForProduct = this.languages.map(l => l.code)
     this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
+
+    this.currentUserIsAdmin = await this.currentUser.isAdmin()
+
+    if (!this.currentUserIsAdmin) {
+      if (this.availableTranslations.length === 0) {
+        this.languageCodesToExclude = Object.values(SelectLanguageCodes)
+      } else if (!this.availableTranslations.includes('ALL')) {
+        this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !this.availableTranslations.includes(c))
+      }
+    }
+
     this.fetch()
 
     this.canValidate = await this.currentUser.canAccessValidateTranslationsForProduct(this.product)
@@ -79,6 +96,16 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   setFilteredResult() {
     this.filteredResults = this.translations
+      .filter(t => {
+        if (!this.currentUserIsAdmin) {
+          if (this.availableTranslations.length === 0) {
+            return false
+          } else if (!this.availableTranslations.includes('ALL')) {
+            return this.availableTranslations.includes(t.language!.code)
+          }
+        }
+        return true
+      })
       .filter(t => (
           (this.selectedLanguages.length > 0 ? this.selectedLanguages.map(l => l.code).includes(t.language!.code) : true)
         )

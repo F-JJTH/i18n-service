@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CurrentProductService, Definition, I18nService, Product } from '@kizeo/i18n/data-access';
+import { CurrentProductService, CurrentUserService, Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
 import { NzImageService } from 'ng-zorro-antd/image';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -36,6 +36,8 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   isLoading = false
 
+  currentUserIsAdmin = false
+
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
   constructor(
@@ -45,10 +47,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     private readonly translate: TranslateService,
     private readonly imageSvc: NzImageService,
     private readonly currentProduct: CurrentProductService,
+    private readonly currentUser: CurrentUserService,
   ) { }
 
   async ngOnInit() {
     this.product = this.route.parent?.parent?.snapshot.data['product']
+    this.currentUserIsAdmin = await this.currentUser.isAdmin()
     this.fetch()
   }
 
@@ -71,6 +75,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
         this.currentProduct.refresh(this.product.id)
       }
     })
+  }
+
+  async onDeleteDefinitionClicked(def: Definition) {
+    if (!this.currentUserIsAdmin) return
+    await this.i18nSvc.deleteDefinition(def.id)
+    this.fetch()
   }
 
   setFilteredResult() {

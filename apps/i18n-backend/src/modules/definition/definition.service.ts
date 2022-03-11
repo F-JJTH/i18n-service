@@ -136,12 +136,20 @@ export class DefinitionService {
     return this.definition.findOne(id);
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     const definition = await this.definition.findOne(id, {relations: ['product']});
+
+    if (!definition) {
+      throw new NotFoundException()
+    }
+
+    await this.translation.delete({definition})
+
+    await this.definition.delete(definition.id)
 
     this.productSvc.publishTranslations(definition.product.id, 'dev')
 
-    return this.definition.remove(definition);
+    return { success: true }
   }
 
   async import(importDefinitionDto: ImportDefinitionDto) {

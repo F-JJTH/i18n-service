@@ -52,6 +52,7 @@ export class MembersComponent implements OnInit {
 
   async confirmDelete(member: Member) {
     await this.i18nSvc.deleteMemberFromProduct(member.id, this.product.id)
+    this.fetch()
   }
 
   onEditMemberClicked(member: Member) {

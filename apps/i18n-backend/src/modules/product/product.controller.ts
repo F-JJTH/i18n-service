@@ -93,6 +93,15 @@ export class ProductController {
     return this.productService.removeMember(id, memberId);
   }
 
+  @ApiOperation({summary: 'Returns available translations for connected user'})
+  @Get(':id/list-available-translations')
+  listAvailableTranslations(
+    @Param('id', ParseUUIDPipe) id: string,
+    @User() user
+  ) {
+    return this.productService.listAvailableTranslations(id, user)
+  }
+
   @ApiOperation({summary: 'Publish translations of a product for environment «dev», «preprod» or «prod»'})
   @Get(':id/publish/:env')
   publishTranslations(

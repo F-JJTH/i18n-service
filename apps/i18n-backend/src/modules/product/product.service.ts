@@ -148,11 +148,11 @@ export class ProductService {
     return this.findOne(id);
   }
 
-  async updateMember(id: string, memberId: string, updateMemberDto: UpdateMemberDto) {
+  async updateMember(productId: string, id: string, updateMemberDto: UpdateMemberDto) {
     const member = await this.memberAuthorization.findOne({
       where: {
-        product: id,
-        memberId: memberId,
+        product: productId,
+        id,
       }
     })
 
@@ -169,24 +169,26 @@ export class ProductService {
       translations: updateMemberDto.authorizations.translations,
     })
 
-    return this.findOne(id);
+    return this.findOne(productId);
   }
 
-  async removeMember(id: string, memberId: string) {
-    const product = await this.findOne(id)
+  async removeMember(productId: string, id: string) {
+    const product = await this.findOne(productId)
     if (!product) {
       throw new NotFoundException()
     }
 
-    const members = product.members.filter(m => m !== memberId)
-    await this.product.save({...product, members})
-
-    const authorization = product.authorizations.filter(a => a.memberId === memberId)
-    if (authorization) {
-      await this.memberAuthorization.remove(authorization)
+    const authorization = product.authorizations.find(a => a.id === id)
+    if (!authorization) {
+      throw new NotFoundException()
     }
 
-    return this.findOne(id);
+    await this.memberAuthorization.remove(authorization)
+
+    const members = product.members.filter(m => m !== authorization.memberId)
+    await this.product.save({...product, members})
+
+    return this.findOne(productId);
   }
 
   async publishTranslations(id: string, env: PublishEnvironment) {
@@ -274,6 +276,21 @@ export class ProductService {
         product: id
       }
     })
+  }
+
+  async listAvailableTranslations(id, user) {
+    const product = await this.product.findOne(id)
+    if (!product) {
+      throw new NotFoundException()
+    }
+
+    const authorization = product.authorizations.find(a => a.memberId === user.sub)
+
+    if (!authorization) {
+      throw new NotFoundException()
+    }
+
+    return authorization.translations
   }
 
   async getDownloadLinkForTranslation(id: string, env: PublishEnvironment, languageCode: string) {
