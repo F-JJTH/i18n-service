@@ -67,14 +67,14 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
     this.languages = await this.i18nSvc.getLanguagesByProductId(this.product.id)
 
-    this.availableTranslations = await this.i18nSvc.listAvailableTranslationsForProduct(this.product.id)
-
     const languageCodesForProduct = this.languages.map(l => l.code)
     this.languageCodesToExclude = Object.values(SelectLanguageCodes).filter(c => !languageCodesForProduct.includes(c))
 
     this.currentUserIsAdmin = await this.currentUser.isAdmin()
 
     if (!this.currentUserIsAdmin) {
+      this.availableTranslations = await this.i18nSvc.listAvailableTranslationsForProduct(this.product.id)
+
       if (this.availableTranslations.length === 0) {
         this.languageCodesToExclude = Object.values(SelectLanguageCodes)
       } else if (!this.availableTranslations.includes('ALL')) {
