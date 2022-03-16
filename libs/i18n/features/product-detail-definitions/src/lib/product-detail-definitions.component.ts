@@ -38,6 +38,8 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   currentUserIsAdmin = false
 
+  slugAlreadyUsedError = ''
+
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
   constructor(
@@ -150,13 +152,16 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     this.fetch()
   }
 
-  async onAddNewDefinitionClicked() {
-    if (!this.slug || !this.defaultValue) return
-
-    if (this.definitions.some(d => d.slug === this.slug)) {
-      alert(this.translate.instant('SLUG_ALREADY_USED'))
+  verifySlug(slug: string = '') {
+    if (this.definitions.some(d => d.slug.toLowerCase() === slug.toLowerCase())) {
+      this.slugAlreadyUsedError = 'error'
       return
     }
+    this.slugAlreadyUsedError = ''
+  }
+
+  async onAddNewDefinitionClicked() {
+    if (!this.slug || !this.defaultValue) return
 
     await this.i18nSvc.addDefinition(this.slug, this.defaultValue, this.product.id)
 

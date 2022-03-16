@@ -35,7 +35,7 @@ export class ImportDefinitionsModalComponent implements OnInit {
 
   async ngOnInit() {
     this.knownSlugs = (await this.i18nSvc.getDefinitionsByProductId(this.productId))
-      .map(d => d.slug)
+      .map(d => d.slug.toLowerCase())
   }
 
   onInputValueChanged() {
@@ -47,7 +47,7 @@ export class ImportDefinitionsModalComponent implements OnInit {
       const allValuesFlat = flattenObject(allValues)
       this.parsedValues = Object.entries(allValuesFlat)
         .map(v => ({slug: v[0], defaultValue: v[1] as string}))
-        .filter(v => !this.knownSlugs.includes(v.slug))
+        .filter(v => !this.knownSlugs.includes(v.slug.toLowerCase()))
     } catch(err) {
       console.warn(err)
     }

@@ -4,8 +4,10 @@
       <div nz-col nzSpan="18">
         <form nz-form>
           <nz-form-item>
-            <nz-form-control nzSpan="20">
-              <input #slugInput nz-input name="slug" type="text" [(ngModel)]="slug" [placeholder]="'SLUG' | translate">
+            <nz-form-control nzSpan="20"
+              [nzValidateStatus]="slugAlreadyUsedError"
+              [nzErrorTip]="'SLUG_ALREADY_USED' | translate">
+              <input #slugInput nz-input name="slug" type="text" (ngModelChange)="verifySlug($event)" [(ngModel)]="slug" [placeholder]="'SLUG' | translate">
             </nz-form-control>
           </nz-form-item>
           <nz-form-item>
@@ -17,7 +19,7 @@
             <button class="m-l-5"
               nz-button
               nzType="primary"
-              [disabled]="!slug || !defaultValue"
+              [disabled]="!slug || !defaultValue || !!slugAlreadyUsedError"
               (click)="onAddNewDefinitionClicked()">{{ 'ADD' | translate }}</button>
           </nz-form-item>
         </form>
