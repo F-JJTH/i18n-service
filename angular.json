@@ -197,6 +197,32 @@
       },
       "tags": ["i18n"]
     },
+    "i18n-features-product-detail-integration": {
+      "projectType": "library",
+      "root": "libs/i18n/features/product-detail-integration",
+      "sourceRoot": "libs/i18n/features/product-detail-integration/src",
+      "prefix": "kizeo",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/i18n/features/product-detail-integration"],
+          "options": {
+            "jestConfig": "libs/i18n/features/product-detail-integration/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/i18n/features/product-detail-integration/src/**/*.ts",
+              "libs/i18n/features/product-detail-integration/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "i18n-features-product-detail-settings": {
       "projectType": "library",
       "root": "libs/i18n/features/product-detail-settings",

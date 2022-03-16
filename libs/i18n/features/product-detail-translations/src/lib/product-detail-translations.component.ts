@@ -47,6 +47,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   filteredResults: TranslationItem[] = []
 
+  filteredResultsRequireTranslatorAction = 0
+
   isLoading = false
 
   availableTranslations: string[] = []
@@ -126,6 +128,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
       .filter(t => t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
       .filter(t => t.value.toLowerCase().includes(this.searchTranslation.toLowerCase()))
       .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
+
+      this.filteredResultsRequireTranslatorAction = this.filteredResults.filter(r => r.isRequireTranslatorAction).length
   }
 
   onImportTranslationClicked(language: Language) {

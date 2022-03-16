@@ -47,6 +47,13 @@
             [nzCount]="filteredResults.length"
             [nzStyle]="{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }"
           ></nz-badge>
+          <nz-badge
+            class="m-l-5"
+            nzStandalone
+            [nzOverflowCount]="99999"
+            [nzCount]="filteredResultsRequireTranslatorAction"
+            [nzStyle]="{ backgroundColor: '#fff7e6', color: '#d46b08', boxShadow: '0 0 0 1px #ffd591 inset' }"
+          ></nz-badge>
           <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchDefaultvalue">
             <input nz-input
               [placeholder]="'SEARCH_BY_DEFAULT_VALUE' | translate"

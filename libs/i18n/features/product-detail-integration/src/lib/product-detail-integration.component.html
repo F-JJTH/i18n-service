@@ -1,0 +1,40 @@
+<nz-content>
+  <h1>How to integrate Kizeo Translate to your application</h1>
+  <p>Kizeo translate provide 2 outputs:</p>
+  <ul>
+    <li>Languages available for a project</li>
+    <li>Translations available for a project</li>
+  </ul>
+  <p>Available environment names:</p>
+  <ul>
+    <li>dev</li>
+    <li>preprod</li>
+    <li>prod</li>
+  </ul>
+  <p>Available language codes: see below «List of languages» section or go to «Parameters» then «Languages»</p>
+  <p>Environment <nz-tag nzColor="green">dev</nz-tag> is updated after each modification in «Definition» and «Translation» section</p>
+  <p>Environment <nz-tag nzColor="green">preprod</nz-tag> and <nz-tag nzColor="green">prod</nz-tag> is updated after each deployment in «Deploy» section</p>
+  <p>Your <nz-tag nzColor="orange">project ID</nz-tag> is: {{ productId }}</p>
+
+  <h2>List of languages</h2>
+  <p>To get list of languages code available:
+    <a>
+      https://client.translate.kizeo.dev/
+      <nz-tag nzColor="orange">project ID</nz-tag>/
+      <nz-tag nzColor="green">environment</nz-tag>/languages.json
+    </a>
+    <br>
+    The first entry of this endpoint is the code of the default language set in your project
+  </p>
+  <h2>Translations</h2>
+  <p>To get translations available:
+    <a>
+      https://client.translate.kizeo.dev/
+      <nz-tag nzColor="orange">project ID</nz-tag>/
+      <nz-tag nzColor="green">environment</nz-tag>/
+      <nz-tag nzColor="magenta">language code</nz-tag>.json
+    </a>
+    <br>
+    List of <nz-tag nzColor="magenta">language code</nz-tag> can be found above in «List of languages» section
+  </p>
+</nz-content>

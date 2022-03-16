@@ -26,6 +26,9 @@
       "@kizeo/i18n/features/product-detail-deploy": [
         "libs/i18n/features/product-detail-deploy/src/index.ts"
       ],
+      "@kizeo/i18n/features/product-detail-integration": [
+        "libs/i18n/features/product-detail-integration/src/index.ts"
+      ],
       "@kizeo/i18n/features/product-detail-settings": [
         "libs/i18n/features/product-detail-settings/src/index.ts"
       ],

@@ -38,6 +38,10 @@ export const productDetailRoutes: Route[] = [
         loadChildren: () => import('@kizeo/i18n/features/product-detail-settings').then(m => m.ProductDetailSettingsModule),
         canLoad:[ProductGuard]
       },
+      {
+        path: 'integration',
+        loadChildren: () => import('@kizeo/i18n/features/product-detail-integration').then(m => m.ProductDetailIntegrationModule)
+      },
       { path: '', redirectTo: 'definitions'},
     ]
   },
