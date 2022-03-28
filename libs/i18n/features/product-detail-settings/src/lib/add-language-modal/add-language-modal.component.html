@@ -2,7 +2,7 @@
 <div>
   <form nz-form>
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="language" nzRequired>{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>
+      <!--<nz-form-label [nzSm]="8" [nzXs]="24" nzFor="language" nzRequired>{{ 'DEFAULT_LANGUAGE' | translate }}</nz-form-label>-->
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <kizeo-select-language [excludeLanguages]="excludeLanguages" name="language" [(ngModel)]="language"></kizeo-select-language>
       </nz-form-control>

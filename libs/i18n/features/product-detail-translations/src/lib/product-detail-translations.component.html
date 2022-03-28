@@ -39,7 +39,7 @@
   <nz-table #table [nzData]="filteredResults" nzSize="small" [nzPageSize]="15" [nzLoading]="isLoading">
     <thead>
       <tr>
-        <th>
+        <th nzWidth="580px">
           {{ 'DEFAULT_VALUE' | translate }}
           <nz-badge
             nzStandalone
@@ -61,7 +61,7 @@
               (ngModelChange)="setFilteredResult()">
           </nz-input-group>
         </th>
-        <th nzWidth="220px">
+        <th nzWidth="200px">
           {{ 'LANGUAGE' | translate }}
           <kizeo-select-language class="m-t-5" name="selectedLanguage"
             nz-tooltip
