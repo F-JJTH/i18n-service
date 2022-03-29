@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { environment } from '../environments/environment';
 import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { createErrorHandler } from "@sentry/angular";
+import { I18n } from 'aws-amplify';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,4 +31,17 @@ import { createErrorHandler } from "@sentry/angular";
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    I18n.putVocabulariesForLanguage('en', {
+      'Sign In': 'Login', // Tab header
+      'Sign in': 'Log in', // Button label
+      'Sign in to your account': 'Welcome Back!',
+      Username: 'Enter your email', // Username label
+      Password: 'Enter your password', // Password label
+      'Forgot your password?': 'Reset Password',
+    })
+
+    I18n.setLanguage('en')
+  }
+}

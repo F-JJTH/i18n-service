@@ -19,6 +19,13 @@ nz-header {
 
     .logo {
       font-size: 42px;
+      background: linear-gradient(180deg, #0057b7, #0057b7 50%, #ffd700 50%, #ffd700);
+      width: 64px;
+      text-align: center;
+      color: white;
+      margin: 8px;
+      box-shadow: 0px 0px 6px #ccc;
+      line-height: 52px;
     }
 
     .app-name {

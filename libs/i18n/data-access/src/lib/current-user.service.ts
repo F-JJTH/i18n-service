@@ -22,10 +22,12 @@ export class CurrentUserService {
   setCurrentSession() {
     if (this.idToken) return Promise.resolve()
 
-    return Auth.currentSession().then(session => {
-      this.idToken = session.getIdToken().getJwtToken()
-      this.accessToken = session.getAccessToken().getJwtToken()
-    })
+    return Auth.currentSession()
+      .then(session => {
+        this.idToken = session.getIdToken().getJwtToken()
+        this.accessToken = session.getAccessToken().getJwtToken()
+      })
+      .catch(err => null)
   }
 
   getCurrentSession() {

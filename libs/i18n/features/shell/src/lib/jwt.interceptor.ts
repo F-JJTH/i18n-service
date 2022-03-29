@@ -12,14 +12,17 @@ const EXCLUDE_DOMAINS = [
 export class JwtInterceptor implements HttpInterceptor {
   constructor (private readonly currentUser: CurrentUserService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (EXCLUDE_DOMAINS.find(d => req.url.includes(d))) {
+      return next.handle(req)
+    }
+
     return from(this.currentUser.getCurrentSession()).pipe(
       mergeMap(session => {
-        if (!EXCLUDE_DOMAINS.find(d => req.url.includes(d))) {
-          const jwt = session.getIdToken().getJwtToken()
-          req = req.clone({
-            setHeaders: { Authorization: `Bearer ${jwt}` }
-          });
-        }
+        const jwt = session.getIdToken().getJwtToken()
+        req = req.clone({
+          setHeaders: { Authorization: `Bearer ${jwt}` }
+        });
+
         return next.handle(req)
       })
     )
