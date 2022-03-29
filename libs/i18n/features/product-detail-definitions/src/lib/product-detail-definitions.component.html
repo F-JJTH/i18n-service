@@ -36,7 +36,7 @@
   <nz-table #table [nzData]="filteredResults" nzSize="small" [nzPageSize]="15" [nzLoading]="isLoading">
     <thead>
       <tr>
-        <th>{{ 'SLUG' | translate }}
+        <th nzWidth="420px">{{ 'SLUG' | translate }}
           <nz-badge
             nzStandalone
             [nzOverflowCount]="99999"
@@ -75,16 +75,19 @@
         </td>
         <td>
           <ng-container *ngIf="editId !== def.id">{{ def.defaultValue }}</ng-container>
-          <input [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.defaultValue" />
+          <input #defInput [hidden]="editId !== def.id" type="text" nz-input [(ngModel)]="def.defaultValue" (keyup.enter)="stopEdit(def.slug, def.defaultValue)" />
         </td>
         <td>
           <nz-button-group *ngIf="editId !== def.id">
-            <button nz-button (click)="startEdit(def.id)">{{ 'EDIT' | translate }}</button>
-            <button nz-button nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
+            <button nz-button (click)="startEdit(def.id, defInput);" [disabled]="editId && editId !== def.id">{{ 'EDIT' | translate }}</button>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight" [disabled]="editId && editId !== def.id">
               <i nz-icon nzType="ellipsis"></i>
             </button>
           </nz-button-group>
-          <button *ngIf="editId === def.id" nz-button nzType="primary" (click)="stopEdit(def.slug, def.defaultValue)">{{ 'SAVE' | translate }}</button>
+          <nz-button-group *ngIf="editId === def.id">
+            <button nz-button nzType="primary" (click)="stopEdit(def.slug, def.defaultValue)">{{ 'SAVE' | translate }}</button>
+            <button nz-button nzType="default" (click)="endEdit()">{{ 'CANCEL' | translate }}</button>
+          </nz-button-group>
           <nz-dropdown-menu #menu1="nzDropdownMenu" >
             <ul nz-menu>
               <li nz-menu-item (click)="onSetLinkClicked(def)">
@@ -124,7 +127,7 @@
         </td>
       </tr>
     </tbody>
-    </nz-table>
+  </nz-table>
 </nz-content>
 
   <ng-template #suffixIconSearchSlug>

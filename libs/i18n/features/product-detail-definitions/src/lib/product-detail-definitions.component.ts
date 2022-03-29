@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentProductService, CurrentUserService, Definition, I18nService, Product } from '@kizeo/i18n/data-access';
 import { TranslateService } from '@ngx-translate/core';
 import { NzImageService } from 'ng-zorro-antd/image';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportDefinitionsModalComponent } from './import-definitions-modal/import-definitions-modal.component';
 import { SetLinkModalComponent } from './set-link-modal/set-link-modal.component';
@@ -46,10 +47,12 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly modal: NzModalService,
     private readonly i18nSvc: I18nService,
-    private readonly translate: TranslateService,
     private readonly imageSvc: NzImageService,
     private readonly currentProduct: CurrentProductService,
     private readonly currentUser: CurrentUserService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly message: NzMessageService,
+    private readonly translate: TranslateService,
   ) { }
 
   async ngOnInit() {
@@ -81,7 +84,14 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   async onDeleteDefinitionClicked(def: Definition) {
     if (!this.currentUserIsAdmin) return
-    await this.i18nSvc.deleteDefinition(def.id)
+
+    try {
+      await this.i18nSvc.deleteDefinition(def.id)
+      this.message.success(this.translate.instant('MESSAGE_DEFINITION_SUCCESS_DELETED'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_DEFINITION_ERROR_DELETED'))
+      throw err
+    }
     this.fetch()
   }
 
@@ -91,15 +101,23 @@ export class ProductDetailDefinitionsComponent implements OnInit {
       .filter(d => d.slug.toLowerCase().includes(this.searchSlug.toLowerCase()))
   }
 
-  startEdit(id: string): void {
-    this.endEdit()
+  startEdit(id: string, defInput: HTMLInputElement): void {
     this.editId = id;
+
+    this.cdr.detectChanges()
+    defInput.focus()
   }
 
   async stopEdit(slug: string, defaultValue: string) {
     if (!slug || !defaultValue || !this.editId) return
 
-    await this.i18nSvc.updateDefinition(this.editId, slug, defaultValue)
+    try {
+      await this.i18nSvc.updateDefinition(this.editId, slug, defaultValue)
+      this.message.success(this.translate.instant('MESSAGE_DEFINITION_SUCCESS_SAVED'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_DEFINITION_ERROR_SAVED'))
+      throw err
+    }
 
     this.fetch()
     this.editId = null;
@@ -147,11 +165,6 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     ])
   }
 
-  async confirmDelete(definitionId: string) {
-    await this.i18nSvc.deleteDefinition(definitionId)
-    this.fetch()
-  }
-
   verifySlug(slug: string = '') {
     if (this.definitions.some(d => d.slug.toLowerCase() === slug.toLowerCase())) {
       this.slugAlreadyUsedError = 'error'
@@ -163,7 +176,13 @@ export class ProductDetailDefinitionsComponent implements OnInit {
   async onAddNewDefinitionClicked() {
     if (!this.slug || !this.defaultValue) return
 
-    await this.i18nSvc.addDefinition(this.slug, this.defaultValue, this.product.id)
+    try {
+      await this.i18nSvc.addDefinition(this.slug, this.defaultValue, this.product.id)
+      this.message.success(this.translate.instant('MESSAGE_DEFINITION_SUCCESS_CREATED'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_DEFINITION_ERROR_CREATED'))
+      throw err
+    }
 
     this.fetch()
     this.slug = ""

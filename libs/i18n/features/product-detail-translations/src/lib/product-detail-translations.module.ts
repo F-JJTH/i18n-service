@@ -18,6 +18,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProductDetailTranslationsComponent } from './product-detail-translations.component';
 import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent, ImportTranslationsModalComponent],
@@ -39,6 +40,7 @@ import { ImportTranslationsModalComponent } from './import-translations-modal/im
     NzImageModule,
     NzDropDownModule,
     NzModalModule,
+    NzMessageModule,
     SelectLanguageModule,
     TranslateModule,
   ],

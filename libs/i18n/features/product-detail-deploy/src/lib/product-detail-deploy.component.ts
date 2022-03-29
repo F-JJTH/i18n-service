@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { I18nService, Product } from '@kizeo/i18n/data-access';
 import { PublishEnvironment } from '@kizeo/i18n/util';
+import { TranslateService } from '@ngx-translate/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 interface FileListItem {
   Filename: string
@@ -33,6 +35,8 @@ export class ProductDetailDeployComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
+    private readonly translate: TranslateService,
+    private readonly message: NzMessageService,
   ) { }
 
   async ngOnInit() {
@@ -62,7 +66,13 @@ export class ProductDetailDeployComponent implements OnInit {
     if (!this.product) return
 
     this.isLoadingPreprod = true
-    await this.i18nSvc.publishPreprodTranslationsForProduct(this.product.id)
+    try {
+      await this.i18nSvc.publishPreprodTranslationsForProduct(this.product.id)
+      this.message.success(this.translate.instant('MESSAGE_PUBLISH_SUCCESS'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_PUBLISH_ERROR'))
+      throw err
+    }
     await this.fetch()
     this.isLoadingPreprod = false
   }
@@ -71,7 +81,13 @@ export class ProductDetailDeployComponent implements OnInit {
     if (!this.product) return
 
     this.isLoadingProd = true
-    await this.i18nSvc.publishProdTranslationsForProduct(this.product.id)
+    try {
+      await this.i18nSvc.publishProdTranslationsForProduct(this.product.id)
+      this.message.success(this.translate.instant('MESSAGE_PUBLISH_SUCCESS'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_PUBLISH_ERROR'))
+      throw err
+    }
     await this.fetch()
     this.isLoadingProd = false
   }

@@ -21,6 +21,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { SetLinkModalComponent } from './set-link-modal/set-link-modal.component';
 import { SetPictureModalComponent } from './set-picture-modal/set-picture-modal.component';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzImageModule,
     NzUploadModule,
     NzPopconfirmModule,
+    NzMessageModule,
     TranslateModule,
   ],
 })

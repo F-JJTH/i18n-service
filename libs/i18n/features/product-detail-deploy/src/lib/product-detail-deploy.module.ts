@@ -10,6 +10,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { TranslateModule } from '@ngx-translate/core';
 import { LocaleDateModule } from '@kizeo/ui';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [ProductDetailDeployComponent],
@@ -24,6 +25,7 @@ import { LocaleDateModule } from '@kizeo/ui';
     NzButtonModule,
     NzListModule,
     NzIconModule,
+    NzMessageModule,
     TranslateModule,
     LocaleDateModule,
   ],

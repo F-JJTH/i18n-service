@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentProductService, CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
+import { TranslateService } from '@ngx-translate/core';
 import { NzImageService } from 'ng-zorro-antd/image';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
 
@@ -62,6 +64,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
     private readonly modal: NzModalService,
     private readonly currentUser: CurrentUserService,
     private readonly currentProduct: CurrentProductService,
+    private readonly translate: TranslateService,
+    private readonly message: NzMessageService,
   ) { }
 
   async ngOnInit() {
@@ -175,9 +179,15 @@ export class ProductDetailTranslationsComponent implements OnInit {
   async onSaveTranslationsClicked() {
     this.isSaving = true
 
-    await this.i18nSvc.updateTranslations(
-      Array.from(this.modifiedTranslationItems.values())
-    )
+    try {
+      await this.i18nSvc.updateTranslations(
+        Array.from(this.modifiedTranslationItems.values())
+      )
+      this.message.success(this.translate.instant('MESSAGE_TRANSLATION_SUCCESS_SAVED'))
+    } catch(err) {
+      this.message.error(this.translate.instant('MESSAGE_TRANSLATION_ERROR_SAVED'))
+      throw err
+    }
 
     this.modifiedTranslationItems.clear()
     this.fetch()
