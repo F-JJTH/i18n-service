@@ -8,6 +8,7 @@
     </div>
     <div class="center"></div>
     <div class="right">
+      <button nz-button (click)="openHelpDrawer()"><i nz-icon nzType="question-circle" nzTheme="outline"></i></button>
       <kizeo-i18n-client-language-selector></kizeo-i18n-client-language-selector>
       <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
         {{ user.attributes.email }}
@@ -25,3 +26,45 @@
 
   <router-outlet></router-outlet>
 </nz-layout>
+
+<nz-drawer
+  [nzVisible]="isHelpDrawerVisible"
+  nzPlacement="right"
+  nzWidth="700px"
+  [nzFooter]="helpFooter"
+  [nzTitle]="'Kizeo Translate - Aide'"
+  (nzOnClose)="closeHelpDrawer()">
+  <ng-container *nzDrawerContent>
+    <article>
+      <h3>Bienvenue dans Kizeo Translate</h3>
+      <p>
+        Kizeo Translate a pour but de vous permettre de traduire vos applications<br>
+        Le format JSON est utilisé pour mettre à disposition les traductions
+      </p>
+    </article>
+
+    <article>
+      <h3>Comment utiliser Kizeo Translate ?</h3>
+      <p>blah blah blah...</p>
+    </article>
+
+    <article>
+      <h3>Contact</h3>
+      <p>Si vous avez des suggestions ou remarques contactez Clément du service Le Lab de Kizeo</p>
+      <nz-button-group class="contact-buttons">
+        <a nz-button nzSize="large" nzType="default" target="_blank" href="https://kizeo.slack.com/team/U01HGTLK5PZ">
+          <i nz-icon nzType="slack" nzTheme="outline"></i>
+        </a>
+        <a nz-button nzSize="large" nzType="default" href="mailto:delhamaide@kizeo.com">
+          <i nz-icon nzType="mail" nzTheme="outline"></i>
+        </a>
+      </nz-button-group>
+    </article>
+  </ng-container>
+  <ng-template #helpFooter>
+    <div class="footer-container">
+      <span>{{ 'APP_VERSION' | translate: {version: environment.version} }}</span>
+      <span>Kizeo - Le Lab</span>
+    </div>
+  </ng-template>
+</nz-drawer>

@@ -40,3 +40,21 @@ nz-header {
     gap: 12px;
   }
 }
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+article:not(:first-child) {
+  margin-top: 36px;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+
+  a {
+    width: 80px;
+  }
+}

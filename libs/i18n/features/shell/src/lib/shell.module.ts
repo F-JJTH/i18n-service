@@ -15,6 +15,7 @@ import { I18nClientAngularModule } from '@kizeo/i18n/client';
 import { JwtInterceptor } from './jwt.interceptor';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { LocaleDate } from '@kizeo/ui';
 
 export const shellRoutes: Route[] = [
@@ -41,6 +42,7 @@ export const shellRoutes: Route[] = [
     NzIconModule,
     NzDropDownModule,
     NzSpinModule,
+    NzDrawerModule,
     TranslateModule,
     I18nClientAngularModule,
   ],

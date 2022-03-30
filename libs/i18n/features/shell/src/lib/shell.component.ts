@@ -14,6 +14,8 @@ export class ShellComponent {
 
   hasCurrentSession = false
 
+  isHelpDrawerVisible = true
+
   constructor(
     private readonly router: Router,
     @Inject('ENVIRONMENT') public environment: IEnvironment,
@@ -25,5 +27,13 @@ export class ShellComponent {
   logout() {
     this.router.navigateByUrl('/')
     this.signOut()
+  }
+
+  openHelpDrawer() {
+    this.isHelpDrawerVisible = true
+  }
+
+  closeHelpDrawer() {
+    this.isHelpDrawerVisible = false
   }
 }

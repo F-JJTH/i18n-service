@@ -1,6 +1,6 @@
-amplify-authenticator {
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // height: 100vh;
+::ng-deep amplify-authenticator {
+  amplify-tabs {
+    display: block;
+    margin-top: 40%;
+  }
 }
