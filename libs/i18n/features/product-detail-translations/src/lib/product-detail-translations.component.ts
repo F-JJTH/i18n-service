@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentProductService, CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
@@ -18,6 +19,7 @@ interface TranslationItem {
   isValid: boolean;
   defaultValue: string;
   isRequireTranslatorAction: boolean | undefined;
+  formControl: FormControl;
 }
 
 @Component({
@@ -102,6 +104,24 @@ export class ProductDetailTranslationsComponent implements OnInit {
     this.isLoading = false
   }
 
+  translationValidator(definition: Definition): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const regexp = /({{.+?}})/gm;
+      const result = [...definition.defaultValue.matchAll(regexp)]
+      if (
+        result[0] !== undefined &&
+        control.value.length > 0 &&
+        result.some(match => !control.value.includes(match[0]))
+      ) {
+        return {
+          error: true,
+          missingVariable: true,
+          missingVariableDetail: result.map(match => match[0]).filter(match => !control.value.includes(match)).join(', ') }
+      }
+      return null
+    }
+  }
+
   setFilteredResult() {
     this.filteredResults = this.translations
       .filter(t => {
@@ -128,7 +148,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
           isValid: t.isValid ?? false,
           definition: t.definition!,
           defaultValue: t.definition!.defaultValue,
-          isRequireTranslatorAction: t.isRequireTranslatorAction
+          isRequireTranslatorAction: t.isRequireTranslatorAction,
+          formControl: new FormControl(t.value || "", [this.translationValidator(t.definition!)]),
         }
       })
       .filter(t => t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
@@ -171,6 +192,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   onTranslationChanged(translation: TranslationItem) {
     this.modifiedTranslationItems.set(translation.id, translation)
+    translation.formControl.setValue(translation.value)
+    translation.formControl.updateValueAndValidity()
   }
 
   async toggleValidation(translation: TranslationItem) {

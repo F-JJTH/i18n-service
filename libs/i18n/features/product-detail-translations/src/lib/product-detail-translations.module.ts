@@ -20,6 +20,7 @@ import { ProductDetailTranslationsComponent } from './product-detail-translation
 import { ImportTranslationsModalComponent } from './import-translations-modal/import-translations-modal.component';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent, ImportTranslationsModalComponent],
@@ -43,6 +44,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     NzModalModule,
     NzMessageModule,
     NzCheckboxModule,
+    NzTypographyModule,
     SelectLanguageModule,
     TranslateModule,
   ],

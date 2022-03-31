@@ -114,9 +114,13 @@
               (keyup.enter)="onSaveTranslationsClicked()"
               [(ngModel)]="translation.value"
               [placeholder]="'TO_BE_TRANSLATED' | translate"
-              [name]="translation.slug+translation.language.code"
+              [name]="translation.slug+'_'+translation.language.code"
+              (focus)="onTranslationChanged(translation)"
               (ngModelChange)="onTranslationChanged(translation)">
           </nz-input-group>
+          <span nz-typography nzType="danger" *ngIf="translation.formControl.hasError('missingVariable')">
+            {{ 'MISSING_VARIABLE_IN_TRANSLATION' | translate }}: {{ translation.formControl.getError('missingVariableDetail') }}
+          </span>
           <ng-template #suffixButton>
             <button nz-button
               tabIndex="-1"
