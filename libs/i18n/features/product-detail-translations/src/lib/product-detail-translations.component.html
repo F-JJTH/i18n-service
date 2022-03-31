@@ -73,8 +73,17 @@
             (ngModelChange)="onFilterTranslationChanged()"
             mode="multiple"></kizeo-select-language>
         </th>
-        <th>
-          {{ 'TRANSLATION' | translate }}
+        <th class="translation-header">
+          <div>
+            <span>{{ 'TRANSLATION' | translate }}</span>
+            <span>
+              <label nz-checkbox
+                [(ngModel)]="showOnlyUnvalidatedTranslations"
+                (ngModelChange)="setFilteredResult()">
+                {{ 'SHOW_ONLY_UNVALIDATED_TRANSLATION' | translate }}
+              </label>
+            </span>
+          </div>
           <nz-input-group class="m-t-5" [nzSuffix]="suffixIconSearchTranslation">
             <input nz-input
               [placeholder]="'SEARCH_BY_TRANSLATION' | translate"

@@ -8,6 +8,11 @@ tr.warning {
   }
 }
 
+th.translation-header > div {
+  display: flex;
+  justify-content: space-between;
+}
+
 .m-l-5 {
   margin-left: 5px;
 }

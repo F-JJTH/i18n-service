@@ -57,6 +57,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   currentUserIsAdmin = false
 
+  showOnlyUnvalidatedTranslations = false
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly i18nSvc: I18nService,
@@ -131,6 +133,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
       })
       .filter(t => t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
       .filter(t => t.value.toLowerCase().includes(this.searchTranslation.toLowerCase()))
+      .filter(t => this.showOnlyUnvalidatedTranslations ? !t.isValid : true)
       .sort((a, b) => a.isRequireTranslatorAction ? -1 : 1)
 
       this.filteredResultsRequireTranslatorAction = this.filteredResults.filter(r => r.isRequireTranslatorAction).length
