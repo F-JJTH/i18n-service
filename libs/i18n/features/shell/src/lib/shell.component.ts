@@ -14,7 +14,7 @@ export class ShellComponent {
 
   hasCurrentSession = false
 
-  isHelpDrawerVisible = true
+  isHelpDrawerVisible = false
 
   constructor(
     private readonly router: Router,
