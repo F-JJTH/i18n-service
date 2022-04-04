@@ -99,7 +99,7 @@
           <p class="slug">
             {{ translation.slug }}
             <span class="icon-tools">
-              <a *ngIf="translation.definition.link" [href]="translation.definition.link" target="_blank">
+              <a *ngIf="translation.definition.link" [href]="translation.definition.link" target="_blank" tabindex="-1">
                 <i nz-icon nzType="link" nzTheme="outline"></i>
               </a>
               <i *ngIf="translation.definition.pictureUrl" nz-icon nzType="picture" nzTheme="outline" (click)="onTranslationImageClicked(translation)"></i>
@@ -111,7 +111,7 @@
           <div>
             <div class="language-name">{{ translation.language.name }}</div>
             <div class="translator-links">
-              <a nz-button nzSize="small" [href]="translation.defaultValue | deepl:product.defaultLanguage:translation.language.code" target="_blank">
+              <a nz-button nzSize="small" tabIndex="-1" [href]="translation.defaultValue | deepl:product.defaultLanguage:translation.language.code" target="_blank">
                 <img src="https://static.deepl.com/img/_optimized/footer/deeplLogo.svg" alt="DeepL">
               </a>
             </div>
@@ -120,6 +120,7 @@
         <td>
           <nz-input-group nzSearch [nzAddOnAfter]="suffixButton" [nzSuffix]="inputClearTpl">
             <input nz-input
+              tabindex="0"
               (keyup.enter)="onSaveTranslationsClicked()"
               [(ngModel)]="translation.value"
               [placeholder]="'TO_BE_TRANSLATED' | translate"
