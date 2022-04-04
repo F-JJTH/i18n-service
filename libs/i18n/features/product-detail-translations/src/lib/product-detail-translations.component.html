@@ -107,7 +107,16 @@
           </p>
           <p class="m-0">{{ translation.defaultValue }}</p>
         </td>
-        <td>{{ translation.language.name }}</td>
+        <td class="language-col">
+          <div>
+            <div class="language-name">{{ translation.language.name }}</div>
+            <div class="translator-links">
+              <a nz-button nzSize="small" [href]="translation.defaultValue | deepl:product.defaultLanguage:translation.language.code" target="_blank">
+                <img src="https://static.deepl.com/img/_optimized/footer/deeplLogo.svg" alt="DeepL">
+              </a>
+            </div>
+          </div>
+        </td>
         <td>
           <nz-input-group nzSearch [nzAddOnAfter]="suffixButton" [nzSuffix]="inputClearTpl">
             <input nz-input

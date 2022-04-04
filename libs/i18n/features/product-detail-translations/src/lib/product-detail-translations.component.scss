@@ -8,6 +8,22 @@ tr.warning {
   }
 }
 
+td.language-col > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .translator-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    img {
+      height: 18px;
+    }
+  }
+}
+
 th.translation-header > div {
   display: flex;
   justify-content: space-between;

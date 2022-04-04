@@ -21,6 +21,7 @@ import { ImportTranslationsModalComponent } from './import-translations-modal/im
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { DeeplPipeModule } from './deepl.pipe';
 
 @NgModule({
   declarations: [ProductDetailTranslationsComponent, ImportTranslationsModalComponent],
@@ -47,6 +48,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
     NzTypographyModule,
     SelectLanguageModule,
     TranslateModule,
+    DeeplPipeModule,
   ],
 })
 export class ProductDetailTranslationsModule {}
