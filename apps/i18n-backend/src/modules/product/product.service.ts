@@ -8,9 +8,9 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Language } from '../language/entities/language.entity';
 import { Translation } from '../translation/entities/translation.entity';
 import { MemberAuthorization } from './entities/member-authorization.entity';
+import { Definition } from '../definition/entities/definition.entity';
 import { Product } from './entities/product.entity';
 import { CopyObjectCommand } from '@aws-sdk/client-s3';
-import { ConfigService } from '@nestjs/config';
 import path = require('path');
 import { S3Service } from '../s3/s3.service';
 import { PublishEnvironment } from '@kizeo/i18n/util';
@@ -26,7 +26,8 @@ export class ProductService {
     private readonly language: Repository<Language>,
     @InjectRepository(Translation)
     private readonly translation: Repository<Translation>,
-    private readonly configSvc: ConfigService,
+    @InjectRepository(Definition)
+    private readonly definition: Repository<Definition>,
     private readonly s3Svc: S3Service,
   ) {}
 
@@ -252,21 +253,19 @@ export class ProductService {
   }
 
   async getLanguage(id: string) {
-    const product = await this.product.findOne(id, {relations: ['languages']})
-    if (!product) {
-      throw new NotFoundException()
-    }
-
-    return product.languages;
+    return this.language.find({
+      where: {
+        product: id
+      }
+    })
   }
 
   async getDefinition(id: string) {
-    const product = await this.product.findOne(id, {relations: ['definitions']})
-    if (!product) {
-      throw new NotFoundException()
-    }
-
-    return product.definitions;
+    return this.definition.find({
+      where: {
+        product: id
+      }
+    })
   }
 
   async getTranslation(id: string) {
