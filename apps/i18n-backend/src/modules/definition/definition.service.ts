@@ -109,7 +109,8 @@ export class DefinitionService {
 
         return this.translation.update(translation.id, {
           value: translation.language.isDefault ? updateDefinitionDto.defaultValue : translation.value,
-          isRequireTranslatorAction: translation.language.isDefault ? false : true
+          isRequireTranslatorAction: translation.language.isDefault ? false : true,
+          isValid: false,
         })
       })
     )
