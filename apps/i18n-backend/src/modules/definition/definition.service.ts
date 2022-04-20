@@ -101,7 +101,7 @@ export class DefinitionService {
     })
     await Promise.all(
       translations.map(async translation => {
-        if (translation.language.isDefault) {
+        if (!translation.language.isDefault) {
           await this.language.update(translation.language.id, {
             isRequireTranslatorAction: true
           })
