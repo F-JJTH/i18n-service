@@ -5,7 +5,7 @@
   "username": "root",
   "password": "unsecure_password",
   "database": "i18n.kizeo.com",
-  "entities": ["apps/i18n-backend/src/app/**/entities/*.entity.ts"],
+  "entities": ["apps/i18n-backend/src/modules/**/entities/*.entity.ts"],
   "migrations": ["apps/i18n-backend/src/migrations/*"],
   "cli": {
     "migrationsDir": "apps/i18n-backend/src/migrations"

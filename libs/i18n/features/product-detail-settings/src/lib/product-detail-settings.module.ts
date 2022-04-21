@@ -26,6 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { NzNoAnimationModule } from "ng-zorro-antd/core/no-animation";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NzToolTipModule } from "ng-zorro-antd/tooltip";
     TranslateModule,
     NzNoAnimationModule,
     NzToolTipModule,
+    NzMessageModule,
   ],
 })
 export class ProductDetailSettingsModule {}

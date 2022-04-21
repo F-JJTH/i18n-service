@@ -30,6 +30,8 @@ export interface Product {
   publishedProdAt?: string;
   createdAt?: string;
   updatedAt?: string;
+  isSlackNotificationEnabled: boolean
+  slackNotificationChannelName?: string
 }
 
 export interface Language {
@@ -131,6 +133,8 @@ export interface UpdateMemberResponse {}
 
 export interface UpdateProductRequest {
   name: string
+  isSlackNotificationEnabled: boolean
+  slackNotificationChannelName: string
 }
 export interface UpdateProductResponse {}
 

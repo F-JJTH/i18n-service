@@ -36,4 +36,10 @@ export class Product extends Timestamp {
 
   @Column({ type: 'timestamptz', nullable: true })
   publishedProdAt: Date;
+
+  @Column({default: false})
+  isSlackNotificationEnabled: boolean
+
+  @Column({nullable: true})
+  slackNotificationChannelName: string
 }

@@ -18,8 +18,18 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
+    <nz-form-control [nzXl]="{span: 6, offset: 3}" [nzMd]="{span: 6, offset: 6}" [nzSm]="{span: 24, offset: 0}">
+      <label nz-checkbox name="isSlackNotificationEnabled" [(ngModel)]="_isSlackNotificationEnabled">{{ 'ACTIVATE_SLACK_NOTIFICATION' | translate }}</label>
+    </nz-form-control>
+    <nz-form-control *ngIf="_isSlackNotificationEnabled" [nzMd]="8" [nzSm]="12">
+      <input nz-input name="slackNotificationChannelName" [placeholder]="'SLACK_CHANNEL_NAME_PLACEHOLDER' | translate" [(ngModel)]="_slackNotificationChannelName" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
     <nz-form-control>
-      <button class="align-right" nz-button nzType="primary" [disabled]="!_name" (click)="onSaveClicked()">
+      <button class="align-right" nz-button nzType="primary"
+        [disabled]="!_name || (_isSlackNotificationEnabled && !_slackNotificationChannelName)"
+        (click)="onSaveClicked()">
         <i nz-icon nzType="save" nzTheme="outline"></i>
         {{ 'SAVE' | translate }}
       </button>

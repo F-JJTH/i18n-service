@@ -68,7 +68,7 @@ import { AuthModule } from './auth/auth.module';
     DefinitionModule,
     HealthModule,
     PublicModule,
-    //TaskModule,
+    TaskModule,
     AuthModule,
   ],
   controllers: [AppController],

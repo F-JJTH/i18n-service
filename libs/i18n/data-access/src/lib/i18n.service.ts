@@ -36,8 +36,12 @@ export class I18nService {
   }
 
   // /product/:id PATCH Route✅ Code✅
-  async updateProductName(name: string, id: string) {
-    return firstValueFrom(this.http.patch<Product>(`${this.apiUrl}/api/product/${id}`, {name}))
+  async updateProduct(options: {name: string, isSlackNotificationEnabled: boolean, slackNotificationChannelName?: string}, id: string) {
+    return firstValueFrom(this.http.patch<Product>(`${this.apiUrl}/api/product/${id}`, {
+      name: options.name,
+      isSlackNotificationEnabled: options.isSlackNotificationEnabled,
+      slackNotificationChannelName: options.slackNotificationChannelName,
+    }))
   }
 
   // /product POST Route✅ Code✅

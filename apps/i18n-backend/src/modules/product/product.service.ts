@@ -104,7 +104,9 @@ export class ProductService {
     await this.product.save({
       ...product,
       name: updateProductDto.name,
-      defaultLanguage: updateProductDto.defaultLanguage?.code || product.defaultLanguage
+      defaultLanguage: updateProductDto.defaultLanguage?.code || product.defaultLanguage,
+      isSlackNotificationEnabled: updateProductDto.isSlackNotificationEnabled,
+      slackNotificationChannelName: updateProductDto.slackNotificationChannelName,
     })
     return this.product.findOne(id);
   }
