@@ -75,7 +75,7 @@ export class TaskService {
       this.boltApp.client.chat.postMessage({
         channel: channel.id,
         text: `Il y a ${newDefinitionCount} nouveau${newDefinitionCount > 1 ? 'x' : ''} terme${newDefinitionCount > 1 ? 's' : ''} à traduire :slightly_smiling_face: 
-        https://translate.kizeo.com`,
+        https://translate.kizeo.dev`,
       })
     })
   }
