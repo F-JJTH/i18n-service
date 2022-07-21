@@ -19,7 +19,8 @@
             <button class="m-l-5"
               nz-button
               nzType="primary"
-              [disabled]="!slug || !defaultValue || !!slugAlreadyUsedError"
+              [disabled]="!slug || !defaultValue || !!slugAlreadyUsedError || isAddingDefinition"
+              [nzLoading]="isAddingDefinition"
               (click)="onAddNewDefinitionClicked()">{{ 'ADD' | translate }}</button>
           </nz-form-item>
         </form>

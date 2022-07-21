@@ -41,6 +41,8 @@ export class ProductDetailDefinitionsComponent implements OnInit {
 
   slugAlreadyUsedError = ''
 
+  isAddingDefinition = false
+
   @ViewChild('slugInput') slugInput!: ElementRef<HTMLInputElement>
 
   constructor(
@@ -177,10 +179,13 @@ export class ProductDetailDefinitionsComponent implements OnInit {
     if (!this.slug || !this.defaultValue) return
 
     try {
+      this.isAddingDefinition = true
       await this.i18nSvc.addDefinition(this.slug, this.defaultValue, this.product.id)
+      this.isAddingDefinition = false
       this.message.success(this.translate.instant('MESSAGE_DEFINITION_SUCCESS_CREATED'))
     } catch(err) {
       this.message.error(this.translate.instant('MESSAGE_DEFINITION_ERROR_CREATED'))
+      this.isAddingDefinition = false
       throw err
     }
 
