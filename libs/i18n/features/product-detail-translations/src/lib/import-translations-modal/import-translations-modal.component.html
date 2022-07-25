@@ -1,4 +1,4 @@
-<div *nzModalTitle>{{ 'IMPORT_TRANSLATIONS' | translate }}</div>
+<div *nzModalTitle>{{ 'IMPORT_TRANSLATIONS' | translate }} - {{ languageName }} ({{ languageCode }})</div>
 <div nz-row>
   <div nz-col nzSpan="12">
     <textarea rows="24" [placeholder]="placeholder" nz-input [(ngModel)]="inputValue" (ngModelChange)="onInputValueChanged()"></textarea>

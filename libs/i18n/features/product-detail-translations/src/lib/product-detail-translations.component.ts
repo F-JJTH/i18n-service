@@ -167,6 +167,8 @@ export class ProductDetailTranslationsComponent implements OnInit {
       nzComponentParams: {
         productId: this.product.id,
         languageId: language.id,
+        languageCode: language.code,
+        languageName: language.name,
       },
       nzOnOk: () => {
         this.fetch()

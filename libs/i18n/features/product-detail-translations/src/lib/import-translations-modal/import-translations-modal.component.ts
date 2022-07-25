@@ -12,6 +12,8 @@ export class ImportTranslationsModalComponent implements OnInit {
 
   @Input() productId!: string
   @Input() languageId!: string
+  @Input() languageCode!: string
+  @Input() languageName!: string
 
   placeholder = `{
   "APP_TITLE": "Title of application",
