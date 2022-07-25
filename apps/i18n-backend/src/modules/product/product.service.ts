@@ -213,7 +213,9 @@ export class ProductService {
       })
 
       const promises = languages.map(language => {
-        const fileContent = language.translations.reduce(
+        const fileContent = language.translations
+        .sort((a, b) => a.definition.slug.toLowerCase() < b.definition.slug.toLowerCase() ? -1 : 1)
+        .reduce(
           (prev, t) => ({...prev, [t.definition.slug]: t.value}), {}
         )
 
