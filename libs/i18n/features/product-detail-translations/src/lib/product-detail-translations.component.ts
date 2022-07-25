@@ -152,7 +152,10 @@ export class ProductDetailTranslationsComponent implements OnInit {
           formControl: new FormControl(t.value || "", [this.translationValidator(t.definition!)]),
         }
       })
-      .filter(t => t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()))
+      .filter(t =>
+        t.defaultValue.toLowerCase().includes(this.searchDefaultValue.toLowerCase()) ||
+        t.slug.toLowerCase().includes(this.searchDefaultValue.toLowerCase())
+      )
       .filter(t => t.value.toLowerCase().includes(this.searchTranslation.toLowerCase()))
       .filter(t => this.showOnlyUnvalidatedTranslations ? !t.isValid : true)
 
