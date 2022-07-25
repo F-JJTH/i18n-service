@@ -294,7 +294,7 @@ export class ProductService {
   }
 
   async listAvailableTranslations(id, user) {
-    const product = await this.product.findOne(id)
+    const product = await this.product.findOne({ where: { id } })
     if (!product) {
       throw new NotFoundException()
     }
