@@ -63,8 +63,8 @@ export class TaskService {
 
       const newDefinitionCount = await this.definition.count({
         where: {
-          product: product.id,
-          createdAt: Between(startOfYesterday().toISOString(), endOfYesterday().toISOString())
+          product: { id: product.id },
+          createdAt: Between(startOfYesterday(), endOfYesterday())
         }
       })
 
@@ -91,7 +91,7 @@ export class TaskService {
   private async handleTranslatorsEmailNotification(now: Date) {
     const definitions = await this.definition.find({
       where: {
-        updatedAt: Between(subMinutes(now, 3).toISOString(), now.toISOString())
+        updatedAt: Between(subMinutes(now, 3), now)
       },
       relations: ['product', 'product.authorizations']
     })
@@ -112,7 +112,7 @@ export class TaskService {
   private async handleValidatorsEmailNotification(now: Date) {
     const translations = await this.translation.find({
       where: {
-        updatedAt: Between(subMinutes(now, 3).toISOString(), now.toISOString()),
+        updatedAt: Between(subMinutes(now, 3), now),
         value: Raw(alias => `${alias} IS NOT NULL`)
       },
       relations: ['product', 'product.authorizations']

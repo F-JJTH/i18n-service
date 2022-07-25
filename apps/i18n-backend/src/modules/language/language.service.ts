@@ -25,14 +25,16 @@ export class LanguageService {
   ) {}
 
   async create(createLanguageDto: CreateLanguageDto) {
-    const product = await this.product.findOne(createLanguageDto.productId)
+    const product = await this.product.findOne({ where: { id: createLanguageDto.productId } })
     if (!product) {
       throw new NotFoundException()
     }
 
     const definitions = await this.definition.find({
       where: {
-        product: product.id
+        product: {
+          id: product.id
+        }
       }
     })
 
@@ -70,11 +72,14 @@ export class LanguageService {
   }
 
   findOne(id: string) {
-    return this.language.findOne(id);
+    return this.language.findOne({ where: { id } });
   }
 
   async updatedIsDisabled(id: string, updateIsDisabledLanguageDto: UpdateIsDisabledLanguageDto) {
-    const language = await this.language.findOne(id, {relations: ['product']})
+    const language = await this.language.findOne({
+      where: { id },
+      relations: ['product']
+    })
     if (!language) {
       throw new NotFoundException()
     }
@@ -85,15 +90,17 @@ export class LanguageService {
     })
 
     this.productSvc.publishTranslations(language.product.id, 'dev')
-    return this.language.findOne(id);
+    return this.language.findOne({ where: { id } });
   }
 
   async delete(id: string) {
-    const language = await this.language.findOne(id);
+    const language = await this.language.findOne({ where: { id } });
     if (language) {
       const translations = await this.translation.find({
         where: {
-          language: language.id
+          language: {
+            id: language.id
+          }
         }
       })
       await this.translation.remove(translations)

@@ -16,7 +16,7 @@ export class PublicService {
   ) {}
 
   async getTranslationsForClients(productId: string, env: PublishEnvironment, languageCode: string) {
-    const product = await this.product.findOne(productId)
+    const product = await this.product.findOne({ where: { id: productId } })
     if (!product) {
       throw new NotFoundException('Unknown product #', productId)
     }
@@ -41,7 +41,7 @@ export class PublicService {
   }
 
   async getLanguagesForClients(productId: string, env: PublishEnvironment) {
-    const product = await this.product.findOne(productId)
+    const product = await this.product.findOne({ where: { id: productId } })
     if (!product) {
       throw new NotFoundException('Unknown product #', productId)
     }

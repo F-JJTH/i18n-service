@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository, In, Equal } from 'typeorm';
 import { AddMemberDto } from './dto/add-member.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
@@ -88,7 +88,10 @@ export class ProductService {
   }
 
   async findOne(id: string) {
-    const product = await this.product.findOne(id, {relations: ['authorizations']})
+    const product = await this.product.findOne({
+      where: { id },
+      relations: ['authorizations']
+    })
     if (!product) {
       throw new NotFoundException()
     }
@@ -96,7 +99,7 @@ export class ProductService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    const product = await this.product.findOne(id)
+    const product = await this.product.findOne({ where: { id } })
     if (!product) {
       throw new NotFoundException()
     }
@@ -108,7 +111,7 @@ export class ProductService {
       isSlackNotificationEnabled: updateProductDto.isSlackNotificationEnabled,
       slackNotificationChannelName: updateProductDto.slackNotificationChannelName,
     })
-    return this.product.findOne(id);
+    return this.product.findOne({ where: { id } });
   }
 
   async remove(id: string) {
@@ -120,7 +123,7 @@ export class ProductService {
   }
 
   async addMember(id: string, member: AddMemberDto) {
-    const product = await this.product.findOne(id)
+    const product = await this.product.findOne({ where: { id } })
     if (!product) {
       throw new NotFoundException()
     }
@@ -154,7 +157,7 @@ export class ProductService {
   async updateMember(productId: string, id: string, updateMemberDto: UpdateMemberDto) {
     const member = await this.memberAuthorization.findOne({
       where: {
-        product: productId,
+        product: { id: productId },
         id,
       }
     })
@@ -195,7 +198,7 @@ export class ProductService {
   }
 
   async publishTranslations(id: string, env: PublishEnvironment) {
-    const product = await this.product.findOne(id)
+    const product = await this.product.findOne({ where: { id } })
     if (!product) {
       throw new NotFoundException('Unknown product #', id)
     }
@@ -208,7 +211,7 @@ export class ProductService {
 
     if (env === 'dev' || env === 'preprod') {
       const languages = await this.language.find({
-        where : { isDisabled: false, product: id },
+        where : { isDisabled: false, product: { id } },
         relations: ['translations', 'translations.definition']
       })
 
@@ -259,7 +262,7 @@ export class ProductService {
   async getLanguage(id: string) {
     return this.language.find({
       where: {
-        product: id
+        product: { id }
       }
     })
   }
@@ -267,7 +270,10 @@ export class ProductService {
   async getDefinition(id: string) {
     return this.definition.find({
       where: {
-        product: id
+        product: { id }
+      },
+      order: {
+        slug: 'ASC'
       }
     })
   }
@@ -276,7 +282,13 @@ export class ProductService {
     return this.translation.find({
       relations: ['definition', 'language'],
       where: {
-        product: id
+        product: { id }
+      },
+      order: {
+        isRequireTranslatorAction: 'DESC',
+        definition: {
+          defaultValue: 'ASC'
+        },
       }
     })
   }

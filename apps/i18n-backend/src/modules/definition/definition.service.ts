@@ -30,7 +30,12 @@ export class DefinitionService {
   ) { }
 
   async create(createDefinitionDto: CreateDefinitionDto) {
-    const product = await this.product.findOne(createDefinitionDto.productId, {relations: ['languages']})
+    const product = await this.product.findOne({
+      where: {
+        id: createDefinitionDto.productId
+      },
+      relations: ['languages']
+    })
     if (!product) {
       throw new NotFoundException()
     }
@@ -69,7 +74,9 @@ export class DefinitionService {
 
     return this.definition.find({
       where: {
-        product: product.id
+        product: {
+          id: product.id
+        }
       }
     });
   }
@@ -79,11 +86,14 @@ export class DefinitionService {
   }
 
   findOne(id: string) {
-    return this.definition.findOne(id);
+    return this.definition.findOne({ where: {id} });
   }
 
   async update(id: string, updateDefinitionDto: UpdateDefinitionDto) {
-    const definition = await this.definition.findOne(id, {relations: ['product']})
+    const definition = await this.definition.findOne({
+      where: { id },
+      relations: ['product']
+    })
     if (!definition) {
       throw new NotFoundException()
     }
@@ -96,7 +106,7 @@ export class DefinitionService {
     const translations = await this.translation.find({
       relations: ['language'],
       where: {
-        definition
+        definition: { id: definition.id }
       }
     })
     await Promise.all(
@@ -119,13 +129,13 @@ export class DefinitionService {
 
     return this.definition.find({
       where: {
-        product: definition.product.id
+        product: { id: definition.product.id }
       }
     });
   }
 
   async updateLink(id: string, updateLinkTranslationDto: UpdateLinkTranslationDto) {
-    const definition = await this.definition.findOne(id)
+    const definition = await this.definition.findOne({ where: { id } })
     if (!definition) {
       throw new NotFoundException()
     }
@@ -134,17 +144,22 @@ export class DefinitionService {
       ...definition,
       link: updateLinkTranslationDto.link
     })
-    return this.definition.findOne(id);
+    return this.definition.findOne({ where: { id } });
   }
 
   async delete(id: string) {
-    const definition = await this.definition.findOne(id, {relations: ['product']});
+    const definition = await this.definition.findOne({
+      where: { id },
+      relations: ['product']
+    });
 
     if (!definition) {
       throw new NotFoundException()
     }
 
-    await this.translation.delete({definition})
+    await this.translation.delete({
+      definition: { id: definition.id }
+    })
 
     await this.definition.delete(definition.id)
 
@@ -154,7 +169,10 @@ export class DefinitionService {
   }
 
   async import(importDefinitionDto: ImportDefinitionDto) {
-    const product = await this.product.findOne(importDefinitionDto.productId, {relations: ['languages']})
+    const product = await this.product.findOne({
+      where: { id: importDefinitionDto.productId },
+      relations: ['languages']
+    })
     if (!product) {
       throw new NotFoundException()
     }
@@ -210,7 +228,7 @@ export class DefinitionService {
 
     this.productSvc.publishTranslations(product.id, 'dev')
 
-    return this.definition.find({ where: { product: product.id } })
+    return this.definition.find({ where: { product: { id: product.id } } })
   }
 
   async setPicture(id: string, file: UploadedFileInput) {

@@ -24,11 +24,11 @@ export class TranslationService {
   }
 
   findOne(id: string) {
-    return this.translation.findOne(id);
+    return this.translation.findOne({ where: { id } });
   }
 
   async updateIsValid(id: string, updateIsValidTranslationDto: UpdateIsValidTranslationDto) {
-    const translation = await this.translation.findOne(id)
+    const translation = await this.translation.findOne({ where: { id } })
     if (!translation) {
       throw new NotFoundException()
     }
@@ -37,7 +37,7 @@ export class TranslationService {
       ...translation,
       isValid: updateIsValidTranslationDto.isValid
     })
-    return this.translation.findOne(id);
+    return this.translation.findOne({ where: { id } });
   }
 
   async updateAll(updateTranslationDto: UpdateTranslationDto) {
@@ -60,7 +60,10 @@ export class TranslationService {
       })
     )
 
-    const translation = await this.translation.findOne(updateTranslationDto.translationItems[0].id, {relations: ['product']})
+    const translation = await this.translation.findOne({
+      where: { id: updateTranslationDto.translationItems[0].id },
+      relations: ['product']
+    })
     if (translation) {
       this.productSvc.publishTranslations(translation.product.id, 'dev')
     }
@@ -87,9 +90,9 @@ export class TranslationService {
       Array.from(translationsBySlugMap.entries()).map(async translationBySlug => {
         const translation = await this.translation.findOne({
           where: {
-            product: importTranslationDto.productId,
-            language: importTranslationDto.languageId,
-            definition: translationBySlug[1].definition.id,
+            product: { id: importTranslationDto.productId },
+            language: { id: importTranslationDto.languageId },
+            definition: { id: translationBySlug[1].definition.id },
           }
         })
 
@@ -113,7 +116,7 @@ export class TranslationService {
 
   private async updateLanguageRequireTranslationAction(productId: string) {
     const languages = await this.language.find({
-      where: { product: productId },
+      where: { product: { id: productId } },
       relations: ['translations']
     })
     await Promise.all(languages.map(language => {
