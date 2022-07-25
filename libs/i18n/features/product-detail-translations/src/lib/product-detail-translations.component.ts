@@ -106,7 +106,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
 
   translationValidator(definition: Definition): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const regexp = /({{.+?}})/gm;
+      const regexp = /({{.+?}}|%{.+?}|:\S[\w.]+)/gm;
       const result = [...definition.defaultValue.matchAll(regexp)]
       if (
         result[0] !== undefined &&
