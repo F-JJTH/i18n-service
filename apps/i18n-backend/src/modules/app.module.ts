@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LanguageModule } from './language/language.module';
@@ -32,22 +31,27 @@ import { AuthModule } from './auth/auth.module';
         AWS_DEFAULT_REGION: Joi.string().required(),
         AWS_BUCKET_NAME_PUBLIC: Joi.string().required(),
         SENTRY_DSN: Joi.string(),
+        TYPEORM_CONNECTION: Joi.string().required(),
+        TYPEORM_HOST: Joi.string().required(),
+        TYPEORM_PORT: Joi.number().required(),
+        TYPEORM_USERNAME: Joi.string().required(),
+        TYPEORM_PASSWORD: Joi.string().required(),
+        TYPEORM_DATABASE: Joi.string().required(),
       }),
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, 'public')
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: async () => {
-        // ormconfig.json content is replaced by ormconfig.local.json (angular.json -> fileReplacements)
-        const typeormConfig = environment.production ? {} : require('./../../ormconfig.json');
-        return Object.assign(typeormConfig, {
-          type: process.env.TYPEORM_CONNECTION || typeormConfig.type,
-          host: process.env.TYPEORM_HOST || typeormConfig.host,
-          port: process.env.TYPEORM_PORT || typeormConfig.port,
-          username: process.env.TYPEORM_USERNAME || typeormConfig.username,
-          password: process.env.TYPEORM_PASSWORD || typeormConfig.password,
-          database: process.env.TYPEORM_DATABASE || typeormConfig.database,
+      inject: [ConfigService],
+      useFactory: async (configSvc: ConfigService) => {
+        return Object.assign({}, {
+          type: configSvc.get('TYPEORM_CONNECTION'),
+          host: configSvc.get('TYPEORM_HOST'),
+          port: configSvc.get('TYPEORM_PORT'),
+          username: configSvc.get('TYPEORM_USERNAME'),
+          password: configSvc.get('TYPEORM_PASSWORD'),
+          database: configSvc.get('TYPEORM_DATABASE'),
           autoLoadEntities: true,
         });
       },

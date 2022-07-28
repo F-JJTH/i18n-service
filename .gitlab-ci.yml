@@ -23,6 +23,7 @@ build and bundle:
     - cp tsconfig*.json dist/apps/i18n-backend
     - cp package*.json dist/apps/i18n-backend
     - cp apps/i18n-backend/.env.prod dist/apps/i18n-backend/.env
+    - cp apps/i18n-backend/datasource.typeorm.ts dist/apps/i18n-backend/datasource.typeorm.ts
     - mkdir -p dist/apps/i18n-backend/public && cp -r dist/apps/i18n-web/* dist/apps/i18n-backend/public
   artifacts:
     untracked: false
