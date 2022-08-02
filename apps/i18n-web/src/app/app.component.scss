@@ -1,6 +1,3 @@
-::ng-deep amplify-authenticator {
-  amplify-tabs {
-    display: block;
-    margin-top: 40%;
-  }
+::ng-deep [data-amplify-authenticator] {
+  height: 80%;
 }

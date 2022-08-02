@@ -42,7 +42,7 @@ export const productDetailRoutes: Route[] = [
         path: 'integration',
         loadChildren: () => import('@kizeo/i18n/features/product-detail-integration').then(m => m.ProductDetailIntegrationModule)
       },
-      { path: '', redirectTo: 'definitions'},
+      { path: '', pathMatch: 'full', redirectTo: 'definitions'},
     ]
   },
 ];

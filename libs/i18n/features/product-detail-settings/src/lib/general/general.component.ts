@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class GeneralComponent implements OnInit {
 
-  product!: Product
+  product: Product | undefined
   _name = ""
   _isSlackNotificationEnabled = false
   _slackNotificationChannelName: string | undefined = ""
@@ -29,7 +29,7 @@ export class GeneralComponent implements OnInit {
 
   async ngOnInit() {
     const productId = this.route.parent?.parent?.snapshot.data['product'].id
-    this.product = (await this.i18nSvc.getProductById(productId))!
+    this.product = await this.i18nSvc.getProductById(productId)
     this._name = this.product.name
     this._isSlackNotificationEnabled = this.product.isSlackNotificationEnabled
     this._slackNotificationChannelName = this.product.slackNotificationChannelName
@@ -41,13 +41,13 @@ export class GeneralComponent implements OnInit {
       name: this._name,
       isSlackNotificationEnabled: this._isSlackNotificationEnabled,
       slackNotificationChannelName: this._slackNotificationChannelName,
-    }, this.product.id)
+    }, this.product!.id)
     this.message.success(this.translate.instant('PRODUCT_UPDATE_SUCCESS_SAVED'))
-    this.currentProduct.refresh(this.product.id)
+    this.currentProduct.refresh(this.product!.id)
   }
 
   async confirmDelete() {
-    await this.i18nSvc.deleteProduct(this.product.id)
+    await this.i18nSvc.deleteProduct(this.product!.id)
     this.router.navigateByUrl('/')
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentProductService, CurrentUserService, Definition, I18nService, Language, Product, Translation } from '@kizeo/i18n/data-access';
 import { SelectLanguageCodes, SelectLanguageOption } from '@kizeo/ui';
@@ -19,7 +19,7 @@ interface TranslationItem {
   isValid: boolean;
   defaultValue: string;
   isRequireTranslatorAction: boolean | undefined;
-  formControl: FormControl;
+  formControl: UntypedFormControl;
 }
 
 @Component({
@@ -149,7 +149,7 @@ export class ProductDetailTranslationsComponent implements OnInit {
           definition: t.definition!,
           defaultValue: t.definition!.defaultValue,
           isRequireTranslatorAction: t.isRequireTranslatorAction,
-          formControl: new FormControl(t.value || "", [this.translationValidator(t.definition!)]),
+          formControl: new UntypedFormControl(t.value || "", [this.translationValidator(t.definition!)]),
         }
       })
       .filter(t =>

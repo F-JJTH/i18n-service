@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'i18n-features-product-list',
+/* eslint-disable */
+export default {
+  displayName: 'i18n-features-product-detail-definitions',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,8 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../coverage/libs/i18n/features/product-list',
+  coverageDirectory:
+    '../../../../coverage/libs/i18n/features/product-detail-definitions',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

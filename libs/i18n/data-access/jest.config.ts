@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'i18n-features-product-detail-translations',
-  preset: '../../../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'data-access',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,8 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory:
-    '../../../../coverage/libs/i18n/features/product-detail-translations',
+  coverageDirectory: '../../coverage/libs/i18n/data-access',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

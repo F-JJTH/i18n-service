@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'ui',
+/* eslint-disable */
+export default {
+  displayName: 'i18n-web',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/ui',
+  coverageDirectory: '../../coverage/apps/i18n-web',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

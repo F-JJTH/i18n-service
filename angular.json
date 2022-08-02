@@ -7,7 +7,7 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "@nrwl/node:webpack",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/i18n-backend",
@@ -45,7 +45,7 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@nrwl/node:node",
           "configurations": {
             "production": {
               "buildTarget": "i18n-backend:build:production"
@@ -67,7 +67,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/i18n-backend"],
           "options": {
-            "jestConfig": "apps/i18n-backend/jest.config.js",
+            "jestConfig": "apps/i18n-backend/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -99,7 +99,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/data-access"],
           "options": {
-            "jestConfig": "libs/i18n/data-access/jest.config.js",
+            "jestConfig": "libs/i18n/data-access/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -125,7 +125,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-detail"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -151,7 +151,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-detail-definitions"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail-definitions/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail-definitions/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -177,7 +177,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-detail-deploy"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail-deploy/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail-deploy/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -203,7 +203,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-detail-integration"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail-integration/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail-integration/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -229,7 +229,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-detail-settings"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail-settings/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail-settings/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -257,7 +257,7 @@
             "coverage/libs/i18n/features/product-detail-translations"
           ],
           "options": {
-            "jestConfig": "libs/i18n/features/product-detail-translations/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-detail-translations/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -283,7 +283,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/product-list"],
           "options": {
-            "jestConfig": "libs/i18n/features/product-list/jest.config.js",
+            "jestConfig": "libs/i18n/features/product-list/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -309,7 +309,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/features/shell"],
           "options": {
-            "jestConfig": "libs/i18n/features/shell/jest.config.js",
+            "jestConfig": "libs/i18n/features/shell/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -341,7 +341,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/i18n/util"],
           "options": {
-            "jestConfig": "libs/i18n/util/jest.config.js",
+            "jestConfig": "libs/i18n/util/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -466,7 +466,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/i18n-web"],
           "options": {
-            "jestConfig": "apps/i18n-web/jest.config.js",
+            "jestConfig": "apps/i18n-web/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -511,7 +511,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/ui"],
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
+            "jestConfig": "libs/ui/jest.config.ts",
             "passWithNoTests": true
           }
         },
