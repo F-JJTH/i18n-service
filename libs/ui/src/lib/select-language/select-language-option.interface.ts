@@ -10,8 +10,9 @@ export enum SelectLanguageCodes {
   DE = 'de-DE',
   IT = 'it-IT',
   PT = 'pt-PT',
-  CN = 'cn-CN',
+  CN = 'zh-CN',
   NL = 'nl-NL',
   SV = 'sv-SV',
   ES_CA = 'es-CA',
+  ES_LAT = 'es-LAT',
 }
