@@ -6,6 +6,15 @@
     <button nz-button (click)="inputFile.click()" nzType="primary">
       {{ 'SELECT_A_FILE' | translate }}
     </button>
+    <br>
+    <textarea
+      #textareaPasteFile
+      name="file-paste-here"
+      cols="45"
+      rows="1"
+      (paste)="onPaste($event)"
+      autofocus
+      [placeholder]="'PASTE_FILE_FROM_CLIPBOARD' | translate"></textarea>
 </div>
 <div *nzModalFooter>
   <button nz-button nzType="default" (click)="onCancelClicked()">{{ 'CANCEL' | translate }}</button>

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Definition, I18nService } from '@kizeo/i18n/data-access';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   new Promise((resolve, reject) => {
@@ -16,7 +15,7 @@ const getBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
   templateUrl: './set-picture-modal.component.html',
   styleUrls: ['./set-picture-modal.component.scss']
 })
-export class SetPictureModalComponent implements OnInit {
+export class SetPictureModalComponent implements OnInit, AfterViewInit {
 
   @Input() definition!: Definition
 
@@ -26,6 +25,9 @@ export class SetPictureModalComponent implements OnInit {
 
   preview: any
 
+  @ViewChild('textareaPasteFile')
+  textareaPasteFile!: ElementRef<HTMLInputElement>
+
   constructor(
     private readonly modalRef: NzModalRef,
     private readonly i18nSvc: I18nService,
@@ -33,8 +35,18 @@ export class SetPictureModalComponent implements OnInit {
 
   async ngOnInit() {}
 
+  ngAfterViewInit(): void {
+    setTimeout(() => this.textareaPasteFile.nativeElement.focus(), 300)
+  }
+
   onCancelClicked() {
     this.modalRef.triggerCancel()
+  }
+
+  onPaste(e: ClipboardEvent) {
+    const files = e.clipboardData?.files || []
+    if (files.length === 0) return
+    this.onValueChanged({target: { files }})
   }
 
   async onSaveClicked() {
